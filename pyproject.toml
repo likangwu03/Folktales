@@ -6,11 +6,15 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "langchain-ollama>=1.0.0",
+    "networkx>=3.6.1",
     "pandas>=2.3.3",
     "python-dotenv>=1.2.1",
+    "pyvis>=0.3.2",
+    "rdflib>=7.5.0",
 ]
 
 [dependency-groups]
 dev = [
     "ipykernel>=7.1.0",
 ]
+
