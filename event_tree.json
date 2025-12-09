@@ -1,0 +1,230 @@
+{
+    "root": {
+        "description": "...",
+        "children": {
+            "move": {
+                "description": "ONT.Move",
+                "children": {
+                    "setup": {
+                        "description": "ONT.Setup",
+                        "children": {
+                            "initial_situation": {
+                                "description": "ONT.InitialSituation"
+                            }
+                        }
+                    },
+                    "conflict": {
+                        "description": "ONT.Conflict",
+                        "children": {
+                            "hero_interdiction": {
+                                "description": "ONT.HeroInterdiction",
+                                "children": {
+                                    "villainy": {
+                                        "description": "ONT.Villainy"
+                                    },
+                                    "false_matrimony": {
+                                        "description": "ONT.FalseMatrimony"
+                                    },
+                                    "expulsion": {
+                                        "description": "ONT.Expulsion"
+                                    },
+                                    "kidnapping": {
+                                        "description": "ONT.Kidnapping"
+                                    },
+                                    "murder": {
+                                        "description": "ONT.Murder"
+                                    }
+                                }
+                            },
+                            "lack": {
+                                "description": "ONT.Lack",
+                                "children": {
+                                    "lack_of_bride": {
+                                        "description": "ONT.LackOfBride"
+                                    },
+                                    "lack_of_money": {
+                                        "description": "ONT.LackOfMoney"
+                                    }
+                                }
+                            },
+                            "hero_departure": {
+                                "description": "ONT.HeroDeparture"
+                            },
+                            "struggle": {
+                                "description": "ONT.Struggle",
+                                "children": {
+                                    "fight": {
+                                        "description": "ONT.Fight"
+                                    }
+                                }
+                            },
+                            "branding": {
+                                "description": "ONT.Branding",
+                                "children": {
+                                    "receive_mark": {
+                                        "description": "ONT.ReceiveMark"
+                                    },
+                                    "receive_injury": {
+                                        "description": "ONT.ReceiveInjury"
+                                    }
+                                }
+                            },
+                            "connective_incident": {
+                                "description": "ONT.ConnectiveIncident",
+                                "children": {
+                                    "call_for_help": {
+                                        "description": "ONT.CallForHelp"
+                                    },
+                                    "departure_decision": {
+                                        "description": "ONT.DepartureDecision"
+                                    }
+                                }
+                            },
+                            "villain_gains_information": {
+                                "description": "ONT.VillainGainsInformation"
+                            }
+                        }
+                    },
+                    "preparation": {
+                        "description": "ONT.Preparation",
+                        "children": {
+                            "absentation": {
+                                "description": "ONT.Absentation"
+                            },
+                            "breaking_interdiction": {
+                                "description": "ONT.BreakingInterdiction"
+                            },
+                            "acquisition": {
+                                "description": "ONT.Acquisition",
+                                "children": {
+                                    "get_present": {
+                                        "description": "ONT.GetPresent"
+                                    }
+                                }
+                            },
+                            "guidance": {
+                                "description": "ONT.Guidance"
+                            },
+                            "return_event": {
+                                "description": "ONT.Return"
+                            },
+                            "make_contact_with_enemy": {
+                                "description": "ONT.MakeContactWithEnemy"
+                            },
+                            "mediation": {
+                                "description": "ONT.Mediation"
+                            },
+                            "trickery": {
+                                "description": "ONT.Trickery"
+                            }
+                        }
+                    },
+                    "beginning_of_counteraction": {
+                        "description": "ONT.BeginningOfCounteraction"
+                    },
+                    "helper_move": {
+                        "description": "ONT.HelperMove",
+                        "children": {
+                            "receipt_object": {
+                                "description": "ONT.ReceiptObject"
+                            },
+                            "liquidiation_of_lack": {
+                                "description": "ONT.LiquidiationOfLack",
+                                "children": {
+                                    "release_from_captivity": {
+                                        "description": "ONT.ReleaseFromCaptivity"
+                                    }
+                                }
+                            },
+                            "pursuit_and_rescue": {
+                                "description": "ONT.PursuitAndRescue"
+                            }
+                        }
+                    },
+                    "false_hero_make_unfounded_claim": {
+                        "description": "ONT.FalseHeroMakeUnfoundedClaim"
+                    },
+                    "attempt_at_reconnaissance": {
+                        "description": "ONT.AttemptAtReconnaissance"
+                    }
+                }
+            },
+            "resolution": {
+                "description": "ONT.Resolution",
+                "children": {
+                    "victory": {
+                        "description": "ONT.Victory",
+                        "children": {
+                            "villain_defeated": {
+                                "description": "ONT.VillainDefeated"
+                            }
+                        }
+                    },
+                    "arrival": {
+                        "description": "ONT.Arrival",
+                        "children": {
+                            "unrecognised_arrival": {
+                                "description": "ONT.UnrecognisedArrival",
+                                "children": {
+                                    "home_arrival": {
+                                        "description": "ONT.HomeArrival"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "difficult_task_with_solution": {
+                        "description": "ONT.DifficultTaskWithSolution",
+                        "children": {
+                            "difficult_task": {
+                                "description": "ONT.DifficultTask"
+                            },
+                            "solution_difficult_task": {
+                                "description": "ONT.SolutionDifficultTask"
+                            }
+                        }
+                    },
+                    "resolution_function": {
+                        "description": "ONT.ResolutionFunction",
+                        "children": {
+                            "recognition": {
+                                "description": "ONT.Recognition"
+                            },
+                            "punishment": {
+                                "description": "ONT.Punishment"
+                            },
+                            "reward": {
+                                "description": "ONT.Reward"
+                            }
+                        }
+                    },
+                    "exposure_of_villain": {
+                        "description": "ONT.ExposureOfVillain"
+                    },
+                    "transfiguration": {
+                        "description": "ONT.Transfiguration",
+                        "children": {
+                            "physical_transformation": {
+                                "description": "ONT.PhysicalTransformation"
+                            },
+                            "psychological_transformation": {
+                                "description": "ONT.PsychologicalTransformation"
+                            }
+                        }
+                    },
+                    "wedding_or_throne": {
+                        "description": "ONT.WeddingOrThrone",
+                        "children": {
+                            "wedding": {
+                                "description": "ONT.Wedding"
+                            },
+                            "get_throne": {
+                                "description": "ONT.GetThrone"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
