@@ -1,10 +1,10 @@
-from rdflib import Graph, Namespace, URIRef, Literal, RDF, RDFS, OWL, XSD
+from rdflib import Graph, RDF, RDFS, OWL
 from pyvis.network import Network
 import networkx as nx
 import os
-from rdflib import Graph, Namespace, URIRef, Literal, RDF, RDFS, OWL
 import webbrowser
-data_path = "data"
+
+data_path = "./generation/data"
 
 def get_data_path():
     return data_path
@@ -25,110 +25,48 @@ def save(graph, filename, format="turtle", folder=data_path):
     except Exception as e:
         print(f"Error guardando ontología: {e}")
 
-def show_graph_instance(graph, output_file="grafo.html", height="1000px", width="100%", 
-                     select_menu=True, filter_menu=True, folder="out"):
-    """
-    Visualiza el grafo RDF usando PyVis, filtrando OWL, RDFS y XSD para mostrar solo instancias.
-    """
-    nx_graph = nx.DiGraph()  # Dirigido porque RDF es direccional
+def show_instance_graph(graph, output_file="grafo.html", height="1000px", width="100%", select_menu=True, filter_menu=True, folder="out"):
 
     ignore_namespaces = ["http://www.w3.org/2002/07/owl#", 
                          "http://www.w3.org/2000/01/rdf-schema#", 
                          "http://www.w3.org/1999/02/22-rdf-syntax-ns#", 
                          "http://www.w3.org/2001/XMLSchema#"]
 
-    for sujeto, predicado, objeto in graph:
-        # Filtrar si el sujeto, predicado u objeto pertenece a OWL/RDFS/XSD
-        if any(str(x).startswith(ns) for ns in ignore_namespaces for x in [sujeto, predicado, objeto]):
-            continue
-        
-        # Simplificar URIs para legibilidad
-        s_label = str(sujeto).split("/")[-1] if "/" in str(sujeto) else str(sujeto)
-        p_label = str(predicado).split("/")[-1] if "/" in str(predicado) else str(predicado)
-        p_label = p_label.split("#")[-1] if "#" in p_label else p_label
-        o_label = str(objeto).split("/")[-1] if "/" in str(objeto) else str(objeto)
+    show_graph(graph, output_file, height, width, select_menu, filter_menu, folder, ignore_namespaces)
 
-        # Añadir arista con el predicado como atributo
-        nx_graph.add_edge(s_label, o_label, label=p_label, predicate=str(p_label))
-
-    net = Network(directed=True, neighborhood_highlight=True, select_menu=select_menu,
-                  filter_menu=filter_menu, height=height, width=width, 
-                  bgcolor="#222222", font_color="white", cdn_resources='in_line')
-    net.from_nx(nx_graph)
-
-    if not os.path.exists(folder):
-        os.makedirs(folder)
-    
-    filepath = folder + "/" + output_file
-    html = net.generate_html()
-    with open(filepath, "w", encoding="utf-8") as f:
-        f.write(html)
-    
-    # Abrir en el navegador automáticamente
-    webbrowser.open(f"file://{os.path.abspath(filepath)}")
-
-def show_graph_clean(graph, output_file="grafo.html", height="1000px", width="100%", 
-                     select_menu=True, filter_menu=True, folder="out"):
-    """
-    Visualiza el grafo RDF usando PyVis, filtrando OWL, RDFS y XSD para mostrar solo instancias.
-    """
-    nx_graph = nx.DiGraph()  # Dirigido porque RDF es direccional
+def show_graph_without_owl(graph, output_file="grafo.html", height="1000px", width="100%", select_menu=True, filter_menu=True, folder="out"):
 
     ignore_namespaces = ["http://www.w3.org/2002/07/owl#"]
 
-    for sujeto, predicado, objeto in graph:
-        # Filtrar si el sujeto, predicado u objeto pertenece a OWL/RDFS/XSD
-        if any(str(x).startswith(ns) for ns in ignore_namespaces for x in [sujeto, predicado, objeto]):
-            continue
-        
-        # Simplificar URIs para legibilidad
-        s_label = str(sujeto).split("/")[-1] if "/" in str(sujeto) else str(sujeto)
-        p_label = str(predicado).split("/")[-1] if "/" in str(predicado) else str(predicado)
-        p_label = p_label.split("#")[-1] if "#" in p_label else p_label
-        o_label = str(objeto).split("/")[-1] if "/" in str(objeto) else str(objeto)
+    show_graph(graph, output_file, height, width, select_menu, filter_menu, folder, ignore_namespaces)
 
-        # Añadir arista con el predicado como atributo
-        nx_graph.add_edge(s_label, o_label, label=p_label, predicate=str(p_label))
+def simplify_uri(uri):
+    uri = str(uri)
+    if "/" in uri:
+        uri = uri.rsplit("/", 1)[-1]
+    if "#" in uri:
+        uri = uri.rsplit("#", 1)[-1]
+    return uri
 
-    net = Network(directed=True, neighborhood_highlight=True, select_menu=select_menu,
-                  filter_menu=filter_menu, height=height, width=width, 
-                  bgcolor="#222222", font_color="white", cdn_resources='in_line')
-    net.from_nx(nx_graph)
-
-    if not os.path.exists(folder):
-        os.makedirs(folder)
-    
-    filepath = folder + "/" + output_file
-    html = net.generate_html()
-    with open(filepath, "w", encoding="utf-8") as f:
-        f.write(html)
-    
-    # Abrir en el navegador automáticamente
-    webbrowser.open(f"file://{os.path.abspath(filepath)}")
-
-def show_graph(graph, output_file="grafo.html", height="1000px", width="100%", select_menu=True, filter_menu=True, folder="out"):
-    """
-    Visualiza el grafo RDF usando PyVis.
-    
-    :param graph: Grafo RDF de rdflib
-    :param output_file: Nombre del archivo HTML de salida
-    """ 
+def show_graph(graph, output_file="grafo.html", height="1000px", width="100%", select_menu=True, filter_menu=True, folder="out", ignore_namespaces = []):
     nx_graph = nx.DiGraph()  # Dirigido porque RDF es direccional
 
     for sujeto, predicado, objeto in graph:
+
+        # Filtrar por namespaces
+        if any(str(x).startswith(ns) for ns in ignore_namespaces for x in [sujeto, predicado, objeto]):
+            continue
         
         # Simplificar URIs para mejor legibilidad
-        s_label = str(sujeto).split("/")[-1] if "/" in str(sujeto) else str(sujeto)
-        p_label = str(predicado).split("/")[-1] if "/" in str(predicado) else str(predicado)
-        p_label = p_label.split("#")[-1] if "#" in p_label else p_label
-        o_label = str(objeto).split("/")[-1] if "/" in str(objeto) else str(objeto)
+        s_label = simplify_uri(sujeto)
+        p_label = simplify_uri(predicado)
+        o_label = simplify_uri(objeto)
 
         # Añadir arista con el predicado como atributo
         nx_graph.add_edge(s_label, o_label, label=p_label, predicate=str(p_label))
 
-
     net = Network(directed = True, neighborhood_highlight=True, select_menu=select_menu,filter_menu=filter_menu,
-                height="1000px", width="100%", bgcolor="#222222", font_color="white", cdn_resources='in_line')
+                height=height, width=width, bgcolor="#222222", font_color="white", cdn_resources='in_line')
     net.from_nx(nx_graph)
 
     if not os.path.exists(folder):
@@ -142,11 +80,6 @@ def show_graph(graph, output_file="grafo.html", height="1000px", width="100%", s
     
     # Abrir en el navegador automáticamente
     webbrowser.open(f"file://{os.path.abspath(filepath)}")
-    
-    #filepath =   "/".join(folder, output_file)
-    #net.save_graph(filepath)
-    # Abrir en el navegador automáticamente
-    #os.system('open file://' + os.path.realpath(filepath))
 
 def print_ontology_stats(graph):
     """Muestra estadísticas de la ontología generada"""
