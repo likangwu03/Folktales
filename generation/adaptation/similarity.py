@@ -1,5 +1,5 @@
-from generation.constructive_adaptation.node import Node
-from generation.constructive_adaptation.query import Query
+from generation.adaptation.node import Node
+from generation.adaptation.query import Query
 import random
 
 def event_similarity(node: Node, query: Query):

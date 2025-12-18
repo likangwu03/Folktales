@@ -1,7 +1,6 @@
-from generation.ontology.namespaces import RES
 from generation.ontology.event_retriever import EventRetriever
-from generation.constructive_adaptation.astar import ConstructiveAdaptation
-from generation.constructive_adaptation.query import Query
+from generation.adaptation.astar import ConstructiveAdaptation
+from generation.adaptation.query import Query
 import generation.utils.sbc_tools as sbc
 
 def main():
