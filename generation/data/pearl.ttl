@@ -1,0 +1,52 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix owl2: <http://www.w3.org/2006/12/owl2#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <http://www.gsi.upm.es/ontologies/pearl/ns#> .
+
+<http://www.gsi.upm.es/ontologies/pearl/ns> rdf:type owl:Ontology ;
+     rdfs:comment "PEARL is a vocabulary for common tasks in analysis of social networks, specially in text analysis"@en ;
+     rdfs:description "PEARL is a vocabulary for common tasks in analysis of social networks, specially in text analysis"@en ;
+     rdfs:seeAlso "http://www.gsi.upm.es/ontologies/pearl" ;
+     rdfs:seeAlso "http://www.contextus.net/ontology/ontomedia/ex/ext/common/trait" ;
+     rdfs:label "PEARL vocabulary" ;
+     owl:versionInfo "0.1" .
+
+###########
+## AgeGroup
+###########
+
+:AgeGroup rdf:type owl:Class .
+
+:children a :AgeGroup .
+:young a :AgeGroup .
+:adult a :AgeGroup .
+:senior a :AgeGroup .
+
+###########
+## Sex
+###########
+:Sex rdf:type owl:Class .
+
+:Male a :Sex .
+:Female a :Sex .
+
+###########
+## Personality
+###########
+:Personality rdf:type owl:Class .
+
+:Sociable a :Personality .
+:Joyful a :Personality .
+:Active a :Personality .
+:Assertive a :Personality .
+:Eager a :Personality .
+:Depressive a :Personality .
+:Tense a :Personality .
+:Aggressive a :Personality .
+:Cold a :Personality .
+:Egocentric a :Personality .
+:Impersonal a :Personality .
+:Impulsive a :Personality .
+ 

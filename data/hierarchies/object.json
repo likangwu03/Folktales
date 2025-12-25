@@ -1,0 +1,18 @@
+{
+    "object": {
+        "children": {
+            "animate_object": {
+                "children": {
+                    "non_anthropomorphic_animal": {}
+                }
+            },
+            "inanimate_object": {
+                "children": {
+                    "magical_object": {},
+                    "natural_object": {},
+                    "crafted_object": {}
+                }
+            }
+        }
+    }
+}

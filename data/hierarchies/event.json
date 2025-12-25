@@ -1,6 +1,5 @@
 {
-    "root": {
-        "description": "...",
+    "event": {
         "children": {
             "move": {
                 "description": "ONT.Move",

@@ -69,11 +69,12 @@ def show_graph(graph, output_file="grafo.html", height="1000px", width="100%", s
                 height=height, width=width, bgcolor="#222222", font_color="white", cdn_resources='in_line')
     net.from_nx(nx_graph)
 
-    if not os.path.exists(folder):
-        os.makedirs(folder)
+    out_dir = os.path.join(data_path, folder)
+
+    if not os.path.exists(out_dir):
+        os.makedirs(out_dir)
     
-    filepath = folder + "/" + output_file
-    print(filepath)
+    filepath = os.path.join(out_dir, output_file)
     html = net.generate_html()
     with open(filepath, "w", encoding="utf-8") as f:
         f.write(html)

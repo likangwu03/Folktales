@@ -1,11 +1,10 @@
 from dotenv import load_dotenv
 from langchain_ollama import ChatOllama
 from langchain_core.language_models.chat_models import BaseChatModel
-import os
-from annotation.utils.loader import load_json
 from annotation.evaluator.tree import EvaluatorTree
-from common.loader import load_folktales
+from common.loader import load_folktales, load_hierarchies
 from annotation.tools.place_extractor import extract_places
+import os
 
 def get_model(temperature) -> BaseChatModel:
     model = ChatOllama(
@@ -20,15 +19,17 @@ def get_model(temperature) -> BaseChatModel:
 def main():
     load_dotenv()
 
-    model = get_model(temperature=0.8)
+    # model = get_model(temperature=0.8)
 
-    # event_tree_data = load_json("event_tree.json")
-    # evaluator_tree = EvaluatorTree(event_tree_data)
-    # evaluator_tree.print()
+    hierarchies = load_hierarchies()
+    event_hierarchy = hierarchies["event"]
+
+    evaluator_tree = EvaluatorTree(event_hierarchy)
+    evaluator_tree.print()
 
     folktales = load_folktales()
     momotaro = folktales.iloc[0]["text"]
-    extract_places(model, momotaro)
+    # extract_places(model, momotaro)
 
 if __name__ == "__main__":
     main()

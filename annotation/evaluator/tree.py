@@ -13,7 +13,7 @@ class EvaluatorTree():
 		nodes = []
 		for event, values in data.items():
 			node = EvaluatorNode(id=event,
-							    description=values.get("description"),
+							    description=values.get("description", ""),
 							    parent=parent)
 			nodes.append(node)
 			

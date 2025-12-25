@@ -1,0 +1,13 @@
+{
+    "initial_event": "setup",
+    "events": [
+        "initial_situation"
+    ],
+    "role": [
+        "hero"
+    ],
+    "object": "crafted_object",
+    "place": "house",
+    "genre": "fairy_tale",
+    "max_events": 10
+}

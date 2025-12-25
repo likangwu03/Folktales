@@ -31,10 +31,10 @@
 
 from pydantic import BaseModel
 from typing import Literal
-from annotation.models.agent import Agent
-from annotation.models.place import Place
-from annotation.models.object import Object
-from annotation.models.event import Event
+from common.models.agent import Agent
+from common.models.place import Place
+from common.models.object import Object
+from common.models.event import Event
 
 Genre = Literal["fable", "fairy_tale", "legend", "myth", "tall_tale"] 
 

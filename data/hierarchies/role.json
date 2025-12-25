@@ -1,0 +1,35 @@
+{
+    "role": {
+        "children": {
+            "primary_character": {
+                "children": {
+                    "main_character": {
+                        "children": {
+                            "hero": {}
+                        }
+                    },
+                    "antagonist": {
+                        "children": {
+                            "villain": {}
+                        }
+                    },
+                    "false_hero": {}
+                }
+            },
+            "secondary_character": {
+                "children": {
+                    "helper": {
+                        "children": {
+                            "magical_helper": {}
+                        }
+                    },
+                    "prisoner": {},
+                    "princess": {},
+                    "quest_giver": {},
+                    "hero_family": {}
+                }
+            },
+            "tertiary_character": {}
+        }
+    }
+}

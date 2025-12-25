@@ -1,15 +1,15 @@
 from typing import Literal, Optional
-from models.role import Role
+from common.models.role import Role
 from pydantic import ConfigDict, Field, BaseModel
-from common.regex_utils import name_regex
+from common.regex_utils import name_regex, snake_case_regex
 
 AgentClass = Literal["human_being", "anthropomorphic_animal", "magical_creature", "group_of_agents"]
 
 class Agent(BaseModel):
 	model_config = ConfigDict(str_strip_whitespace=True, extra="forbid")
 	
-	class_name: Literal["human_being", "anthropomorphic_animal", "magical_creature", "group_of_agents"]
-	instance_name = AgentClass
+	class_name: AgentClass
+	instance_name: str = Field(..., pattern=snake_case_regex)
 	
 	age_category: Literal["children", "young", "adult", "senior"]
 	gender: Literal["male", "female"]

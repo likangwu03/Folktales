@@ -1,5 +1,5 @@
 from langchain_core.prompts import ChatPromptTemplate, HumanMessagePromptTemplate, SystemMessagePromptTemplate
-from annotation.models.place import Places, MAX_PLACES
+from common.models.place import Places, MAX_PLACES
 from langchain_core.language_models.chat_models import BaseChatModel
 from loguru import logger
 
@@ -49,12 +49,12 @@ Folktale:
 )
 
 def extract_places(model: BaseChatModel, folktale: str):
-    # places_chain = places_prompt | model.with_structured_output(Places)
-    # places = places_chain.invoke({"folktale": folktale,
-                                #   "max_places": MAX_PLACES})
+    places_chain = places_prompt | model.with_structured_output(Places)
+    places = places_chain.invoke({"folktale": folktale,
+                                  "max_places": MAX_PLACES})
     
-    # logger.debug(f"Places: {places}")
+    logger.debug(f"Places: {places}")
 
-    print(places_prompt.format(folktale=folktale, max_places=MAX_PLACES))
+    # print(places_prompt.format(folktale=folktale, max_places=MAX_PLACES))
 
-    return None
+    return places

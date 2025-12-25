@@ -58,7 +58,8 @@ EventClass = Literal[
 	"psychological_transformation", 
 	"wedding_or_throne", 
 	"wedding", 
-	"get_throne"]
+	"get_throne"
+]
 
 class Event(BaseModel):
 	model_config = ConfigDict(str_strip_whitespace=True)

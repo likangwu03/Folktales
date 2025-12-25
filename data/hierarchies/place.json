@@ -1,0 +1,43 @@
+{
+    "place": {
+        "children": {
+            "natural_place": {
+                "children": {
+                    "mountain": {},
+                    "forest": {},
+                    "river": {},
+                    "field": {}
+                }
+            },
+            "buildings": {
+                "children": {
+                    "dwelling": {
+                        "children": {
+                            "castle": {},
+                            "palace": {},
+                            "house": {},
+                            "hut": {},
+                            "farmhouse": {},
+                            "tower": {}
+                        }
+                    },
+                    "community_building": {
+                        "children": {
+                            "shop": {},
+                            "school": {},
+                            "tavern": {}
+                        }
+                    }
+                }
+            },
+            "settlement": {
+                "children": {
+                    "village": {},
+                    "town": {},
+                    "city": {},
+                    "kingdom": {}
+                }
+            }
+        }
+    }
+}

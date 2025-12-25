@@ -3,17 +3,14 @@ from pydantic import Field, BaseModel, ConfigDict
 from common.regex_utils import snake_case_regex
 
 PlaceClass = Annotated[Literal["mountain", "forest", "river", "field", "castle", "palace", "house", "hut", "farmhouse", "tower", "shop", "school", "tavern", "village", "town", "city", "kingdom"], 
-					   Field(description="The category of place this instant represents. Must be one of the predifined types.")]
+					   Field(..., description="The category of place this instant represents. Must be one of the predifined types.")]
 
 class Place(BaseModel):
 	'''A location that appears within the folktale.'''
 	
 	model_config = ConfigDict(str_strip_whitespace=True, extra="forbid")
 
-	class_name: Literal["mountain", "forest", "river", "field", "castle", "palace", "house", "hut", "farmhouse", "tower", "shop", "school", "tavern", "village", "town", "city", "kingdom"] = Field(
-		...,
-		description="The category of place this instant represents. Must be one of the predifined types."
-	)
+	class_name: PlaceClass
 	
 	instance_name: str = Field(
 		...,
