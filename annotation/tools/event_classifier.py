@@ -183,12 +183,12 @@ def hierarchical_event_classification_with_desc(
 				options=selected_str,
 				previous_thought=final_thinking_str
 			)
-			winning_event = event
+			winning_event = most_frequent[event]
 
 			if verbose:
 				print(f" Empate:")
 				print(selected_str)
-				print(f"  Evento propuesto: {options_list[event]}")
+				print(f"  Evento propuesto: {selected[event]}")
 				print(f"  Justificación: {thinking}")
 
 		final_thinking.extend(
