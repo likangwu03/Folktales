@@ -29,22 +29,27 @@
 
 # 		return self
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import Literal
-from common.models.agent import Agent
+from common.models.agent import Agent, Relationship
 from common.models.place import Place
 from common.models.object import Object
 from common.models.event import Event
 
-Genre = Literal["fable", "fairy_tale", "legend", "myth", "tall_tale"] 
+GenreClass = Literal["fable", "fairy_tale", "legend", "myth", "tall_tale"]
+
+class Genre(BaseModel):
+	'''The genre classification of a foltkale, based on its thems, characters and narrative structure.'''
+	genre: GenreClass = Field(..., description="The genre of the folktale, chosen from a set of predefined categories.")
 
 class AnnotatedFolktale(BaseModel):
 	uri: str
 	nation: str
 	title: str
-	has_genre: Genre
+	has_genre: GenreClass
 	
-	agents: list[Agent]
-	places: list[Place]
-	objects: list[Object]
-	events: list[Event]
+	agents: list[Agent] = Field(default_factory=list)
+	relationships: list[Relationship] = Field(default_factory=list)
+	places: list[Place] = Field(default_factory=list)
+	objects: list[Object] = Field(default_factory=list)
+	events: list[Event] = Field(default_factory=list)

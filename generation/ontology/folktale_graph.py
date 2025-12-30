@@ -1,177 +1,46 @@
 from rdflib import Graph, RDF, RDFS, OWL, FOAF, DCTERMS, URIRef, Literal, XSD
 import typing
 from generation.ontology.namespaces import *
-from common.regex_utils import split_camel_case, title_case_to_snake_case, snake_case_to_title_case,  snake_case_to_camel_case
+from common.regex_utils import title_case_to_snake_case, snake_case_to_title_case, snake_case_to_pascal_case
 import generation.utils.sbc_tools as sbc
 from loguru import logger
 
-class FolktaleOntology(Graph):	
-	agent_map = {
-		"human_being": ONT.HumanBeing, 
-		"anthropomorphic_animal": ONT.AnthropomorphicAnimal, 
-		"magical_creature": ONT.MagicalCreature, 
-		"groupOfAgents": ONT.GroupOfAgents, 
-		"agent": ONT.Agent
-	}
-
-	place_map = {
-		"mountain": ONT.Mountain, 
-		"forest": ONT.Forest, 
-		"river": ONT.River, 
-		"field": ONT.Field, 
-		"castle": ONT.Castle, 
-		"palace": ONT.Palace, 
-		"house": ONT.House, 
-		"hut": ONT.Hut, 
-		"farmhouse": ONT.Farmhouse, 
-		"tower": ONT.Tower, 
-		"shop": ONT.Shop, 
-		"school": ONT.School, 
-		"tavern": ONT.Tavern, 
-		"village": ONT.Village, 
-		"town": ONT.Town, 
-		"city": ONT.City, 
-		"kingdom": ONT.Kingdom
-	}
-
-	object_map = {
-		"animate_object": ONT.AnimateObject, 
-		"non_anthropomorphic_animal": ONT.NonAnthropomorphicAnimal, 
-		"inanimate_object": ONT.InanimateObject, 
-		"magical_object": ONT.MagicalObject, 
-		"natural_object": ONT.NaturalObject, 
-		"crafted_object": ONT.CraftedObject
-	}
-
-	role_map = {
-		"hero": ONT.Hero, 
-		"villain": ONT.Villain, 
-		"false_hero": ONT.FalseHero, 
-		"magical_helper": ONT.MagicalHelper, 
-		"prisoner": ONT.Prisoner, 
-		"princess": ONT.Princess, 
-		"quest_giver": ONT.QuestGiver, 
-		"hero_family": ONT.HeroFamily, 
-		"primary_character": ONT.PrimaryCharacter, 
-		"main_character": ONT.MainCharacter, 
-		"antagonist": ONT.Antagonist, 
-		"secondary_character": ONT.SecondaryCharacter, 
-		"helper": ONT.Helper, 
-		"tertiary_character": ONT.TertiaryCharacter
-	}
-
-	event_map = {
-		"move": ONT.Move, 
-			"setup": ONT.Setup, 
-				"initial_situation": ONT.InitialSituation, 
-				
-			"conflict": ONT.Conflict, 
-				"hero_interdiction": ONT.HeroInterdiction, 
-					"villainy": ONT.Villainy, 
-					"false_matrimony": ONT.FalseMatrimony, 
-					"expulsion": ONT.Expulsion, 
-					"kidnapping": ONT.Kidnapping, 
-					"murder": ONT.Murder, 
-				"lack": ONT.Lack, 
-					"lack_of_bride": ONT.LackOfBride, 
-					"lack_of_money": ONT.LackOfMoney, 
-				"hero_departure": ONT.HeroDeparture, 
-				"struggle": ONT.Struggle, 
-					"fight": ONT.Fight, 
-				"branding": ONT.Branding, 
-					"receive_mark": ONT.ReceiveMark, 
-					"receive_injury": ONT.ReceiveInjury, 
-				"connective_incident": ONT.ConnectiveIncident, 
-					"call_for_help": ONT.CallForHelp, 
-					"departure_decision": ONT.DepartureDecision, 
-				"villain_gains_information": ONT.VillainGainsInformation, 
-
-			"preparation": ONT.Preparation, 
-				"absentation": ONT.Absentation, 
-				"breaking_interdiction": ONT.BreakingInterdiction, 
-				"acquisition": ONT.Acquisition, 
-					"get_present": ONT.GetPresent, 
-				"guidance": ONT.Guidance, 
-				"return_event": ONT.Return, 
-				"make_contact_with_enemy": ONT.MakeContactWithEnemy, 
-				"mediation": ONT.Mediation, 
-				"trickery": ONT.Trickery, 
-
-			"beginning_of_counteraction": ONT.BeginningOfCounteraction, 
-
-			"helper_move": ONT.HelperMove, 
-				"receipt_object": ONT.ReceiptObject, 
-				"liquidiation_of_lack": ONT.LiquidiationOfLack, 
-					"release_from_captivity": ONT.ReleaseFromCaptivity, 
-				"pursuit_and_rescue": ONT.PursuitAndRescue, 
-				
-			"false_hero_make_unfounded_claim": ONT.FalseHeroMakeUnfoundedClaim, 
-			
-			"attempt_at_reconnaissance": ONT.AttemptAtReconnaissance, 
-
-		"resolution": ONT.Resolution, 
-			"victory": ONT.Victory, 
-				"villain_defeated": ONT.VillainDefeated, 
-
-			"arrival": ONT.Arrival, 
-				"unrecognised_arrival": ONT.UnrecognisedArrival, 
-					"home_arrival": ONT.HomeArrival, 
-
-			"difficult_task_with_solution": ONT.DifficultTaskWithSolution, 
-				"difficult_task": ONT.DifficultTask, 
-				"solution_difficult_task": ONT.SolutionDifficultTask, 
-
-			"resolution_function": ONT.ResolutionFunction, 
-				"recognition": ONT.Recognition, 
-				"punishment": ONT.Punishment, 
-				"reward": ONT.Reward, 
-
-			"exposure_of_villain": ONT.ExposureOfVillain, 
-
-			"transfiguration": ONT.Transfiguration, 
-				"physical_transformation": ONT.PhysicalTransformation, 
-				"psychological_transformation": ONT.PsychologicalTransformation, 
-
-			"wedding_or_throne": ONT.WeddingOrThrone, 
-				"wedding": ONT.Wedding, 
-				"get_throne": ONT.GetThrone
-	}
-
-	genre_map = {
-		"fable": WD.Q693, 
+class FolktaleOntology(Graph):
+	GENRE_MAP = {
+		"fable": WD.Q693,
 		"fairy_tale":  WD.Q699, 
-		"legend": WD.Q44342, 
-		"myth": WD.Q12827256, 
-		"tall_tale": WD.Q1951220, 
+		"legend": WD.Q44342,
+		"myth": WD.Q12827256,
+		"tall_tale": WD.Q1951220
 	}
 
-	age_group_map = {
-		"children": PEARL.children, 
+	AGE_GROUP_MAP = {
+		"children": PEARL.children,
 		"young": PEARL.young, 
-		"adult": PEARL.adult, 
-		"senior": PEARL.senior, 
+		"adult": PEARL.adult,
+		"senior": PEARL.senior
 	}
 
-	personality_map = {
-		"sociable": PEARL.Sociable, 
-		"joyful": PEARL.Joyful, 
+	PERSONALITY_MAP = {
+		"sociable": PEARL.Sociable,
+		"joyful": PEARL.Joyful,
 		"active": PEARL.Active, 
 		"assertive": PEARL.Assertive, 
-		"eager": PEARL.Eager, 
-		"depressive": PEARL.Depressive, 
-		"tense": PEARL.Tense, 
-		"aggressive": PEARL.Aggressive, 
-		"cold": PEARL.Cold, 
-		"egocentric": PEARL.Egocentric, 
+		"eager": PEARL.Eager,
+		"depressive": PEARL.Depressive,
+		"tense": PEARL.Tense,
+		"aggressive": PEARL.Aggressive,
+		"cold": PEARL.Cold,
+		"egocentric": PEARL.Egocentric,
 		"impersonal": PEARL.Impersonal, 
 		"impulsive": PEARL.Impulsive
 	}
-
-	relationship_map = {
-		"knows": ONT.knows, 
-		"friend": ONT.hasFriend, 
-		"enemy": ONT.hasEnemy, 
-		"family_member": ONT.hasFamilyMember, 
+	
+	RELATIONSHIP_MAP = {
+		"knows": ONT.knows,
+		"friend": ONT.hasFriend,
+		"enemy": ONT.hasEnemy,
+		"family_member": ONT.hasFamilyMember
 	}
 
 	def _add_namespaces(self):
@@ -209,9 +78,7 @@ class FolktaleOntology(Graph):
 
 	def _add_class_hierarchy(self, parent_class_name: str, hierarchy: dict):
 		for class_name, class_info in hierarchy.items():
-			camel_case_name = snake_case_to_camel_case(class_name)
-			# print(camel_case_name)
-
+			camel_case_name = snake_case_to_pascal_case(class_name)
 			self.add((getattr(ONT, camel_case_name), RDF.type, OWL.Class))
 			self.add((getattr(ONT, camel_case_name), RDFS.subClassOf, getattr(ONT, parent_class_name)))
 			self.add((getattr(ONT, camel_case_name), RDFS.label, Literal(snake_case_to_title_case(class_name))))
@@ -320,7 +187,7 @@ class FolktaleOntology(Graph):
 		for hierarchy in hierarchies.values():
 			# print("-"*20)
 			for class_name, class_info in hierarchy.items():
-				camel_case_name = snake_case_to_camel_case(class_name)
+				camel_case_name = snake_case_to_pascal_case(class_name)
 				# print(camel_case_name)
 				self._add_class_hierarchy(camel_case_name, class_info.get("children", {}))
 
@@ -456,23 +323,23 @@ class FolktaleOntology(Graph):
 		# GENRE
 		# -------------------------------------
 
-		fable = self.genre_map["fable"]
+		fable = self.GENRE_MAP["fable"]
 		self.add((fable, RDF.type, ONT.Genre))
 		self.add((fable, RDFS.label, Literal("Fable")))
 
-		fairy_tale = self.genre_map["fairy_tale"]
+		fairy_tale = self.GENRE_MAP["fairy_tale"]
 		self.add((fairy_tale, RDF.type, ONT.Genre))
 		self.add((fairy_tale, RDFS.label, Literal("Fairy Tale")))
 
-		legend = self.genre_map["legend"]
+		legend = self.GENRE_MAP["legend"]
 		self.add((legend, RDF.type, ONT.Genre))
 		self.add((legend, RDFS.label, Literal("Legend")))
 
-		myth = self.genre_map["myth"]
+		myth = self.GENRE_MAP["myth"]
 		self.add((myth, RDF.type, ONT.Genre))
 		self.add((myth, RDFS.label, Literal("Myth")))
 
-		tall_tale = self.genre_map["tall_tale"]
+		tall_tale = self.GENRE_MAP["tall_tale"]
 		self.add((tall_tale, RDF.type, ONT.Genre))
 		self.add((tall_tale, RDFS.label, Literal("Tall Tale")))
 
@@ -518,13 +385,16 @@ class FolktaleOntology(Graph):
 			return True
 		logger.info(f"Invalid list: {lst}")
 		return False
+
+	def resolve_ontology(self, ontology_reference: str):
+		return getattr(ONT, ontology_reference.split('.')[-1])
 	
 	def add_folktale(self, data: dict):
 		title = data["title"]
 
-		slugify_title = title_case_to_snake_case(title)
+		snake_case_title = title_case_to_snake_case(title)
 
-		folktale_uri = RES[f"folktale/{slugify_title}"]
+		folktale_uri = RES[f"folktale/{snake_case_title}"]
 		self.add((folktale_uri, RDF.type, ONT.Folktale))
 		self.add((folktale_uri, ONT.title, Literal(title, datatype = XSD.string)))
 		self.add((folktale_uri, RDFS.label, Literal(title, datatype = XSD.string)))
@@ -532,7 +402,7 @@ class FolktaleOntology(Graph):
 
 		self._try_add_text(folktale_uri, ONT.nation, data.get("nation"))
 
-		self._try_add_existing_instance(folktale_uri, ONT.hasGenre, data.get("has_genre"), self.genre_map)
+		self._try_add_existing_instance(folktale_uri, ONT.hasGenre, data.get("has_genre"), self.GENRE_MAP)
 
 		# -----------------------------
 		# Crear lugares
@@ -544,9 +414,11 @@ class FolktaleOntology(Graph):
 				# Se crea el lugar y se añade al grafo
 				instance_name = place["instance_name"]
 
-				place_uri = RES[f"place/{slugify_title}/{title_case_to_snake_case(instance_name)}"]
+				place_uri = RES[f"place/{snake_case_title}/{instance_name}"]
 
-				self.add((place_uri, RDF.type, self.place_map[place["class_name"]]))
+				place_class = snake_case_to_pascal_case(place["class_name"])
+				place_class = self.resolve_ontology(place_class)
+				self.add((place_uri, RDF.type, place_class))
 				self.add((place_uri, RDFS.label, Literal(snake_case_to_title_case(instance_name), datatype = XSD.string)))
 				place_uris[i] = place_uri
 
@@ -560,9 +432,11 @@ class FolktaleOntology(Graph):
 				# Se crea el lugar y se añade al grafo
 				instance_name = object["instance_name"]
 
-				object_uri = RES[f"object/{slugify_title}/{title_case_to_snake_case(instance_name)}"]
+				object_uri = RES[f"object/{snake_case_title}/{instance_name}"]
 
-				self.add((object_uri, RDF.type, self.object_map[object["class_name"]]))
+				object_class = snake_case_to_pascal_case(object["class_name"])
+				object_class = self.resolve_ontology(object_class)
+				self.add((object_uri, RDF.type, object_class))
 				self.add((object_uri, RDFS.label, Literal(snake_case_to_title_case(instance_name), datatype = XSD.string)))            
 				object_uris[i] = object_uri
 
@@ -576,14 +450,16 @@ class FolktaleOntology(Graph):
 				# Se crea el agente y se añade al grafo
 				instance_name = agent["instance_name"]
 
-				agent_uri = RES[f"agent/{slugify_title}/{title_case_to_snake_case(instance_name)}"]
+				agent_uri = RES[f"agent/{snake_case_title}/{instance_name}"]
 
-				self.add((agent_uri, RDF.type, self.agent_map[agent["class_name"]]))
+				agent_class = snake_case_to_pascal_case(agent["class_name"])
+				agent_class = self.resolve_ontology(agent_class)
+				self.add((agent_uri, RDF.type, agent_class))
 				self.add((agent_uri, RDFS.label, Literal(snake_case_to_title_case(instance_name), datatype = XSD.string)))
 
 				self._try_add_text(agent_uri, ONT.name, agent.get("name"))
-				self._try_add_existing_instance(agent_uri, RDF.type, agent.get("age_category"), self.age_group_map)
-				self._try_add_existing_instances(agent_uri, ONT.hasPersonality, agent.get("has_personality"), self.personality_map)
+				self._try_add_existing_instance(agent_uri, RDF.type, agent.get("age_category"), self.AGE_GROUP_MAP)
+				self._try_add_existing_instances(agent_uri, ONT.hasPersonality, agent.get("has_personality"), self.PERSONALITY_MAP)
 
 				lives_in = agent.get("lives_in")
 				if lives_in and isinstance(lives_in, int):
@@ -593,9 +469,11 @@ class FolktaleOntology(Graph):
 				if hasRole:
 					instance_name = hasRole["instance_name"]
 
-					role_uri = RES[f"role/{slugify_title}/{title_case_to_snake_case(instance_name)}"]
+					role_uri = RES[f"role/{snake_case_title}/{instance_name}"]
 
-					self.add((role_uri, RDF.type, self.role_map[hasRole["class_name"]]))
+					role_class = snake_case_to_pascal_case(hasRole["class_name"])
+					role_class = self.resolve_ontology(role_class)
+					self.add((role_uri, RDF.type, role_class))
 					self.add((role_uri, RDFS.label, Literal(snake_case_to_title_case(instance_name), datatype = XSD.string)))            
 					self.add((agent_uri, ONT.hasRole, role_uri))
 
@@ -604,14 +482,14 @@ class FolktaleOntology(Graph):
 		# -----------------------------
 		# Crear relaciones
 		# -----------------------------
-		relationships = data.get("relationships")	
+		relationships = data.get("relationships")
 		if relationships and isinstance(relationships, list):
 			for relationship in relationships:
 				agent_uri = agent_uri_map[relationship["agent"]]
 				other_uri = agent_uri_map[relationship["other"]]
 				relationship_type = relationship["relationship"]
-				self.add((agent_uri, self.relationship_map[relationship_type], other_uri))
-				self.add((other_uri, self.relationship_map[relationship_type], agent_uri))
+				self.add((agent_uri, self.RELATIONSHIP_MAP[relationship_type], other_uri))
+				self.add((other_uri, self.RELATIONSHIP_MAP[relationship_type], agent_uri))
 
 		# -----------------------------
 		# Crear eventos
@@ -622,9 +500,11 @@ class FolktaleOntology(Graph):
 			for event in events:
 				instance_name = event["instance_name"]
 
-				event_uri = RES[f"event/{slugify_title}/{title_case_to_snake_case(instance_name)}"]
+				event_uri = RES[f"event/{snake_case_title}/{instance_name}"]
 
-				self.add((event_uri, RDF.type, self.event_map[event["class_name"]]))
+				event_class = snake_case_to_pascal_case(event["class_name"])
+				event_class = self.resolve_ontology(event_class)
+				self.add((event_uri, RDF.type, event_class))
 				self.add((event_uri, RDFS.label, Literal(snake_case_to_title_case(instance_name), datatype = XSD.string)))
 				
 				# Se añade el evento al cuento popular

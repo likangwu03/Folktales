@@ -27,7 +27,7 @@ class EvaluatorTree():
 		for node in nodes:
 			print("\t"*n_tabs+f"- {node.id}")
 			if len(node.children) > 0:
-				self._print(node.children, n_tabs+1)
+				self._print(node.children, n_tabs + 1)
 	
 	def print(self):
 		self._print(self._nodes, 0)

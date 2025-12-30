@@ -78,7 +78,7 @@
                 "egocentric"
             ],
             "lives_in": 0,
-            "name": "Stepmother",
+            "name": "Lady Tremaine",
             "has_role": {
                 "class_name": "villain",
                 "instance_name": "main_villain"
@@ -94,7 +94,7 @@
                 "tense"
             ],
             "lives_in": 0,
-            "name": "Stepsister 1",
+            "name": "Anastasia",
             "has_role": {
                 "class_name": "villain",
                 "instance_name": "villain_minion"
@@ -110,7 +110,7 @@
                 "impulsive"
             ],
             "lives_in": 0,
-            "name": "Stepsister 2",
+            "name": "Drizella",
             "has_role": {
                 "class_name": "villain",
                 "instance_name": "villain_minion"

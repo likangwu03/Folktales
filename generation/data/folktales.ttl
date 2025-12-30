@@ -293,11 +293,7 @@ ont:PhysicalTransformation a owl:Class ;
 
 ont:Princess a owl:Class ;
     rdfs:label "Princess" ;
-    rdfs:subClassOf ont:SecondaryCharacter .
-
-ont:Prisoner a owl:Class ;
-    rdfs:label "Prisoner" ;
-    rdfs:subClassOf ont:SecondaryCharacter .
+    rdfs:subClassOf ont:Prisoner .
 
 ont:PsychologicalTransformation a owl:Class ;
     rdfs:label "Psychological Transformation" ;
@@ -710,6 +706,10 @@ ont:Personality a owl:Class ;
     rdfs:label "Personality" ;
     owl:equivalentClass pearl:Personality .
 
+ont:Prisoner a owl:Class ;
+    rdfs:label "Prisoner" ;
+    rdfs:subClassOf ont:SecondaryCharacter .
+
 ont:UnrecognisedArrival a owl:Class ;
     rdfs:label "Unrecognised Arrival" ;
     rdfs:subClassOf ont:Arrival .
@@ -839,8 +839,8 @@ ont:Branding a owl:Class ;
     rdfs:label "Branding" ;
     rdfs:subClassOf ont:Conflict .
 
-ont:Buildings a owl:Class ;
-    rdfs:label "Buildings" ;
+ont:Building a owl:Class ;
+    rdfs:label "Building" ;
     rdfs:subClassOf ont:Place .
 
 ont:DifficultTaskWithSolution a owl:Class ;
@@ -952,7 +952,7 @@ sem:Place a owl:Class ;
 
 ont:CommunityBuilding a owl:Class ;
     rdfs:label "Community Building" ;
-    rdfs:subClassOf ont:Buildings .
+    rdfs:subClassOf ont:Building .
 
 ont:ConnectiveIncident a owl:Class ;
     rdfs:label "Connective Incident" ;
@@ -1267,6 +1267,10 @@ ont:Place a owl:Class ;
         sem:Place,
         schema:Place .
 
+ont:SecondaryCharacter a owl:Class ;
+    rdfs:label "Secondary Character" ;
+    rdfs:subClassOf ont:Role .
+
 ont:Setup a owl:Class ;
     rdfs:label "Setup" ;
     rdfs:subClassOf ont:Move .
@@ -1291,15 +1295,11 @@ ont:Setup a owl:Class ;
 
 ont:Dwelling a owl:Class ;
     rdfs:label "Dwelling" ;
-    rdfs:subClassOf ont:Buildings .
+    rdfs:subClassOf ont:Building .
 
 ont:Genre a owl:Class ;
     rdfs:label "Genre" ;
     owl:equivalentClass wd:Q223393 .
-
-ont:SecondaryCharacter a owl:Class ;
-    rdfs:label "Secondary Character" ;
-    rdfs:subClassOf ont:Role .
 
 <https://rbc.org/resources/agent/cinderella/stepmother> a ont:HumanBeing,
         pearl:adult ;
@@ -1311,7 +1311,7 @@ ont:SecondaryCharacter a owl:Class ;
         pearl:Egocentric ;
     ont:hasRole <https://rbc.org/resources/role/cinderella/main_villain> ;
     ont:knows <https://rbc.org/resources/agent/cinderella/stepsister_1> ;
-    ont:name "Stepmother"^^xsd:string .
+    ont:name "Lady Tremaine"^^xsd:string .
 
 <https://rbc.org/resources/agent/cinderella/stepsister_2> a ont:HumanBeing,
         pearl:young ;
@@ -1322,7 +1322,7 @@ ont:SecondaryCharacter a owl:Class ;
     ont:hasPersonality pearl:Impulsive,
         pearl:Joyful ;
     ont:hasRole <https://rbc.org/resources/role/cinderella/villain_minion> ;
-    ont:name "Stepsister 2"^^xsd:string .
+    ont:name "Drizella"^^xsd:string .
 
 <https://rbc.org/resources/agent/the_three_little_pigs/big_bad_wolf> a ont:AnthropomorphicAnimal,
         pearl:adult ;
@@ -1366,7 +1366,7 @@ ont:Folktale a owl:Class ;
         pearl:Tense ;
     ont:hasRole <https://rbc.org/resources/role/cinderella/villain_minion> ;
     ont:knows <https://rbc.org/resources/agent/cinderella/stepmother> ;
-    ont:name "Stepsister 1"^^xsd:string .
+    ont:name "Anastasia"^^xsd:string .
 
 <https://rbc.org/resources/agent/the_three_little_pigs/pig_1> a ont:AnthropomorphicAnimal,
         pearl:children ;

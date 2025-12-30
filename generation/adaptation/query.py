@@ -1,14 +1,14 @@
 from pydantic import BaseModel, Field, field_validator
-from common.models.folktale import Genre
+from common.models.folktale import GenreClass
 from common.models.event import EventClass
 from common.models.role import RoleClass
 from common.models.place import PlaceClass
 from common.models.object import ObjectClass
-from common.regex_utils import snake_case_to_camel_case
+from common.regex_utils import snake_case_to_pascal_case
 
 class Query(BaseModel):
-	initial_event: EventClass
-	genre: Genre
+	initial_event: str
+	genre: GenreClass
 	events: list[EventClass] = Field(..., min_length=1, max_length=2)
 	role: list[RoleClass] = Field(..., min_length=1, max_length=2)
 	place: PlaceClass
@@ -19,7 +19,7 @@ class Query(BaseModel):
 	@classmethod
 	def postprocess_all_strings(cls, value):
 		if isinstance(value, str):
-			return snake_case_to_camel_case(value)
+			return snake_case_to_pascal_case(value)
 		elif isinstance(value, list) and all(isinstance(v, str) for v in value):
-			return [snake_case_to_camel_case(v) for v in value]
+			return [snake_case_to_pascal_case(v) for v in value]
 		return value

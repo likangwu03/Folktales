@@ -69,3 +69,13 @@ class Event(BaseModel):
 
 	has_agent: list[int] = Field(default_factory=list)
 	has_object: list[int] = Field(default_factory=list)
+
+MIN_EVENTS = 5
+MAX_EVENTS = 15
+
+class StorySegments(BaseModel):
+	'''A collection representing the individual segments into which the story is divided.'''
+	segments: list[str] = Field(
+		..., 
+		description="A list of textual segments, each representing a distinct event or part of the story.",
+		max_length=MAX_EVENTS)
