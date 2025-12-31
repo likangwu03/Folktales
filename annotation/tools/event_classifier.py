@@ -1,10 +1,8 @@
 from langchain_core.prompts import ChatPromptTemplate, HumanMessagePromptTemplate, SystemMessagePromptTemplate
-# from common.models.place import Event
 from langchain_core.language_models.chat_models import BaseChatModel
-import json
 from pydantic import BaseModel
 from collections import Counter
-from typing import Tuple, Dict, List
+from typing import Optional, cast
 
 from pydantic import BaseModel, Field, ConfigDict
 
@@ -35,8 +33,8 @@ class Response(BaseModel):
 			"The value must correspond to exactly one available option."
 		),
 		examples=[0, 2, 5],
-		ge=0  # mayor o igual que 0
-		)
+		ge=0  # Mayor o igual que 0
+	)
 
 system_prompt = SystemMessagePromptTemplate.from_template(template="""You are an expert narrative analysis assistant. Your task is to classify a text fragment by selecting the most specific narrative event from a closed list of options.
 
@@ -69,10 +67,7 @@ event_prompt = ChatPromptTemplate.from_messages([
 ])
 
 
-def build_options_prompt(
-	node: Dict,
-	self_name: str = None
-) -> str:
+def build_options_prompt(node: dict, self_name: Optional[str] = None) -> tuple[str, list]:
 	options = []
 	
 	for child_id, info in node.get("children", {}).items():
@@ -88,9 +83,7 @@ def build_options_prompt(
 
 	return "\n".join(lines), options
 
-def build_options_prompt_by_list(
-	options: list
-) -> str:
+def build_options_prompt_by_list(options: list) -> str:
 	lines = [
 		f"{idx}. {node_id}: {description}" 
 		for idx, (node_id, description) in enumerate(options)
@@ -105,16 +98,13 @@ def extract_event(model: BaseChatModel, folktale_event: str, options:str, previo
 		"event": folktale_event,
 		"previous_thought": previous_thought
 	})
+
+	response = cast(Response, response)
+
 	return response.response, response.thinking
 
 
-def hierarchical_event_classification_with_desc(
-	model: BaseChatModel,
-	folktale_event: str,
-	taxonomy_tree: Dict,
-	n_rounds: int = 3,
-	verbose: bool = False
-) -> Tuple[str, str]:
+def hierarchical_event_classification_with_desc(model: BaseChatModel, folktale_event: str, taxonomy_tree: dict, n_rounds: int = 3, verbose: bool = False):
 	"""
 	Clasifica un evento usando una taxonomía jerárquica con descripciones.
 

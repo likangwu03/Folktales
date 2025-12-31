@@ -3,25 +3,25 @@ from common.models.place import Places, MAX_PLACES
 from langchain_core.language_models.chat_models import BaseChatModel
 from typing import cast
 from loguru import logger
-from annotation.utils import format_hierarchy, format_classes
+from common.utils.format_utils import format_hierarchy, format_classes
 
 place_prompt = ChatPromptTemplate.from_messages(
 	[
 		SystemMessagePromptTemplate.from_template(template='''You are an AI that extracts locations from a folktale.
-                                            
+
 Your task is to identify each location and assign it exactly one 'class_name' from the allowed list below and invent a suitable 'instance_name'.
 
 Your output MUST:
 - Be valid JSON.
 - Match the 'Places' schema exactly.
 - Contain no extra text, comments or explanations.
-   
+
 ALLOWED 'class_name' VALUES:
 - {places}
-                  
+
 HIERARCHY (FOR REASONING):
-{place_hierarchy}    
-                           
+{place_hierarchy}
+
 CLASS SELECTION RULES:
 1. ALWAYS choose the MOST SPECIFIC class available.
    - Example: If the location is a castle, use 'castle' rather than 'dwelling'.
@@ -35,7 +35,7 @@ CLASS SELECTION RULES:
 3. Each place MUST have exactly ONE 'class_name'.
    - Do NOT combine multiple classes.
    - Do NOT repeat fields.
-                          
+          
 INSTANCE NAME RULES:
 - 'instance_name' must be written in snake_case.
 - Use lowercase letters and underscores only.
@@ -43,11 +43,11 @@ INSTANCE NAME RULES:
 - Do NOT include spaces, hyphens, or punctuation.
 - Examples: 'hero_house', 'ogres_castle', 'nearby_forest', 'small_village'.
 
-SELECTION RULES:                    
+SELECTION RULES:
 - Include ONLY locations explicitly mentioned in the story.
 - Do NOT infer or assume locations.
 - Choose the MOST SPECIFIC allowed 'class_name'.
-- List each place only once.      
+- List each place only once.
 '''),
 
 		HumanMessagePromptTemplate.from_template(template='''Extract all locations explicitly mentioned in the folktale below.

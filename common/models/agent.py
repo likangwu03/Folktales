@@ -1,7 +1,7 @@
 from typing import Literal, Optional
 from common.models.role import Role
 from pydantic import ConfigDict, Field, BaseModel, field_validator, ValidationInfo
-from common.regex_utils import name_regex, snake_case_regex
+from common.utils.regex_utils import name_regex, snake_case_regex
 from enum import StrEnum
 
 RelationshipClass = Literal["knows", "friend", "enemy", "family_member"]
@@ -33,15 +33,16 @@ class Agent(BaseModel):
 	instance_name: str = Field(
 		..., 
 		description="A descriptive, unique identifier for the agent in snake_case format. This name must clearly identify the location within the context of the folktale.",
-		examples=["cinderella", "stepmother", "stepsister_1", "stepsister_2", "prince", "fairy_godmother", "tortoise", "hare", "fox", "pig_1", "pig_2", "pig_3", "big_bad_wolf"],
+		examples=["cinderella", "stepmother", "stepsister_one", "stepsister_one", "prince", "fairy_godmother", "tortoise", "hare", "fox", "pig_one", "pig_two", "pig_three", "big_bad_wolf"],
 		pattern=snake_case_regex)
 	
 	age_category: Literal["children", "young", "adult", "senior"] = Field(..., description="The age group to which the character belongs.")
 	gender: Literal["male", "female"] = Field(..., description="The gender of the character, either 'male' or 'female'.")
-	has_personality: list[Literal["sociable", "joy", "active", "assertive", "anxious", "depressive", "tense", "aggressive", "cold", "egotism", "impersonal", "impulsive"]] = Field(
+	has_personality: list[Literal["sociable", "joyful", "active", "assertive", "eager", "depressive", "tense", "aggressive", "cold", "egocentric", "impersonal", "impulsive"]] = Field(
 		..., 
 		description="A list of personality traits based on the Big 5 personality traits theory. These traits define the character's personality.")
 	name: Optional[str] = Field(
+		None,
 		description="The character's name.",
 		examples=["Cinderella", "Lady Tremaine", "Anastasia", "Drizella", "Tortoise", "Haze", "Fox"],
 		min_length=1

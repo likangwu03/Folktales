@@ -1,7 +1,7 @@
 from rdflib import Graph, RDF, RDFS, OWL, FOAF, DCTERMS, URIRef, Literal, XSD
 import typing
 from generation.ontology.namespaces import *
-from common.regex_utils import title_case_to_snake_case, snake_case_to_title_case, snake_case_to_pascal_case
+from common.utils.regex_utils import title_case_to_snake_case, snake_case_to_title_case, snake_case_to_pascal_case
 import generation.utils.sbc_tools as sbc
 from loguru import logger
 

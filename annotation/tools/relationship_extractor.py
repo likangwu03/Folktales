@@ -1,9 +1,8 @@
 from langchain_core.prompts import ChatPromptTemplate, HumanMessagePromptTemplate, SystemMessagePromptTemplate
 from common.models.agent import Agent, Relationship
 from langchain_core.language_models.chat_models import BaseChatModel
-from typing import cast
 from loguru import logger
-from common.regex_utils import relationship_regex
+from common.utils.regex_utils import relationship_regex
 import re
 
 relationship_prompt = ChatPromptTemplate.from_messages(

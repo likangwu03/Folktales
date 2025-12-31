@@ -86,7 +86,7 @@
         },
         {
             "class_name": "human_being",
-            "instance_name": "stepsister_1",
+            "instance_name": "stepsister_one",
             "age_category": "young",
             "gender": "female",
             "has_personality": [
@@ -102,7 +102,7 @@
         },
         {
             "class_name": "human_being",
-            "instance_name": "stepsister_2",
+            "instance_name": "stepsister_two",
             "age_category": "young",
             "gender": "female",
             "has_personality": [
@@ -128,7 +128,7 @@
             "lives_in": 1,
             "name": "Prince",
             "has_role": {
-                "class_name": "hero",
+                "class_name": "secondary_character",
                 "instance_name": "hero_soulmate"
             }
         },
@@ -177,6 +177,7 @@
         {
             "class_name": "setup",
             "instance_name": "hero_works_hard",
+            "description": "In her family home, Cinderella is forced to work tirelessly under the watchful eye of her cruel stepmother, Lady Tremaine, and her demanding stepsisters, Anastasia and Drizella. Though treated more like a servant than family, Cinderella endures the hardships in silence.",
             "agents": [
                 0,
                 1,

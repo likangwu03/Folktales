@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field, ConfigDict
 from enum import StrEnum
-from common.regex_utils import snake_case_regex
+from common.utils.regex_utils import snake_case_regex
 
 class RoleClass(StrEnum):
     '''Enumeration used to classify the roles of characters within a story.

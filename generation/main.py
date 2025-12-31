@@ -2,7 +2,7 @@ from generation.ontology.event_retriever import EventRetriever
 from generation.ontology.similarity_calculator import LocalSemanticSimilarityCalculator
 from generation.adaptation.astar import ConstructiveAdaptation
 from generation.adaptation.query import Query
-from common.loader import load_json, load_json_folder
+from common.utils.loader import load_json_folder, data_dir
 from generation.ontology.folktale_graph import FolktaleOntology
 from loguru import logger
 from rdflib import Graph
@@ -10,10 +10,10 @@ from rdflib import Graph
 def create_graph(build: bool=False, render_html: bool=False) -> Graph:
     graph = FolktaleOntology()
     if build:
-        hierarchies = load_json_folder("hierarchies")
+        hierarchies = load_json_folder(f"{data_dir}/hierarchies")
         graph.build(hierarchies)
 
-        examples = load_json_folder("examples/annotated")
+        examples = load_json_folder(f"{data_dir}/examples/annotated")
         for folktale in examples.values():
             graph.add_folktale(folktale)
 
@@ -31,8 +31,8 @@ def create_graph(build: bool=False, render_html: bool=False) -> Graph:
     return graph
 
 def main():
-    graph = create_graph(build=False,
-                         render_html=False)
+    graph = create_graph(build=True,
+                         render_html=True)
     
     # event_retriever = EventRetriever(graph)
     # sim_calculator = LocalSemanticSimilarityCalculator(graph)

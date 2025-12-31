@@ -1,8 +1,8 @@
 from langchain_core.prompts import ChatPromptTemplate, HumanMessagePromptTemplate, SystemMessagePromptTemplate
-from common.models.agent import Agents
+from common.models.agent import Agents, Agent
 from common.models.place import Place
 from langchain_core.language_models.chat_models import BaseChatModel
-from annotation.utils import format_hierarchy
+from common.utils.format_utils import format_hierarchy, format_places
 from loguru import logger
 import json
 from typing import cast
@@ -75,9 +75,12 @@ Folktale:
 	]
 )
 
-def extract_agents(model: BaseChatModel, folktale: str, example: dict, places: list[Place], role_hierarchy: dict):
-    example_json = json.dumps(example, indent=4)
-    formatted_places = "\n".join(f"- {i}: {place.instance_name}" for i, place in enumerate(places))
+def extract_agents(model: BaseChatModel, folktale: str, example: list[Agent], places: list[Place], role_hierarchy: dict):
+    example_json = json.dumps(
+        [agent.model_dump(mode="json") for agent in example],
+        indent=4
+    )
+    formatted_places = format_places(places)
     formatted_hierarchy = format_hierarchy(role_hierarchy)
     
     agent_chain = agent_prompt | model.with_structured_output(Agents)

@@ -38,7 +38,7 @@
     "agents": [
         {
             "class_name": "anthropomorphic_animal",
-            "instance_name": "pig_1",
+            "instance_name": "pig_one",
             "age_category": "children",
             "gender": "male",
             "has_personality": [
@@ -54,7 +54,7 @@
         },
         {
             "class_name": "anthropomorphic_animal",
-            "instance_name": "pig_2",
+            "instance_name": "pig_two",
             "age_category": "children",
             "gender": "male",
             "has_personality": [
@@ -70,7 +70,7 @@
         },
         {
             "class_name": "anthropomorphic_animal",
-            "instance_name": "pig_3",
+            "instance_name": "pig_three",
             "age_category": "children",
             "gender": "male",
             "has_personality": [

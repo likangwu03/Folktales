@@ -3,14 +3,15 @@ from langchain_ollama import ChatOllama
 from langchain_groq import ChatGroq
 from langchain_core.language_models.chat_models import BaseChatModel
 from annotation.evaluator.tree import EvaluatorTree
-from common.loader import load_folktales, load_json_folder
+from common.models.event import EventElements, EventMetadata, EventExample, Event, EventClass
+from common.utils.loader import load_folktale_csv, load_json_folder, save_folktale, data_dir, out_dir
 from annotation.tools.place_extractor import extract_places
 from annotation.tools.agent_extractor import extract_agents
 from annotation.tools.genre_extractor import extract_genre
-from annotation.tools.event_extractor import extract_events
+from annotation.tools.event_extractor import extract_story_segments, extract_event_elements
+from annotation.tools.object_extractor import extract_objects
 from annotation.tools.relationship_extractor import extract_relationships
 from common.models.folktale import AnnotatedFolktale
-from annotation.utils import format_hierarchy
 import os
 
 def get_model(temperature: float, remote: bool=False) -> BaseChatModel:
@@ -32,52 +33,106 @@ def get_model(temperature: float, remote: bool=False) -> BaseChatModel:
 		)
 	return model
 
+def get_event_example(folktale: AnnotatedFolktale, event_index: int):
+	n_events = len(folktale.events)
+
+	if event_index < n_events:
+		event = folktale.events[event_index]
+		if event.description:
+			example = EventExample(
+				title=folktale.title,
+				agents=folktale.agents,
+				objects=folktale.objects,
+				places=folktale.places,
+				story_segment=event.description,
+				output=EventElements(
+					agents=event.agents,
+					objects=event.objects,
+					place=event.place
+				)
+			)
+			return example
+	return None
+
 def main():
 	load_dotenv()
 
-	model = get_model(temperature=0.7,
+	model = get_model(temperature=0.4,
 					  remote=False)
 
-	hierarchies = load_json_folder("hierarchies")
-	# event_hierarchy = hierarchies["event"]
+	hierarchies = load_json_folder(f"{data_dir}/hierarchies")
 
+	# event_hierarchy = hierarchies["event"]
 	# evaluator_tree = EvaluatorTree(event_hierarchy)
 	# evaluator_tree.print()
 
-	folktales = load_folktales()
+	folktales = load_folktale_csv()
 	folktale = folktales.iloc[0]
 	momotaro = folktale["text"]
 
-	examples = load_json_folder("examples/annotated")
-	agents_example = examples["cinderella"]["agents"]
+	examples = load_json_folder(f"{data_dir}/examples/annotated")
+	cinderella = AnnotatedFolktale(**examples["cinderella"])
+
+	event_examples = []
+	cinderella_hero_works_hard = get_event_example(cinderella, 0)
+	event_examples.append(cinderella_hero_works_hard)	
 
 	place_hierarchy = hierarchies["place"]
 	role_hierarchy = hierarchies["role"]
+	object_hierarchy = hierarchies["object"]
 
-	# genre = extract_genre(model, momotaro)
+	genre = extract_genre(model, momotaro)
+
+	objects = extract_objects(model, momotaro, object_hierarchy)
 
 	places = extract_places(model, momotaro, place_hierarchy)
 
-	agents = extract_agents(model, momotaro, agents_example, places, role_hierarchy)
+	agents = extract_agents(model, momotaro, cinderella.agents, places, role_hierarchy)
 
 	relationships = extract_relationships(model, momotaro, agents)
 
-	# events = extract_events(model, momotaro)
+	story_segments = extract_story_segments(model, momotaro)
 
-	# for event in events:
-	# 	pass
+	events = []
+	for segment in story_segments:
+		event_metada = EventMetadata(
+			title=folktale["title"],
+			agents=agents,
+			objects=objects,
+			places=places,
+			story_segment=segment
+		)
 
-	# uri = folktale["source"].rstrip('/')
+		elements = extract_event_elements(model, event_metada, event_examples)
 
-	# folktale = AnnotatedFolktale(
-	#     uri=uri,
-	#     nation=folktale["nation"],
-	#     has_genre=genre,
-	#     title=folktale["title"],
-	#     agents=agents,
-	# 	relationships=relationships
-	#     places=places,
-	# )
+		# Evaluator tree
+
+		event = Event(
+			class_name=EventClass.MOVE,
+			instance_name="instance_name",
+			description=segment,
+			agents=elements.agents,
+			objects=elements.objects,
+			place=elements.place
+		)
+
+		events.append(event)
+
+	uri = folktale["source"].rstrip('/')
+
+	folktale = AnnotatedFolktale(
+	    uri=uri,
+	    nation=folktale["nation"],
+	    has_genre=genre,
+	    title=folktale["title"],
+		relationships=relationships,
+	    agents=agents,
+	    places=places,
+		objects=objects,
+		events=events
+	)
+
+	save_folktale(folktale)
 
 if __name__ == "__main__":
 	main()

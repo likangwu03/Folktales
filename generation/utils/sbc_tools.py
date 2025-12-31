@@ -4,7 +4,8 @@ import networkx as nx
 import os
 import webbrowser
 
-data_path = "./generation/data"
+main_dir = "./generation"
+data_path = os.path.join(main_dir, "data")
 
 def get_data_path():
     return data_path
@@ -69,7 +70,7 @@ def show_graph(graph, output_file="grafo.html", height="1000px", width="100%", s
                 height=height, width=width, bgcolor="#222222", font_color="white", cdn_resources='in_line')
     net.from_nx(nx_graph)
 
-    out_dir = os.path.join(data_path, folder)
+    out_dir = os.path.join(main_dir, folder)
 
     if not os.path.exists(out_dir):
         os.makedirs(out_dir)

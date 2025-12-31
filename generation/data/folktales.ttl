@@ -283,10 +283,6 @@ ont:Murder a owl:Class ;
     rdfs:label "Murder" ;
     rdfs:subClassOf ont:HeroInterdiction .
 
-ont:NonAnthropomorphicAnimal a owl:Class ;
-    rdfs:label "Non Anthropomorphic Animal" ;
-    rdfs:subClassOf ont:AnimateObject .
-
 ont:PhysicalTransformation a owl:Class ;
     rdfs:label "Physical Transformation" ;
     rdfs:subClassOf ont:Transfiguration .
@@ -663,10 +659,6 @@ ont:AgeGroup a owl:Class ;
     rdfs:label "Age Group" ;
     owl:equivalentClass pearl:AgeGroup .
 
-ont:AnimateObject a owl:Class ;
-    rdfs:label "Animate Object" ;
-    rdfs:subClassOf ont:Object .
-
 ont:Arrival a owl:Class ;
     rdfs:label "Arrival" ;
     rdfs:subClassOf ont:Resolution .
@@ -692,7 +684,7 @@ ont:MagicalHelper a owl:Class ;
 
 ont:MagicalObject a owl:Class ;
     rdfs:label "Magical Object" ;
-    rdfs:subClassOf ont:InanimateObject .
+    rdfs:subClassOf ont:Object .
 
 ont:MainCharacter a owl:Class ;
     rdfs:label "Main Character" ;
@@ -749,7 +741,7 @@ ont:preEvent a owl:ObjectProperty ;
 <https://rbc.org/resources/role/cinderella/fairy_godmother_helper> a ont:MagicalHelper ;
     rdfs:label "Fairy Godmother Helper"^^xsd:string .
 
-<https://rbc.org/resources/role/cinderella/hero_soulmate> a ont:Hero ;
+<https://rbc.org/resources/role/cinderella/hero_soulmate> a ont:SecondaryCharacter ;
     rdfs:label "Hero Soulmate"^^xsd:string .
 
 <https://rbc.org/resources/role/cinderella/main_hero> a ont:Hero ;
@@ -861,7 +853,7 @@ ont:Lack a owl:Class ;
 
 ont:NaturalObject a owl:Class ;
     rdfs:label "Natural Object" ;
-    rdfs:subClassOf ont:InanimateObject .
+    rdfs:subClassOf ont:Object .
 
 ont:Struggle a owl:Class ;
     rdfs:label "Struggle" ;
@@ -888,8 +880,8 @@ ont:Victory a owl:Class ;
     rdfs:label "Hero Works Hard"^^xsd:string ;
     ont:hasAgent <https://rbc.org/resources/agent/cinderella/cinderella>,
         <https://rbc.org/resources/agent/cinderella/stepmother>,
-        <https://rbc.org/resources/agent/cinderella/stepsister_1>,
-        <https://rbc.org/resources/agent/cinderella/stepsister_2> ;
+        <https://rbc.org/resources/agent/cinderella/stepsister_one>,
+        <https://rbc.org/resources/agent/cinderella/stepsister_two> ;
     ont:hasPlace <https://rbc.org/resources/place/cinderella/hero_house> ;
     ont:postEvent <https://rbc.org/resources/event/cinderella/villains_insult_hero> .
 
@@ -915,7 +907,7 @@ ont:Victory a owl:Class ;
 
 <https://rbc.org/resources/event/the_three_little_pigs/build_flimsy_house> a ont:InitialSituation ;
     rdfs:label "Build Flimsy House"^^xsd:string ;
-    ont:hasAgent <https://rbc.org/resources/agent/the_three_little_pigs/pig_1> ;
+    ont:hasAgent <https://rbc.org/resources/agent/the_three_little_pigs/pig_one> ;
     ont:hasObject <https://rbc.org/resources/object/the_three_little_pigs/straw> ;
     ont:hasPlace <https://rbc.org/resources/place/the_three_little_pigs/straw_house> ;
     ont:postEvent <https://rbc.org/resources/event/the_three_little_pigs/build_medium_resistant_house> .
@@ -923,9 +915,9 @@ ont:Victory a owl:Class ;
 <https://rbc.org/resources/event/the_three_little_pigs/villain_fails_sturdy_house> a ont:VillainDefeated ;
     rdfs:label "Villain Fails Sturdy House"^^xsd:string ;
     ont:hasAgent <https://rbc.org/resources/agent/the_three_little_pigs/big_bad_wolf>,
-        <https://rbc.org/resources/agent/the_three_little_pigs/pig_1>,
-        <https://rbc.org/resources/agent/the_three_little_pigs/pig_2>,
-        <https://rbc.org/resources/agent/the_three_little_pigs/pig_3> ;
+        <https://rbc.org/resources/agent/the_three_little_pigs/pig_one>,
+        <https://rbc.org/resources/agent/the_three_little_pigs/pig_three>,
+        <https://rbc.org/resources/agent/the_three_little_pigs/pig_two> ;
     ont:hasPlace <https://rbc.org/resources/place/the_three_little_pigs/brick_house> ;
     ont:preEvent <https://rbc.org/resources/event/the_three_little_pigs/villain_attacks_medium_resistant_house> .
 
@@ -960,7 +952,7 @@ ont:ConnectiveIncident a owl:Class ;
 
 ont:CraftedObject a owl:Class ;
     rdfs:label "Crafted Object" ;
-    rdfs:subClassOf ont:InanimateObject .
+    rdfs:subClassOf ont:Object .
 
 ont:Entity a owl:Class ;
     rdfs:label "Entity" ;
@@ -970,9 +962,9 @@ ont:HelperMove a owl:Class ;
     rdfs:label "Helper Move" ;
     rdfs:subClassOf ont:Move .
 
-ont:InanimateObject a owl:Class ;
-    rdfs:label "Inanimate Object" ;
-    rdfs:subClassOf ont:Object .
+ont:Hero a owl:Class ;
+    rdfs:label "Hero" ;
+    rdfs:subClassOf ont:MainCharacter .
 
 ont:IndividualAgent a owl:Class ;
     rdfs:subClassOf ont:Agent .
@@ -980,11 +972,6 @@ ont:IndividualAgent a owl:Class ;
 ont:InitialSituation a owl:Class ;
     rdfs:label "Initial Situation" ;
     rdfs:subClassOf ont:Setup .
-
-ont:Object a owl:Class ;
-    rdfs:label "Object" ;
-    rdfs:subClassOf ont:Entity ;
-    owl:equivalentClass sem:Object .
 
 ont:PrimaryCharacter a owl:Class ;
     rdfs:label "Primary Character" ;
@@ -1064,8 +1051,8 @@ ont:knows a owl:ObjectProperty ;
     rdfs:label "Soulmate Searches For Hero"^^xsd:string ;
     ont:hasAgent <https://rbc.org/resources/agent/cinderella/cinderella>,
         <https://rbc.org/resources/agent/cinderella/prince>,
-        <https://rbc.org/resources/agent/cinderella/stepsister_1>,
-        <https://rbc.org/resources/agent/cinderella/stepsister_2> ;
+        <https://rbc.org/resources/agent/cinderella/stepsister_one>,
+        <https://rbc.org/resources/agent/cinderella/stepsister_two> ;
     ont:hasObject <https://rbc.org/resources/object/cinderella/glass_slipper> ;
     ont:hasPlace <https://rbc.org/resources/place/cinderella/hero_house> ;
     ont:postEvent <https://rbc.org/resources/event/cinderella/soulmate_reveals_hero_true_identity> ;
@@ -1075,8 +1062,8 @@ ont:knows a owl:ObjectProperty ;
     rdfs:label "Villains Insult Hero"^^xsd:string ;
     ont:hasAgent <https://rbc.org/resources/agent/cinderella/cinderella>,
         <https://rbc.org/resources/agent/cinderella/stepmother>,
-        <https://rbc.org/resources/agent/cinderella/stepsister_1>,
-        <https://rbc.org/resources/agent/cinderella/stepsister_2> ;
+        <https://rbc.org/resources/agent/cinderella/stepsister_one>,
+        <https://rbc.org/resources/agent/cinderella/stepsister_two> ;
     ont:hasPlace <https://rbc.org/resources/place/cinderella/hero_house> ;
     ont:postEvent <https://rbc.org/resources/event/cinderella/magical_helper_grants_wish> ;
     ont:preEvent <https://rbc.org/resources/event/cinderella/hero_works_hard> .
@@ -1136,7 +1123,7 @@ ont:knows a owl:ObjectProperty ;
 
 <https://rbc.org/resources/event/the_three_little_pigs/build_medium_resistant_house> a ont:InitialSituation ;
     rdfs:label "Build Medium Resistant House"^^xsd:string ;
-    ont:hasAgent <https://rbc.org/resources/agent/the_three_little_pigs/pig_2> ;
+    ont:hasAgent <https://rbc.org/resources/agent/the_three_little_pigs/pig_two> ;
     ont:hasObject <https://rbc.org/resources/object/the_three_little_pigs/stick> ;
     ont:hasPlace <https://rbc.org/resources/place/the_three_little_pigs/stick_house> ;
     ont:postEvent <https://rbc.org/resources/event/the_three_little_pigs/build_sturdy_house> ;
@@ -1144,7 +1131,7 @@ ont:knows a owl:ObjectProperty ;
 
 <https://rbc.org/resources/event/the_three_little_pigs/build_sturdy_house> a ont:InitialSituation ;
     rdfs:label "Build Sturdy House"^^xsd:string ;
-    ont:hasAgent <https://rbc.org/resources/agent/the_three_little_pigs/pig_3> ;
+    ont:hasAgent <https://rbc.org/resources/agent/the_three_little_pigs/pig_three> ;
     ont:hasObject <https://rbc.org/resources/object/the_three_little_pigs/brick> ;
     ont:hasPlace <https://rbc.org/resources/place/the_three_little_pigs/brick_house> ;
     ont:postEvent <https://rbc.org/resources/event/the_three_little_pigs/villain_attacks_flimsy_house> ;
@@ -1153,7 +1140,7 @@ ont:knows a owl:ObjectProperty ;
 <https://rbc.org/resources/event/the_three_little_pigs/villain_attacks_flimsy_house> a ont:Villainy ;
     rdfs:label "Villain Attacks Flimsy House"^^xsd:string ;
     ont:hasAgent <https://rbc.org/resources/agent/the_three_little_pigs/big_bad_wolf>,
-        <https://rbc.org/resources/agent/the_three_little_pigs/pig_1> ;
+        <https://rbc.org/resources/agent/the_three_little_pigs/pig_one> ;
     ont:hasPlace <https://rbc.org/resources/place/the_three_little_pigs/straw_house> ;
     ont:postEvent <https://rbc.org/resources/event/the_three_little_pigs/villain_attacks_medium_resistant_house> ;
     ont:preEvent <https://rbc.org/resources/event/the_three_little_pigs/build_sturdy_house> .
@@ -1161,8 +1148,8 @@ ont:knows a owl:ObjectProperty ;
 <https://rbc.org/resources/event/the_three_little_pigs/villain_attacks_medium_resistant_house> a ont:Villainy ;
     rdfs:label "Villain Attacks Medium Resistant House"^^xsd:string ;
     ont:hasAgent <https://rbc.org/resources/agent/the_three_little_pigs/big_bad_wolf>,
-        <https://rbc.org/resources/agent/the_three_little_pigs/pig_1>,
-        <https://rbc.org/resources/agent/the_three_little_pigs/pig_2> ;
+        <https://rbc.org/resources/agent/the_three_little_pigs/pig_one>,
+        <https://rbc.org/resources/agent/the_three_little_pigs/pig_two> ;
     ont:hasPlace <https://rbc.org/resources/place/the_three_little_pigs/stick_house> ;
     ont:postEvent <https://rbc.org/resources/event/the_three_little_pigs/villain_fails_sturdy_house> ;
     ont:preEvent <https://rbc.org/resources/event/the_three_little_pigs/villain_attacks_flimsy_house> .
@@ -1210,10 +1197,6 @@ sem:eventProperty a owl:ObjectProperty ;
 
 <http://www.gsi.upm.es/ontologies/pearl/ns#AgeGroup> a owl:Class .
 
-ont:Hero a owl:Class ;
-    rdfs:label "Hero" ;
-    rdfs:subClassOf ont:MainCharacter .
-
 ont:House a owl:Class ;
     rdfs:label "House" ;
     rdfs:subClassOf ont:Dwelling .
@@ -1221,6 +1204,11 @@ ont:House a owl:Class ;
 ont:NaturalPlace a owl:Class ;
     rdfs:label "Natural Place" ;
     rdfs:subClassOf ont:Place .
+
+ont:Object a owl:Class ;
+    rdfs:label "Object" ;
+    rdfs:subClassOf ont:Entity ;
+    owl:equivalentClass sem:Object .
 
 ont:ResolutionFunction a owl:Class ;
     rdfs:label "Resolution Function" ;
@@ -1267,20 +1255,16 @@ ont:Place a owl:Class ;
         sem:Place,
         schema:Place .
 
-ont:SecondaryCharacter a owl:Class ;
-    rdfs:label "Secondary Character" ;
-    rdfs:subClassOf ont:Role .
-
 ont:Setup a owl:Class ;
     rdfs:label "Setup" ;
     rdfs:subClassOf ont:Move .
 
-<https://rbc.org/resources/agent/the_three_little_pigs/pig_3> a ont:AnthropomorphicAnimal,
+<https://rbc.org/resources/agent/the_three_little_pigs/pig_three> a ont:AnthropomorphicAnimal,
         pearl:children ;
-    rdfs:label "Pig 3"^^xsd:string ;
+    rdfs:label "Pig Three"^^xsd:string ;
     ont:hasEnemy <https://rbc.org/resources/agent/the_three_little_pigs/big_bad_wolf> ;
-    ont:hasFamilyMember <https://rbc.org/resources/agent/the_three_little_pigs/pig_1>,
-        <https://rbc.org/resources/agent/the_three_little_pigs/pig_2> ;
+    ont:hasFamilyMember <https://rbc.org/resources/agent/the_three_little_pigs/pig_one>,
+        <https://rbc.org/resources/agent/the_three_little_pigs/pig_two> ;
     ont:hasPersonality pearl:Assertive,
         pearl:Eager ;
     ont:hasRole <https://rbc.org/resources/role/the_three_little_pigs/hero> ;
@@ -1301,24 +1285,28 @@ ont:Genre a owl:Class ;
     rdfs:label "Genre" ;
     owl:equivalentClass wd:Q223393 .
 
+ont:SecondaryCharacter a owl:Class ;
+    rdfs:label "Secondary Character" ;
+    rdfs:subClassOf ont:Role .
+
 <https://rbc.org/resources/agent/cinderella/stepmother> a ont:HumanBeing,
         pearl:adult ;
     rdfs:label "Stepmother"^^xsd:string ;
     ont:hasFamilyMember <https://rbc.org/resources/agent/cinderella/cinderella>,
-        <https://rbc.org/resources/agent/cinderella/stepsister_1>,
-        <https://rbc.org/resources/agent/cinderella/stepsister_2> ;
+        <https://rbc.org/resources/agent/cinderella/stepsister_one>,
+        <https://rbc.org/resources/agent/cinderella/stepsister_two> ;
     ont:hasPersonality pearl:Aggressive,
         pearl:Egocentric ;
     ont:hasRole <https://rbc.org/resources/role/cinderella/main_villain> ;
-    ont:knows <https://rbc.org/resources/agent/cinderella/stepsister_1> ;
+    ont:knows <https://rbc.org/resources/agent/cinderella/stepsister_one> ;
     ont:name "Lady Tremaine"^^xsd:string .
 
-<https://rbc.org/resources/agent/cinderella/stepsister_2> a ont:HumanBeing,
+<https://rbc.org/resources/agent/cinderella/stepsister_two> a ont:HumanBeing,
         pearl:young ;
-    rdfs:label "Stepsister 2"^^xsd:string ;
+    rdfs:label "Stepsister Two"^^xsd:string ;
     ont:hasFamilyMember <https://rbc.org/resources/agent/cinderella/cinderella>,
         <https://rbc.org/resources/agent/cinderella/stepmother>,
-        <https://rbc.org/resources/agent/cinderella/stepsister_1> ;
+        <https://rbc.org/resources/agent/cinderella/stepsister_one> ;
     ont:hasPersonality pearl:Impulsive,
         pearl:Joyful ;
     ont:hasRole <https://rbc.org/resources/role/cinderella/villain_minion> ;
@@ -1327,21 +1315,21 @@ ont:Genre a owl:Class ;
 <https://rbc.org/resources/agent/the_three_little_pigs/big_bad_wolf> a ont:AnthropomorphicAnimal,
         pearl:adult ;
     rdfs:label "Big Bad Wolf"^^xsd:string ;
-    ont:hasEnemy <https://rbc.org/resources/agent/the_three_little_pigs/pig_1>,
-        <https://rbc.org/resources/agent/the_three_little_pigs/pig_2>,
-        <https://rbc.org/resources/agent/the_three_little_pigs/pig_3> ;
+    ont:hasEnemy <https://rbc.org/resources/agent/the_three_little_pigs/pig_one>,
+        <https://rbc.org/resources/agent/the_three_little_pigs/pig_three>,
+        <https://rbc.org/resources/agent/the_three_little_pigs/pig_two> ;
     ont:hasPersonality pearl:Aggressive,
         pearl:Egocentric ;
     ont:hasRole <https://rbc.org/resources/role/the_three_little_pigs/villain> ;
     ont:livesIn <https://rbc.org/resources/place/the_three_little_pigs/near_forest> ;
     ont:name "Big bad wolf"^^xsd:string .
 
-<https://rbc.org/resources/agent/the_three_little_pigs/pig_2> a ont:AnthropomorphicAnimal,
+<https://rbc.org/resources/agent/the_three_little_pigs/pig_two> a ont:AnthropomorphicAnimal,
         pearl:children ;
-    rdfs:label "Pig 2"^^xsd:string ;
+    rdfs:label "Pig Two"^^xsd:string ;
     ont:hasEnemy <https://rbc.org/resources/agent/the_three_little_pigs/big_bad_wolf> ;
-    ont:hasFamilyMember <https://rbc.org/resources/agent/the_three_little_pigs/pig_1>,
-        <https://rbc.org/resources/agent/the_three_little_pigs/pig_3> ;
+    ont:hasFamilyMember <https://rbc.org/resources/agent/the_three_little_pigs/pig_one>,
+        <https://rbc.org/resources/agent/the_three_little_pigs/pig_three> ;
     ont:hasPersonality pearl:Impulsive,
         pearl:Joyful ;
     ont:hasRole <https://rbc.org/resources/role/the_three_little_pigs/hero_brother_2> ;
@@ -1356,24 +1344,24 @@ ont:Folktale a owl:Class ;
     rdfs:subClassOf schema:CreativeWork ;
     owl:equivalentClass wd:Q1221280 .
 
-<https://rbc.org/resources/agent/cinderella/stepsister_1> a ont:HumanBeing,
+<https://rbc.org/resources/agent/cinderella/stepsister_one> a ont:HumanBeing,
         pearl:young ;
-    rdfs:label "Stepsister 1"^^xsd:string ;
+    rdfs:label "Stepsister One"^^xsd:string ;
     ont:hasFamilyMember <https://rbc.org/resources/agent/cinderella/cinderella>,
         <https://rbc.org/resources/agent/cinderella/stepmother>,
-        <https://rbc.org/resources/agent/cinderella/stepsister_2> ;
+        <https://rbc.org/resources/agent/cinderella/stepsister_two> ;
     ont:hasPersonality pearl:Impulsive,
         pearl:Tense ;
     ont:hasRole <https://rbc.org/resources/role/cinderella/villain_minion> ;
     ont:knows <https://rbc.org/resources/agent/cinderella/stepmother> ;
     ont:name "Anastasia"^^xsd:string .
 
-<https://rbc.org/resources/agent/the_three_little_pigs/pig_1> a ont:AnthropomorphicAnimal,
+<https://rbc.org/resources/agent/the_three_little_pigs/pig_one> a ont:AnthropomorphicAnimal,
         pearl:children ;
-    rdfs:label "Pig 1"^^xsd:string ;
+    rdfs:label "Pig One"^^xsd:string ;
     ont:hasEnemy <https://rbc.org/resources/agent/the_three_little_pigs/big_bad_wolf> ;
-    ont:hasFamilyMember <https://rbc.org/resources/agent/the_three_little_pigs/pig_2>,
-        <https://rbc.org/resources/agent/the_three_little_pigs/pig_3> ;
+    ont:hasFamilyMember <https://rbc.org/resources/agent/the_three_little_pigs/pig_three>,
+        <https://rbc.org/resources/agent/the_three_little_pigs/pig_two> ;
     ont:hasPersonality pearl:Active,
         pearl:Sociable ;
     ont:hasRole <https://rbc.org/resources/role/the_three_little_pigs/hero_brother_1> ;
@@ -1435,8 +1423,8 @@ ont:Resolution a owl:Class ;
         pearl:young ;
     rdfs:label "Cinderella"^^xsd:string ;
     ont:hasFamilyMember <https://rbc.org/resources/agent/cinderella/stepmother>,
-        <https://rbc.org/resources/agent/cinderella/stepsister_1>,
-        <https://rbc.org/resources/agent/cinderella/stepsister_2> ;
+        <https://rbc.org/resources/agent/cinderella/stepsister_one>,
+        <https://rbc.org/resources/agent/cinderella/stepsister_two> ;
     ont:hasPersonality pearl:Active,
         pearl:Joyful,
         pearl:Sociable ;

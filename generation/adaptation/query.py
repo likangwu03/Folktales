@@ -4,7 +4,7 @@ from common.models.event import EventClass
 from common.models.role import RoleClass
 from common.models.place import PlaceClass
 from common.models.object import ObjectClass
-from common.regex_utils import snake_case_to_pascal_case
+from common.utils.regex_utils import snake_case_to_pascal_case
 
 class Query(BaseModel):
 	initial_event: str

@@ -1,5 +1,5 @@
 from pydantic import Field, BaseModel, ConfigDict
-from common.regex_utils import snake_case_regex
+from common.utils.regex_utils import snake_case_regex
 from enum import StrEnum
 
 class PlaceClass(StrEnum):
