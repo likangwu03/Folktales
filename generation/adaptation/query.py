@@ -7,7 +7,7 @@ from common.models.object import ObjectClass
 from common.utils.regex_utils import snake_case_to_pascal_case
 
 class Query(BaseModel):
-	initial_event: str
+	initial_event: EventClass
 	genre: GenreClass
 	events: list[EventClass] = Field(..., min_length=1, max_length=2)
 	role: list[RoleClass] = Field(..., min_length=1, max_length=2)
