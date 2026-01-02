@@ -48,9 +48,11 @@ def extract_relationships(model: BaseChatModel, folktale: str, agents: list[Agen
 			# print(relationship_prompt.format(folktale = folktale,
 			# 								agent_1 = agent_1.instance_name,
 			# 								agent_2 = agent_2.instance_name))
-			ai_messsage = relationship_chain.invoke({"folktale": folktale,
-													"agent_1": agent_1.instance_name,
-													"agent_2": agent_2.instance_name})
+			ai_messsage = relationship_chain.invoke({
+				"folktale": folktale,
+				"agent_1": agent_1.instance_name,
+				"agent_2": agent_2.instance_name
+			})
 			
 			content = ai_messsage.content
 			match = re.search(relationship_regex, content)

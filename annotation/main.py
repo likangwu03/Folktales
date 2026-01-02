@@ -4,7 +4,7 @@ from langchain_groq import ChatGroq
 from langchain_core.language_models.chat_models import BaseChatModel
 from annotation.evaluator.tree import EvaluatorTree
 from common.models.event import EventElements, EventMetadata, EventExample, Event, EventClass
-from common.utils.loader import load_folktale_csv, load_json_folder, save_folktale, data_dir, out_dir
+from common.utils.loader import load_folktale_csv, load_json_folder, save_annotated_folktale, data_dir, out_dir
 from annotation.tools.place_extractor import extract_places
 from annotation.tools.agent_extractor import extract_agents
 from annotation.tools.genre_extractor import extract_genre
@@ -12,6 +12,9 @@ from annotation.tools.event_extractor import extract_story_segments, extract_eve
 from annotation.tools.object_extractor import extract_objects
 from annotation.tools.relationship_extractor import extract_relationships
 from common.models.folktale import AnnotatedFolktale
+from pandas import DataFrame
+from annotation.visualization import show_genre_distribution
+from loguru import logger
 import os
 
 def get_model(temperature: float, remote: bool=False) -> BaseChatModel:
@@ -54,6 +57,20 @@ def get_event_example(folktale: AnnotatedFolktale, event_index: int):
 			return example
 	return None
 
+def get_folktales_by_count(folktales_df: DataFrame, start_index: int, n_folktales: int):
+	n_folktales_df = len(folktales_df)
+	end_index = min(start_index + n_folktales, n_folktales_df)
+
+	selected_folktales_df = folktales_df.iloc[start_index:end_index]
+
+	return selected_folktales_df
+
+def display_genre_distribution(enabled: bool=False):
+	if enabled:
+		folktales_json = load_json_folder(f"{out_dir}/annotated")
+		folktales = [AnnotatedFolktale(**folktale_json) for folktale_json in folktales_json.values()]
+		show_genre_distribution(folktales)
+
 def main():
 	load_dotenv()
 
@@ -62,14 +79,6 @@ def main():
 
 	hierarchies = load_json_folder(f"{data_dir}/hierarchies")
 
-	# event_hierarchy = hierarchies["event"]
-	# evaluator_tree = EvaluatorTree(event_hierarchy)
-	# evaluator_tree.print()
-
-	folktales = load_folktale_csv()
-	folktale = folktales.iloc[0]
-	momotaro = folktale["text"]
-
 	examples = load_json_folder(f"{data_dir}/examples/annotated")
 	cinderella = AnnotatedFolktale(**examples["cinderella"])
 
@@ -77,62 +86,77 @@ def main():
 	cinderella_hero_works_hard = get_event_example(cinderella, 0)
 	event_examples.append(cinderella_hero_works_hard)	
 
-	place_hierarchy = hierarchies["place"]
-	role_hierarchy = hierarchies["role"]
-	object_hierarchy = hierarchies["object"]
+	# event_hierarchy = hierarchies["event"]
+	# evaluator_tree = EvaluatorTree(event_hierarchy)
+	# evaluator_tree.print()
 
-	genre = extract_genre(model, momotaro)
+	folktales_df = load_folktale_csv()
+	selected_folktales_df = get_folktales_by_count(folktales_df, 0, 2)
 
-	objects = extract_objects(model, momotaro, object_hierarchy)
+	for _, row in selected_folktales_df.iterrows():
+		text = row["text"]
+		uri = row["source"].rstrip('/')
+		nation = row["nation"].lower()
+		title = row["title"]
 
-	places = extract_places(model, momotaro, place_hierarchy)
+		logger.info(f"Annotating '{title}'...")
 
-	agents = extract_agents(model, momotaro, cinderella.agents, places, role_hierarchy)
+		place_hierarchy = hierarchies["place"]
+		role_hierarchy = hierarchies["role"]
+		object_hierarchy = hierarchies["object"]
 
-	relationships = extract_relationships(model, momotaro, agents)
+		genre = extract_genre(model, text)
 
-	story_segments = extract_story_segments(model, momotaro)
+		objects = extract_objects(model, text, object_hierarchy)
 
-	events = []
-	for segment in story_segments:
-		event_metada = EventMetadata(
-			title=folktale["title"],
+		places = extract_places(model, text, place_hierarchy)
+
+		agents = extract_agents(model, text, cinderella.agents, places, role_hierarchy)
+
+		relationships = extract_relationships(model, text, agents)
+
+		story_segments = extract_story_segments(model, text)
+
+		events = []
+		for segment in story_segments:
+			event_metada = EventMetadata(
+				title=title,
+				agents=agents,
+				objects=objects,
+				places=places,
+				story_segment=segment
+			)
+
+			elements = extract_event_elements(model, event_metada, event_examples)
+
+			# Evaluator tree
+
+			event = Event(
+				class_name=EventClass.MOVE,
+				instance_name="instance_name",
+				description=segment,
+				agents=elements.agents,
+				objects=elements.objects,
+				place=elements.place
+			)
+
+			events.append(event)
+
+		folktale = AnnotatedFolktale(
+			uri=uri,
+			nation=nation,
+			has_genre=genre,
+			title=title,
+			relationships=relationships,
 			agents=agents,
-			objects=objects,
 			places=places,
-			story_segment=segment
+			objects=objects,
+			events=events
 		)
 
-		elements = extract_event_elements(model, event_metada, event_examples)
+		save_annotated_folktale(folktale, folktale.title)
 
-		# Evaluator tree
-
-		event = Event(
-			class_name=EventClass.MOVE,
-			instance_name="instance_name",
-			description=segment,
-			agents=elements.agents,
-			objects=elements.objects,
-			place=elements.place
-		)
-
-		events.append(event)
-
-	uri = folktale["source"].rstrip('/')
-
-	folktale = AnnotatedFolktale(
-	    uri=uri,
-	    nation=folktale["nation"],
-	    has_genre=genre,
-	    title=folktale["title"],
-		relationships=relationships,
-	    agents=agents,
-	    places=places,
-		objects=objects,
-		events=events
-	)
-
-	save_folktale(folktale)
+	display_genre_distribution(True)
 
 if __name__ == "__main__":
 	main()

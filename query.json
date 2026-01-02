@@ -1,4 +1,5 @@
 {
+    "title": "A Christmas Carol",
     "initial_event": "setup",
     "events": [
         "initial_situation"

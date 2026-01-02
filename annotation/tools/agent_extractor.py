@@ -84,10 +84,12 @@ def extract_agents(model: BaseChatModel, folktale: str, example: list[Agent], pl
     formatted_hierarchy = format_hierarchy(role_hierarchy)
     
     agent_chain = agent_prompt | model.with_structured_output(Agents)
-    agents = agent_chain.invoke({"folktale": folktale,
-                                 "example": example_json,
-                                 "places": formatted_places,
-                                 "role_hierarchy": formatted_hierarchy})
+    agents = agent_chain.invoke({
+        "folktale": folktale,
+        "example": example_json,
+        "places": formatted_places,
+        "role_hierarchy": formatted_hierarchy
+    })
     
     agents = cast(Agents, agents).agents
 

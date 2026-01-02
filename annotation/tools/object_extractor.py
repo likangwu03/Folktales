@@ -62,9 +62,11 @@ def extract_objects(model: BaseChatModel, folktale: str, object_hierarchy: dict)
    formatted_classes = format_classes(object_hierarchy)
 
    object_chain = object_prompt | model.with_structured_output(Objects)
-   objects = object_chain.invoke({"folktale": folktale,
-                                  "object_hierarchy": formatted_hierarchy,
-                                  "objects": formatted_classes})
+   objects = object_chain.invoke({
+      "folktale": folktale,
+      "object_hierarchy": formatted_hierarchy,
+      "objects": formatted_classes
+   })
    
    print(object_prompt.format(folktale = folktale,
                               object_hierarchy = formatted_hierarchy,

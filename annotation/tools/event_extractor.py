@@ -20,8 +20,6 @@ Focus on the key elements within each section, explicitly naming the characters 
 '''),
 
 		HumanMessagePromptTemplate.from_template(template='''Given the following folktale, divide it into at most {max_events} parts, with each part is a summary of a key event or progression. Do not to omit or alter any information in any section.
-										   
-In each summary, explicitly name the characters involved, any significant objects and the setting.
 
 Folktale:
 {folktale}
@@ -98,11 +96,11 @@ Important Guidelines:
 ''')
 
 def extract_event_elements(model: BaseChatModel, event: EventMetadata, examples: list[EventExample]):
-	few_show_examples = []
+	few_shot_examples = []
 
 	for example in examples:
-		output = example.output.model_dump(mode="json")
-		output_json = json.dumps(output, indent=4)
+		output_json = example.output.model_dump(mode="json")
+		output_json = json.dumps(output_json, indent=4)
 
 		few_shot_example = {
 			"title": example.title,
@@ -112,11 +110,11 @@ def extract_event_elements(model: BaseChatModel, event: EventMetadata, examples:
 			"story_segment": example.story_segment,
 			"output": output_json
 		}
-		few_show_examples.append(few_shot_example)
+		few_shot_examples.append(few_shot_example)
 	
 	few_shot_prompt = FewShotChatMessagePromptTemplate(
 		example_prompt=example_prompt,
-		examples=few_show_examples,
+		examples=few_shot_examples,
 	)
 
 	elements_prompt = ChatPromptTemplate.from_messages(
@@ -178,6 +176,6 @@ def extract_event_elements(model: BaseChatModel, event: EventMetadata, examples:
 			messages.append(human_message)
 			logger.error(content)
 
-		logger.debug(f"Event: {event.story_segment}\nFinal elements: {elements}")
+	logger.debug(f"Event: {event.story_segment}\nFinal elements: {elements}")
 
 	return elements

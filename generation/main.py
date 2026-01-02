@@ -2,10 +2,14 @@ from generation.ontology.event_retriever import EventRetriever
 from generation.ontology.similarity_calculator import LocalSemanticSimilarityCalculator
 from generation.adaptation.astar import ConstructiveAdaptation
 from generation.adaptation.query import Query
-from common.utils.loader import load_json_folder, data_dir
+from common.utils.loader import load_json_folder, load_txt_folder, data_dir, out_dir, save_raw_folktale, load_json
 from generation.ontology.folktale_graph import FolktaleOntology
 from loguru import logger
 from rdflib import Graph
+from dotenv import load_dotenv
+from generation.story_generator import generate_story
+from common.models.folktale import AnnotatedFolktale
+import os
 
 def create_graph(build: bool=False, render_html: bool=False) -> Graph:
     graph = FolktaleOntology()
@@ -31,28 +35,45 @@ def create_graph(build: bool=False, render_html: bool=False) -> Graph:
     return graph
 
 def main():
-    graph = create_graph(build=True,
-                         render_html=True)
+    load_dotenv()
+
+    # examples_dir = os.path.join(data_dir, "examples")
+    # raw_dir = os.path.join(examples_dir, "raw")
+    # annotated_dir = os.path.join(examples_dir, "annotated")
+    # examples_json = load_json_folder(annotated_dir)
+    # raw_examples = load_txt_folder(raw_dir)
     
-    # event_retriever = EventRetriever(graph)
-    # sim_calculator = LocalSemanticSimilarityCalculator(graph)
+    # keys = ["the_hare_and_the_tortoise"]
+    # examples = [(AnnotatedFolktale(**examples_json[key]), raw_examples[key]) for key in keys]
 
-    # query_json = load_json("./query.json")
+    # folktale = AnnotatedFolktale(**examples_json["cinderella"])
+    
+    # story = generate_story(folktale, examples)
 
-    # query = Query.model_validate(query_json)
+    # save_raw_folktale(story, folktale.title)
 
-    # logger.info(query)
+    graph = create_graph(build=False,
+                         render_html=False)
+    
+    event_retriever = EventRetriever(graph)
+    sim_calculator = LocalSemanticSimilarityCalculator(graph)
 
-    # weights = {
-    #     "genre": 0.30,
-    #     "event": 0.35,
-    #     "role": 0.15,
-    #     "place": 0.10,
-    #     "object": 0.10,
-    # }
+    query_json = load_json("./query.json")
 
-    # constructive_adaptation = ConstructiveAdaptation(graph, query.max_events, weights, event_retriever, sim_calculator)
-    # goal_node = constructive_adaptation.generate(query)
+    query = Query.model_validate(query_json)
+
+    logger.info(query)
+
+    weights = {
+        "genre": 0.30,
+        "event": 0.35,
+        "role": 0.15,
+        "place": 0.10,
+        "object": 0.10,
+    }
+
+    constructive_adaptation = ConstructiveAdaptation(graph, query.max_events, weights, event_retriever, sim_calculator)
+    goal_node = constructive_adaptation.generate(query)
 
 if __name__ == "__main__":
     main()

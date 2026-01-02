@@ -1,0 +1,245 @@
+{
+    "uri": "https://fairytalez.com/the-birdcatcher",
+    "nation": "serbian",
+    "title": "The Birdcatcher",
+    "has_genre": "fairy_tale",
+    "agents": [
+        {
+            "class_name": "human_being",
+            "instance_name": "birdcatcher",
+            "age_category": "adult",
+            "gender": "male",
+            "has_personality": [
+                "eager",
+                "depressive",
+                "cold"
+            ],
+            "has_role": {
+                "class_name": "main_character",
+                "instance_name": "birdcatcher"
+            }
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "wife",
+            "age_category": "adult",
+            "gender": "female",
+            "has_personality": [
+                "aggressive"
+            ],
+            "has_role": {
+                "class_name": "antagonist",
+                "instance_name": "wife"
+            }
+        }
+    ],
+    "relationships": [
+        {
+            "agent": 0,
+            "other": 0,
+            "relationship": "enemy"
+        }
+    ],
+    "places": [
+        {
+            "class_name": "city",
+            "instance_name": "constantinople_city"
+        },
+        {
+            "class_name": "settlement",
+            "instance_name": "birdcatcher_village"
+        },
+        {
+            "class_name": "building",
+            "instance_name": "emperors_palace_building"
+        },
+        {
+            "class_name": "natural_place",
+            "instance_name": "deep_sea_natural_place"
+        },
+        {
+            "class_name": "river",
+            "instance_name": "sea_river"
+        }
+    ],
+    "objects": [
+        {
+            "class_name": "magical_object",
+            "instance_name": "magic_ring"
+        },
+        {
+            "class_name": "crafted_object",
+            "instance_name": "boat"
+        },
+        {
+            "class_name": "natural_object",
+            "instance_name": "oil"
+        },
+        {
+            "class_name": "crafted_object",
+            "instance_name": "cage"
+        }
+    ],
+    "events": [
+        {
+            "class_name": "move",
+            "instance_name": "instance_name",
+            "description": "Near Constantinople there lived a man who knew no other occupation but that of catching birds; his neighbours called him the birdcatcher. Some he used to sell, others served him for food, and thus he maintained himself.",
+            "agents": [
+                0
+            ],
+            "objects": [],
+            "place": 0
+        },
+        {
+            "class_name": "move",
+            "instance_name": "instance_name",
+            "description": "One day he caught a crow, and wanted to let it go, but then he had nothing to take home.",
+            "agents": [
+                0
+            ],
+            "objects": [],
+            "place": 1
+        },
+        {
+            "class_name": "move",
+            "instance_name": "instance_name",
+            "description": "‘If I can’t catch anything to-day, I’ll take my children the crow, that they may amuse themselves; and they have no other birds at hand.’ So he intended, and so he did.",
+            "agents": [
+                0
+            ],
+            "objects": [],
+            "place": 1
+        },
+        {
+            "class_name": "move",
+            "instance_name": "instance_name",
+            "description": "His wife, on seeing the crow, said: ‘What mischief have you brought me? Wring the worthless thing’s neck!’ The crow, on hearing that sentence, besought the birdcatcher to let her go",
+            "agents": [
+                0,
+                1
+            ],
+            "objects": [
+                2
+            ],
+            "place": 4
+        },
+        {
+            "class_name": "move",
+            "instance_name": "instance_name",
+            "description": "‘I will bring birds to you; through me you will become prosperous.’ ‘Even if you’re lying, it’s no great loss,’ said the birdcatcher to himself, and set the crow at liberty.",
+            "agents": [
+                0
+            ],
+            "objects": [],
+            "place": 1
+        },
+        {
+            "class_name": "move",
+            "instance_name": "instance_name",
+            "description": "On the morrow the birdcatcher went out birdcatching as usual, and the crow kept her word; she brought him two nightingales; he caught them both, and took them home.",
+            "agents": [
+                0
+            ],
+            "objects": [],
+            "place": 1
+        },
+        {
+            "class_name": "move",
+            "instance_name": "instance_name",
+            "description": "The grand vizier heard of them, sent for the birdcatcher, took the two nightingales from him, and placed them in the new mosque.",
+            "agents": [
+                0
+            ],
+            "objects": [],
+            "place": 2
+        },
+        {
+            "class_name": "move",
+            "instance_name": "instance_name",
+            "description": "The nightingales were able to sing sweetly and agreeably; the people collected in front of the mosque and listened to their beautiful singing; and the wonder came to the ears of the emperor.",
+            "agents": [
+                0
+            ],
+            "objects": [],
+            "place": 4
+        },
+        {
+            "class_name": "move",
+            "instance_name": "instance_name",
+            "description": "The emperor summoned the grand vizier, took the birds from him, and inquired whence he had got them. When the emperor had thought the matter over, he sent his cavasses, and they summoned the birdcatcher.",
+            "agents": [
+                0
+            ],
+            "objects": [],
+            "place": 2
+        },
+        {
+            "class_name": "move",
+            "instance_name": "instance_name",
+            "description": "‘It’s no joke to go before the emperor! I know why he summons me; no half torture will be mine. I am guilty of nothing, I owe nothing; but the emperor’s will, that’s my crime!’ said the birdcatcher",
+            "agents": [
+                0
+            ],
+            "objects": [
+                2
+            ],
+            "place": 4
+        },
+        {
+            "class_name": "move",
+            "instance_name": "instance_name",
+            "description": "The crow instructed him, so he did. The emperor gave him the corn; he feasted the birds, caught the mother of the nightingales, and took her to the emperor.",
+            "agents": [
+                0
+            ],
+            "objects": [],
+            "place": 2
+        },
+        {
+            "class_name": "move",
+            "instance_name": "instance_name",
+            "description": "He received a handsome reward, but he would gladly have gone without such reward when he remembered how many tears he had shed.",
+            "agents": [
+                0
+            ],
+            "objects": [],
+            "place": 1
+        },
+        {
+            "class_name": "move",
+            "instance_name": "instance_name",
+            "description": "The new sultana was in a perpetual state of irritation, for it was poor luck to be obliged to be affectionate to an elderly longbeard. The emperor comforted her",
+            "agents": [
+                1
+            ],
+            "objects": [],
+            "place": 2
+        },
+        {
+            "class_name": "move",
+            "instance_name": "instance_name",
+            "description": "She wanted to revenge herself on the poor birdcatcher. ‘Dear Padishah, I had a valuable ring on my hand when that birdcatcher deluded me into the boat, and pushed it from the shore’.",
+            "agents": [
+                0
+            ],
+            "objects": [
+                0,
+                1
+            ],
+            "place": 4
+        },
+        {
+            "class_name": "move",
+            "instance_name": "instance_name",
+            "description": "The crow informed him what to do, but before he went, he was to give his wife a thoroughly good beating. His wife departed this life from so many blows",
+            "agents": [
+                0
+            ],
+            "objects": [
+                2
+            ],
+            "place": 0
+        }
+    ]
+}

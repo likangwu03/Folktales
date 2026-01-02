@@ -49,7 +49,7 @@
             "name": "Little Pig 1",
             "has_role": {
                 "class_name": "hero_family",
-                "instance_name": "hero_brother_1"
+                "instance_name": "hero_brother_one"
             }
         },
         {
@@ -65,7 +65,7 @@
             "name": "Little Pig 2",
             "has_role": {
                 "class_name": "hero_family",
-                "instance_name": "hero_brother_2"
+                "instance_name": "hero_brother_two"
             }
         },
         {

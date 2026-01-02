@@ -762,11 +762,11 @@ ont:preEvent a owl:ObjectProperty ;
 <https://rbc.org/resources/role/the_three_little_pigs/hero> a ont:Hero ;
     rdfs:label "Hero"^^xsd:string .
 
-<https://rbc.org/resources/role/the_three_little_pigs/hero_brother_1> a ont:HeroFamily ;
-    rdfs:label "Hero Brother 1"^^xsd:string .
+<https://rbc.org/resources/role/the_three_little_pigs/hero_brother_one> a ont:HeroFamily ;
+    rdfs:label "Hero Brother One"^^xsd:string .
 
-<https://rbc.org/resources/role/the_three_little_pigs/hero_brother_2> a ont:HeroFamily ;
-    rdfs:label "Hero Brother 2"^^xsd:string .
+<https://rbc.org/resources/role/the_three_little_pigs/hero_brother_two> a ont:HeroFamily ;
+    rdfs:label "Hero Brother Two"^^xsd:string .
 
 <https://rbc.org/resources/role/the_three_little_pigs/villain> a ont:Villain ;
     rdfs:label "Villain"^^xsd:string .
@@ -1332,7 +1332,7 @@ ont:SecondaryCharacter a owl:Class ;
         <https://rbc.org/resources/agent/the_three_little_pigs/pig_three> ;
     ont:hasPersonality pearl:Impulsive,
         pearl:Joyful ;
-    ont:hasRole <https://rbc.org/resources/role/the_three_little_pigs/hero_brother_2> ;
+    ont:hasRole <https://rbc.org/resources/role/the_three_little_pigs/hero_brother_two> ;
     ont:livesIn <https://rbc.org/resources/place/the_three_little_pigs/stick_house> ;
     ont:name "Little Pig 2"^^xsd:string .
 
@@ -1364,7 +1364,7 @@ ont:Folktale a owl:Class ;
         <https://rbc.org/resources/agent/the_three_little_pigs/pig_two> ;
     ont:hasPersonality pearl:Active,
         pearl:Sociable ;
-    ont:hasRole <https://rbc.org/resources/role/the_three_little_pigs/hero_brother_1> ;
+    ont:hasRole <https://rbc.org/resources/role/the_three_little_pigs/hero_brother_one> ;
     ont:name "Little Pig 1"^^xsd:string .
 
 sem:Type a owl:Class ;
