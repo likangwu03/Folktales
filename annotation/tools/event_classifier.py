@@ -123,6 +123,7 @@ def hierarchical_event_classification_with_desc(model: BaseChatModel, folktale_e
 	final_thinking = []
 	options_str,options_list = build_options_prompt(taxonomy_tree)
 	level = 0
+	final_thinking_str = ""
 
 	if verbose:
 		print("=== Inicio de clasificación jerárquica ===")
@@ -131,7 +132,6 @@ def hierarchical_event_classification_with_desc(model: BaseChatModel, folktale_e
 	while current_nodes:
 		votes = []
 		thoughts = []
-		final_thinking_str = "Previous decision or reasoning to consider:\n" + "\n".join(final_thinking)
 
 		if verbose:
 			print(f"\n--- Nivel {level} ---")
@@ -205,6 +205,8 @@ def hierarchical_event_classification_with_desc(model: BaseChatModel, folktale_e
 
 		current_nodes = current_nodes[winning_event]["children"]
 		previous_event = winning_event
+
+		final_thinking_str = "Previous decision or reasoning to consider:\n" + "\n".join(final_thinking)
 
 		if verbose:print(f"Descendiendo a los hijos de: {winning_event}")
 		level+=1
