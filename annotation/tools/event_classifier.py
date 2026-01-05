@@ -41,6 +41,8 @@ system_prompt = SystemMessagePromptTemplate.from_template(template="""You are an
 Instructions:
 - Select exactly ONE option from the list.
 - Each option is identified by its index number (0, 1, 2, ...).
+- The value returned in "response" MUST be a valid index within the bounds of the provided options list.
+- Do NOT return an index that is negative or greater than or equal to the number of available options.
 - Return ONLY the index number as an integer in "response".
 - Do NOT invent options or return natural language in "response".
 - If multiple options are applicable, select the one that is the most detailed and specific.
@@ -104,7 +106,7 @@ def extract_event(model: BaseChatModel, folktale_event: str, options:str, previo
 	return response.response, response.thinking
 
 
-def hierarchical_event_classification_with_desc(model: BaseChatModel, folktale_event: str, taxonomy_tree: dict, n_rounds: int = 3, max_attempts: int = 1, verbose: bool = False):
+def hierarchical_event_classification_with_desc(model: BaseChatModel, folktale_event: str, taxonomy_tree: dict, n_rounds: int = 3, verbose: bool = False):
 	"""
 	Clasifica un evento usando una taxonomía jerárquica con descripciones.
 
@@ -163,9 +165,7 @@ def hierarchical_event_classification_with_desc(model: BaseChatModel, folktale_e
 					print(f"  Justificación: {thinking}")
 
 		if not votes:
-			if max_attempts > 0:
-				return hierarchical_event_classification_with_desc(model,folktale_event,taxonomy_tree,n_rounds,max_attempts-1,verbose)
-			else: return previous_event, final_thinking
+			return previous_event, final_thinking
 
 		if verbose: print("\n---\n")
 
