@@ -9,6 +9,8 @@ from annotation.tools.place_extractor import extract_places
 from annotation.tools.agent_extractor import extract_agents
 from annotation.tools.genre_extractor import extract_genre
 from annotation.tools.event_extractor import extract_story_segments, extract_event_elements
+from annotation.tools.event_classifier import hierarchical_event_classification_with_desc
+from annotation.tools.event_instance_name import extract_event_instance_name
 from annotation.tools.object_extractor import extract_objects
 from annotation.tools.relationship_extractor import extract_relationships
 from common.models.folktale import AnnotatedFolktale
@@ -86,9 +88,7 @@ def main():
 	cinderella_hero_works_hard = get_event_example(cinderella, 0)
 	event_examples.append(cinderella_hero_works_hard)	
 
-	# event_hierarchy = hierarchies["event"]
-	# evaluator_tree = EvaluatorTree(event_hierarchy)
-	# evaluator_tree.print()
+	event_hierarchy = hierarchies["event_with_descriptions"]
 
 	folktales_df = load_folktale_csv()
 	selected_folktales_df = get_folktales_by_count(folktales_df, 0, 2)
@@ -130,10 +130,12 @@ def main():
 			elements = extract_event_elements(model, event_metada, event_examples)
 
 			# Evaluator tree
-
+			event_type, thinking = hierarchical_event_classification_with_desc(model=model,folktale_event=segment,taxonomy_tree=event_hierarchy,n_rounds=5,verbose = False)
+			instance_name = extract_event_instance_name(model,event_type,segment,"\n".join(thinking))
+			
 			event = Event(
-				class_name=EventClass.MOVE,
-				instance_name="instance_name",
+				class_name=EventClass(event_type),
+				instance_name=instance_name,
 				description=segment,
 				agents=elements.agents,
 				objects=elements.objects,

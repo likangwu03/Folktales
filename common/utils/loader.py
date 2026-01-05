@@ -7,12 +7,23 @@ import json
 import os
 
 def load_json(path: str):
+	"""
+	Carga un archivo JSON desde disco y lo devuelve como un objeto Python.
+	:param path: Ruta al archivo JSON
+	:return: Datos JSON parseados (dict o list)
+	"""
 	with open(path, "r", encoding="utf-8") as f:
 		data = json.load(f)
 
 	return data
 
 def load_json_folder(dir: str):
+	"""
+	Carga todos los archivos .json de un directorio en un diccionario.
+	La clave es el nombre del archivo sin extensión.
+	:param dir: Directorio que contiene los archivos JSON
+	:return: Dict[str, Any]
+	"""
 	files = {}
 	for file in os.listdir(dir):
 		if file.endswith(".json"):
@@ -24,6 +35,12 @@ def load_json_folder(dir: str):
 	return files
 
 def load_txt_folder(dir: str):
+	"""
+	Carga todos los archivos .txt de un directorio en un diccionario.
+	La clave es el nombre del archivo sin extensión.
+	:param dir: Directorio que contiene los archivos de texto
+	:return: Dict[str, str]
+	"""
 	files = {}
 	for file in os.listdir(dir):
 		if file.endswith(".txt"):
@@ -50,6 +67,11 @@ def load_folktale_csv():
 out_dir = "./out"
 
 def save_annotated_folktale(folktale: AnnotatedFolktale, filename: str):
+	"""
+	Serializa y guarda un cuento anotado en formato JSON.
+	:param folktale: Objeto AnnotatedFolktale (modelo Pydantic)
+	:param filename: Título original del cuento
+	"""
 	annotated_dir = os.path.join(out_dir, "annotated")
 
 	os.makedirs(annotated_dir, exist_ok=True)

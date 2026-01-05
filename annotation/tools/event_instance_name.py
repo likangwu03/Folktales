@@ -69,7 +69,7 @@ event_instance_prompt = ChatPromptTemplate.from_messages([
     human_prompt,
 ])
 
-def extract_event_instance_Name(model: BaseChatModel, event_type: str, event_text:str, thinking:str = "" ):
+def extract_event_instance_name(model: BaseChatModel, event_type: str, event_text:str, thinking:str = "" ):
 	event_chain = event_instance_prompt | model.with_structured_output(EventInstanceName)
 	response = event_chain.invoke({
 		"event_type": event_type,
