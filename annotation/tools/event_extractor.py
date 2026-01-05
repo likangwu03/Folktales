@@ -1,5 +1,5 @@
 from langchain_core.prompts import ChatPromptTemplate, HumanMessagePromptTemplate, SystemMessagePromptTemplate, FewShotChatMessagePromptTemplate, MessagesPlaceholder
-from langchain_core.messages import HumanMessage
+from langchain_core.messages import ToolMessage
 from common.models.event import StorySegments, MAX_EVENTS, EventElements, EventMetadata, EventExample
 from common.utils.format_utils import format_agents, format_objects, format_places
 from langchain_core.language_models.chat_models import BaseChatModel
@@ -138,14 +138,14 @@ def extract_event_elements(model: BaseChatModel, event: EventMetadata, examples:
 
 	done = False
 	while not done:
-		print(elements_prompt.format(story_segment=event.story_segment,
-									places=formatted_places,
-									objects=formatted_objects,
-									characters=formatted_agents,
-									title=event.title,
-									messages=messages))
-		
-		tool_message = elements_chain.invoke({
+		# logger.info(elements_prompt.format(story_segment=event.story_segment,
+		# 									places=formatted_places,
+		# 									objects=formatted_objects,
+		# 									characters=formatted_agents,
+		# 									title=event.title,
+		# 									messages=messages))
+
+		ai_message = elements_chain.invoke({
 			"story_segment": event.story_segment,
 			"places": formatted_places,
 			"objects": formatted_objects,
@@ -154,12 +154,12 @@ def extract_event_elements(model: BaseChatModel, event: EventMetadata, examples:
 			"messages": messages
 		})
 
-		messages.append(tool_message)
+		messages.append(ai_message)
 
 		done = True
 
 		try:
-			args = tool_message.tool_calls[0]["args"]
+			args = ai_message.tool_calls[0]["args"]
 			elements = EventElements.model_validate(args)
 		except ValidationError as e:
 			error_message = str(e)
@@ -172,8 +172,11 @@ def extract_event_elements(model: BaseChatModel, event: EventMetadata, examples:
 			done = not bool(content)
 
 		if not done:
-			human_message = HumanMessage(content)
-			messages.append(human_message)
+			tool_message = ToolMessage(
+				content=content,
+				tool_call_id=ai_message.tool_calls[0]["id"]
+			)
+			messages.append(tool_message)
 			logger.error(content)
 
 	logger.debug(f"Event: {event.story_segment}\nFinal elements: {elements}")
