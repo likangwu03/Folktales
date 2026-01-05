@@ -104,7 +104,7 @@ def extract_event(model: BaseChatModel, folktale_event: str, options:str, previo
 	return response.response, response.thinking
 
 
-def hierarchical_event_classification_with_desc(model: BaseChatModel, folktale_event: str, taxonomy_tree: dict, n_rounds: int = 3, verbose: bool = False):
+def hierarchical_event_classification_with_desc(model: BaseChatModel, folktale_event: str, taxonomy_tree: dict, n_rounds: int = 3, max_attempts: int = 1, verbose: bool = False):
 	"""
 	Clasifica un evento usando una taxonomía jerárquica con descripciones.
 
@@ -124,6 +124,7 @@ def hierarchical_event_classification_with_desc(model: BaseChatModel, folktale_e
 	options_str,options_list = build_options_prompt(taxonomy_tree)
 	level = 0
 	final_thinking_str = ""
+	# retry_count = 0
 
 	if verbose:
 		print("=== Inicio de clasificación jerárquica ===")
@@ -146,13 +147,25 @@ def hierarchical_event_classification_with_desc(model: BaseChatModel, folktale_e
 				options=options_str,
 				previous_thought=final_thinking_str
 			)
-			votes.append(event)
-			thoughts.append(thinking)
+			if 0 <= event < len(options_list):
+				votes.append(event)
+				thoughts.append(thinking)
 
-			if verbose:
-				print(f"\nLlamada al modelo ({i + 1}/{n_rounds})")
-				print(f"  Evento propuesto: {options_list[event]}")
-				print(f"  Justificación: {thinking}")
+				if verbose:
+					print(f"\nLlamada al modelo ({i + 1}/{n_rounds})")
+					print(f"  Evento propuesto: {options_list[event]}")
+					print(f"  Justificación: {thinking}")
+			else:
+				if verbose:
+					print("OUT OF RANGE")
+					print(f"\nLlamada al modelo ({i + 1}/{n_rounds})")
+					print(f"  Evento propuesto: {options_list[event]}")
+					print(f"  Justificación: {thinking}")
+
+		if not votes:
+			if max_attempts > 0:
+				return hierarchical_event_classification_with_desc(model,folktale_event,taxonomy_tree,n_rounds,max_attempts-1,verbose)
+			else: return previous_event, final_thinking
 
 		if verbose: print("\n---\n")
 

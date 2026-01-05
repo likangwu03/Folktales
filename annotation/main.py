@@ -130,7 +130,9 @@ def main():
 			elements = extract_event_elements(model, event_metada, event_examples)
 
 			# Evaluator tree
-			event_type, thinking = hierarchical_event_classification_with_desc(model=model,folktale_event=segment,taxonomy_tree=event_hierarchy,n_rounds=5,verbose = False)
+			event_type, thinking = hierarchical_event_classification_with_desc(model=model,folktale_event=segment,taxonomy_tree=event_hierarchy,n_rounds=5,max_attempts=1, verbose = False)
+			if event_type is None:
+				event_type = "move" #TODO
 			instance_name = extract_event_instance_name(model,event_type,segment,"\n".join(thinking))
 			
 			event = Event(
