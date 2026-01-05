@@ -120,10 +120,10 @@ def hierarchical_event_classification_with_desc(model: BaseChatModel, folktale_e
 		Tuple[str, str]: (evento final elegido, justificación final)
 	"""
 
-	current_nodes = taxonomy_tree["children"]
+	current_nodes = taxonomy_tree["event"]["children"]
 	previous_event = None
 	final_thinking = []
-	options_str,options_list = build_options_prompt(taxonomy_tree)
+	options_str,options_list = build_options_prompt(taxonomy_tree["event"])
 	level = 0
 	final_thinking_str = ""
 	# retry_count = 0

@@ -88,7 +88,7 @@ def main():
 	cinderella_hero_works_hard = get_event_example(cinderella, 0)
 	event_examples.append(cinderella_hero_works_hard)	
 
-	event_hierarchy = hierarchies["event_with_descriptions"]
+	event_hierarchy = hierarchies["event"]
 
 	folktales_df = load_folktale_csv()
 	selected_folktales_df = get_folktales_by_count(folktales_df, 0, 2)
