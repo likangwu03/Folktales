@@ -8,6 +8,7 @@ from common.models.place import Place
 from common.utils.format_utils import format_agents, format_objects, format_places
 
 class EventClass(StrEnum):
+	EVENT = "event"
 	# Move
 	MOVE = "move"
 

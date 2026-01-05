@@ -132,7 +132,7 @@ def main():
 			# Evaluator tree
 			event_type, thinking = hierarchical_event_classification_with_desc(model=model,folktale_event=segment,taxonomy_tree=event_hierarchy,n_rounds=3, verbose = False)
 			if event_type is None:
-				event_type = "move" #TODO
+				event_type = EventClass.EVENT
 			instance_name = extract_event_instance_name(model,event_type,segment,"\n".join(thinking))
 
 			
