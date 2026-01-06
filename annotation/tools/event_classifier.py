@@ -1,10 +1,9 @@
 from langchain_core.prompts import ChatPromptTemplate, HumanMessagePromptTemplate, SystemMessagePromptTemplate
 from langchain_core.language_models.chat_models import BaseChatModel
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, ConfigDict
 from collections import Counter
 from typing import Optional, cast
-
-from pydantic import BaseModel, Field, ConfigDict
+from common.utils.regex_utils import snake_case_regex
 
 class Response(BaseModel):
 	'''Model output for a single-option classification task.'''
@@ -32,11 +31,10 @@ class Response(BaseModel):
 			"Zero-based index of the selected option from the provided list. "
 			"The value must correspond to exactly one available option."
 		),
-		examples=[0, 2, 5],
 		ge=0  # Mayor o igual que 0
 	)
 
-system_prompt = SystemMessagePromptTemplate.from_template(template="""You are an expert narrative analysis assistant. Your task is to classify a text fragment by selecting the most specific narrative event from a closed list of options.
+class_system_prompt = SystemMessagePromptTemplate.from_template(template="""You are an expert narrative analysis assistant. Your task is to classify a text fragment by selecting the most specific narrative event from a closed list of options.
 
 Instructions:
 - Select exactly ONE option from the list.
@@ -58,18 +56,17 @@ Output format:
 }}
 """)
 
-human_prompt = HumanMessagePromptTemplate.from_template(
+class_human_prompt = HumanMessagePromptTemplate.from_template(
 	"""Text to classify:
 \"\"\"{event}\"\"\""""
 )
 
-event_prompt = ChatPromptTemplate.from_messages([
-	system_prompt,
-	human_prompt,
+class_prompt = ChatPromptTemplate.from_messages([
+	class_system_prompt,
+	class_human_prompt,
 ])
 
-
-def build_options_prompt(node: dict, self_name: Optional[str] = None) -> tuple[str, list]:
+def _build_options_prompt(node: dict, self_name: Optional[str] = None) -> tuple[str, list]:
 	options = []
 	
 	for child_id, info in node.get("children", {}).items():
@@ -85,7 +82,7 @@ def build_options_prompt(node: dict, self_name: Optional[str] = None) -> tuple[s
 
 	return "\n".join(lines), options
 
-def build_options_prompt_by_list(options: list) -> str:
+def _build_options_prompt_by_list(options: list) -> str:
 	lines = [
 		f"{idx}. {node_id}: {description}" 
 		for idx, (node_id, description) in enumerate(options)
@@ -93,9 +90,9 @@ def build_options_prompt_by_list(options: list) -> str:
 	return "\n".join(lines)
 
 
-def extract_event(model: BaseChatModel, folktale_event: str, options:str, previous_thought:str = "" ):
-	event_chain = event_prompt | model.with_structured_output(Response)
-	response = event_chain.invoke({
+def _extract_event(model: BaseChatModel, folktale_event: str, options: str, previous_thought: str = ""):
+	class_chain = class_prompt | model.with_structured_output(Response)
+	response = class_chain.invoke({
 		"options": options,
 		"event": folktale_event,
 		"previous_thought": previous_thought
@@ -106,7 +103,7 @@ def extract_event(model: BaseChatModel, folktale_event: str, options:str, previo
 	return response.response, response.thinking
 
 
-def hierarchical_event_classification_with_desc(model: BaseChatModel, folktale_event: str, taxonomy_tree: dict, n_rounds: int = 3, verbose: bool = False):
+def hierarchical_event_classification(model: BaseChatModel, folktale_event: str, taxonomy_tree: dict, n_rounds: int = 3, verbose: bool = False):
 	"""
 	Clasifica un evento usando una taxonomía jerárquica con descripciones.
 
@@ -117,16 +114,15 @@ def hierarchical_event_classification_with_desc(model: BaseChatModel, folktale_e
 		n_rounds: Número de veces a preguntar al LLM por cada nivel.
 
 	Returns:
-		Tuple[str, str]: (evento final elegido, justificación final)
+		tuple[str, str]: (evento final elegido, justificación final)
 	"""
 
 	current_nodes = taxonomy_tree["event"]["children"]
 	previous_event = None
 	final_thinking = []
-	options_str,options_list = build_options_prompt(taxonomy_tree["event"])
+	options_str,options_list = _build_options_prompt(taxonomy_tree["event"])
 	level = 0
 	final_thinking_str = ""
-	# retry_count = 0
 
 	if verbose:
 		print("=== Inicio de clasificación jerárquica ===")
@@ -143,13 +139,15 @@ def hierarchical_event_classification_with_desc(model: BaseChatModel, folktale_e
 
 		# Preguntar al LLM n_rounds veces
 		for i in range(n_rounds):
-			event, thinking = extract_event(
+			event, thinking = _extract_event(
 				model=model,
 				folktale_event=folktale_event,
 				options=options_str,
 				previous_thought=final_thinking_str
 			)
-			if 0 <= event < len(options_list):
+
+			# if 0 <= event < len(options_list):
+			if event >= 0 and event < len(options_list):
 				votes.append(event)
 				thoughts.append(thinking)
 
@@ -161,26 +159,26 @@ def hierarchical_event_classification_with_desc(model: BaseChatModel, folktale_e
 				if verbose:
 					print("OUT OF RANGE")
 					print(f"\nLlamada al modelo ({i + 1}/{n_rounds})")
-					print(f"  Evento propuesto: {options_list[event]}")
+					print(f"  Índice del evento: {event}")
 					print(f"  Justificación: {thinking}")
 
 		if not votes:
 			return previous_event, final_thinking
 
-		if verbose: print("\n---\n")
-
+		if verbose:
+			print("\n---\n")
+		
 		# Voto por mayoría
 		vote_count = Counter(votes)
 		max_freq = max(vote_count.values())
 		most_frequent = [v for v, c in vote_count.items() if c == max_freq]
 
 		winning_event = most_frequent[0]
-		# winning_event, _ = vote_count.most_common(1)[0]
 
-		if len(most_frequent)>1:
+		if len(most_frequent) > 1:
 			selected = [options_list[i] for i in most_frequent]
-			selected_str = build_options_prompt_by_list(selected)
-			event, thinking = extract_event(
+			selected_str = _build_options_prompt_by_list(selected)
+			event, thinking = _extract_event(
 				model=model,
 				folktale_event=folktale_event,
 				options=selected_str,
@@ -191,8 +189,11 @@ def hierarchical_event_classification_with_desc(model: BaseChatModel, folktale_e
 			if verbose:
 				print(f" Empate:")
 				print(selected_str)
-				print(f"  Evento propuesto: {selected[event]}")
+				print(f"  Índice del evento: {event}")
 				print(f"  Justificación: {thinking}")
+
+			if event >= 0 and event < len(selected):
+				return previous_event, final_thinking
 
 		final_thinking.extend(
 			thoughts[i] for i, v in enumerate(votes) if v == winning_event
@@ -207,22 +208,22 @@ def hierarchical_event_classification_with_desc(model: BaseChatModel, folktale_e
 			if verbose:
 				print("Evento repetido. Finalizando clasificación.")
 			return winning_event, final_thinking
-
+		
 		if not current_nodes[winning_event]["children"]:
 			if verbose:
 				print("El evento ganador no tiene hijos. Finalizando clasificación.")
-			return winning_event, final_thinking
+			return winning_event, final_thinking		
 		
-
-		options_str,options_list = build_options_prompt(current_nodes[winning_event],winning_event)
+		options_str,options_list = _build_options_prompt(current_nodes[winning_event],winning_event)
 
 		current_nodes = current_nodes[winning_event]["children"]
 		previous_event = winning_event
 
 		final_thinking_str = "Previous decision or reasoning to consider:\n" + "\n".join(final_thinking)
 
-		if verbose:print(f"Descendiendo a los hijos de: {winning_event}")
-		level+=1
+		if verbose:
+			print(f"Descendiendo a los hijos de: {winning_event}")
+			level += 1
 
 	if verbose:
 		print("\n=== Fin de clasificación ===")
@@ -231,3 +232,80 @@ def hierarchical_event_classification_with_desc(model: BaseChatModel, folktale_e
 
 	return previous_event, final_thinking
 
+class EventInstanceName(BaseModel):
+	"""
+	Model output for generating a generic snake_case narrative event identifier.
+	"""
+
+	model_config = ConfigDict(
+		str_strip_whitespace=True,
+		extra="forbid"
+	)
+
+	instance_name: str = Field(
+		...,
+		description=(
+			"Generic narrative event identifier in snake_case. "
+			"Must correspond to the event type and contain no story-specific details."
+		),
+		examples=[
+			"antagonist_rushes_to_finish_line",
+			"hero_passing_antagonist",
+			"loss_of_safe_space",
+			"magical_helper_grants_wish",
+			"hero_works_hard"
+		],
+		pattern=snake_case_regex,
+		min_length=1
+	)
+
+instance_system_prompt = SystemMessagePromptTemplate.from_template(
+	template="""You are an expert narrative annotation assistant.
+Your task is to generate a GENERIC instance name for a narrative event.
+
+You will be given:
+- The event type
+- The event text
+- A brief reasoning explaining why this is that event type
+
+Instructions:
+- Output ONLY a generic instance name.
+- Do NOT include specific characters, places, objects, or story-specific details.
+- The name must be abstract and reusable.
+- Use snake_case.
+- Do NOT repeat or summarize the input fields.
+- Do NOT output explanations or additional fields.
+
+Output format:
+{{
+	"instance_name": "generic_event_name"
+}}
+"""
+)
+
+instance_human_prompt = HumanMessagePromptTemplate.from_template(
+	template="""Event type:
+{event_type}
+
+Event text:
+\"\"\"{event_text}\"\"\"
+
+Reasoning:
+{thinking}
+"""
+)
+
+instance_prompt = ChatPromptTemplate.from_messages([
+	instance_system_prompt,
+	instance_human_prompt,
+])
+
+def extract_event_instance_name(model: BaseChatModel, event_type: str, event_text: str, thinking: str = ""):
+	instance_chain = instance_prompt | model.with_structured_output(EventInstanceName)
+	response = instance_chain.invoke({
+		"event_type": event_type,
+		"event_text": event_text,
+		"thinking": thinking
+	})
+	response = cast(EventInstanceName, response)
+	return response.instance_name

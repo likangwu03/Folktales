@@ -72,7 +72,7 @@ def main():
         "object": 0.10,
     }
 
-    constructive_adaptation = ConstructiveAdaptation(graph, query.max_events, weights, event_retriever, sim_calculator)
+    constructive_adaptation = ConstructiveAdaptation(graph, weights, event_retriever, sim_calculator, query.max_events)
     goal_node = constructive_adaptation.generate(query)
 
 if __name__ == "__main__":

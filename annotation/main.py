@@ -2,15 +2,13 @@ from dotenv import load_dotenv
 from langchain_ollama import ChatOllama
 from langchain_groq import ChatGroq
 from langchain_core.language_models.chat_models import BaseChatModel
-from annotation.evaluator.tree import EvaluatorTree
 from common.models.event import EventElements, EventMetadata, EventExample, Event, EventClass
 from common.utils.loader import load_folktale_csv, load_json_folder, save_annotated_folktale, data_dir, out_dir
 from annotation.tools.place_extractor import extract_places
 from annotation.tools.agent_extractor import extract_agents
 from annotation.tools.genre_extractor import extract_genre
 from annotation.tools.event_extractor import extract_story_segments, extract_event_elements
-from annotation.tools.event_classifier import hierarchical_event_classification_with_desc
-from annotation.tools.event_instance_name import extract_event_instance_name
+from annotation.tools.event_classifier import hierarchical_event_classification, extract_event_instance_name
 from annotation.tools.object_extractor import extract_objects
 from annotation.tools.relationship_extractor import extract_relationships
 from common.models.folktale import AnnotatedFolktale
@@ -19,23 +17,14 @@ from annotation.visualization import show_genre_distribution
 from loguru import logger
 import os
 
-def get_model(temperature: float, remote: bool=False) -> BaseChatModel:
-	if remote:
-		model = ChatGroq(
-			# api_key=os.environ.get("GROQ_API_KEY"),
-			model="llama-3.1-8b-instant",
-			temperature=temperature,
-			timeout=5.0,
-			max_retries=2
-		)
-	else:
-		model = ChatOllama(
-			base_url=os.environ.get("OLLAMA_HOST"),
-			model="llama3.1:8b",
-			num_gpu=-1,
-			validate_model_on_init=True,
-			temperature=temperature
-		)
+def get_model(temperature: float) -> BaseChatModel:
+	model = ChatOllama(
+		base_url=os.environ.get("OLLAMA_HOST"),
+		model="llama3.1:8b",
+		num_gpu=-1,
+		validate_model_on_init=True,
+		temperature=temperature
+	)
 	return model
 
 def get_event_example(folktale: AnnotatedFolktale, event_index: int):
@@ -76,8 +65,7 @@ def display_genre_distribution(enabled: bool=False):
 def main():
 	load_dotenv()
 
-	model = get_model(temperature=0.4,
-					  remote=False)
+	model = get_model(0.5)
 
 	hierarchies = load_json_folder(f"{data_dir}/hierarchies")
 
@@ -89,9 +77,12 @@ def main():
 	event_examples.append(cinderella_hero_works_hard)	
 
 	event_hierarchy = hierarchies["event"]
+	place_hierarchy = hierarchies["place"]
+	role_hierarchy = hierarchies["role"]
+	object_hierarchy = hierarchies["object"]
 
 	folktales_df = load_folktale_csv()
-	selected_folktales_df = get_folktales_by_count(folktales_df, 0, 2)
+	selected_folktales_df = get_folktales_by_count(folktales_df, 0, 1)
 
 	for _, row in selected_folktales_df.iterrows():
 		text = row["text"]
@@ -100,10 +91,6 @@ def main():
 		title = row["title"]
 
 		logger.info(f"Annotating '{title}'...")
-
-		place_hierarchy = hierarchies["place"]
-		role_hierarchy = hierarchies["role"]
-		object_hierarchy = hierarchies["object"]
 
 		genre = extract_genre(model, text)
 
@@ -129,12 +116,17 @@ def main():
 
 			elements = extract_event_elements(model, event_metada, event_examples)
 
-			# Evaluator tree
-			event_type, thinking = hierarchical_event_classification_with_desc(model=model,folktale_event=segment,taxonomy_tree=event_hierarchy,n_rounds=3, verbose = False)
+			event_type, thinking = hierarchical_event_classification(
+				model=model,
+				folktale_event=segment,
+				taxonomy_tree=event_hierarchy,
+				n_rounds=3,
+				verbose=True
+			)
+			
 			if event_type is None:
 				event_type = EventClass.EVENT
-			instance_name = extract_event_instance_name(model,event_type,segment,"\n".join(thinking))
-
+			instance_name = extract_event_instance_name(model, event_type, segment, "\n".join(thinking))
 			
 			event = Event(
 				class_name=EventClass(event_type),

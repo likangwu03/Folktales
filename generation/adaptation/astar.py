@@ -3,6 +3,7 @@ from generation.adaptation.node import Node
 from generation.adaptation.similarity import compute_event_similarity
 from generation.ontology.event_retriever import EventRetriever
 from generation.ontology.similarity_calculator import LocalSemanticSimilarityCalculator
+from common.models.event import MAX_EVENTS
 from rdflib import Graph
 from loguru import logger
 import heapq
@@ -13,7 +14,7 @@ class ConstructiveAdaptation:
 	max_events: int
 	weights: dict[str, float]
 	
-	def __init__(self, graph: Graph, max_events: int, weights: dict[str, float], retriever: EventRetriever, sim_calculator: LocalSemanticSimilarityCalculator):
+	def __init__(self, graph: Graph, weights: dict[str, float], retriever: EventRetriever, sim_calculator: LocalSemanticSimilarityCalculator, max_events: int = MAX_EVENTS):
 		self.graph = graph
 		self.max_events = max_events
 		self.weights = weights

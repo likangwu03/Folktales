@@ -30,8 +30,8 @@ Folktale:
 def extract_story_segments(model: BaseChatModel, folktale: str):
 	event_chain = event_prompt | model.with_structured_output(StorySegments)
 
-	# print(event_prompt.format(folktale=folktale,
-	# 					   	max_events=MAX_EVENTS))
+	print(event_prompt.format(folktale=folktale,
+						   	max_events=MAX_EVENTS))
 
 	events = event_chain.invoke({"folktale": folktale,
 							  	"max_events": MAX_EVENTS})
@@ -129,7 +129,7 @@ def extract_event_elements(model: BaseChatModel, event: EventMetadata, examples:
 	messages = []
 
 	tools = [EventElements]
-	elements_chain = elements_prompt | model.bind_tools(tools)
+	elements_chain = elements_prompt | model.bind_tools(tools, tool_choice="any")
 	# elements_chain = elements_prompt | model.with_structured_output(EventElements)
 
 	formatted_agents = format_agents(event.agents)
@@ -153,6 +153,8 @@ def extract_event_elements(model: BaseChatModel, event: EventMetadata, examples:
 			"title": event.title,
 			"messages": messages
 		})
+
+		print(ai_message)
 
 		messages.append(ai_message)
 

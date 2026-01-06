@@ -9,6 +9,7 @@ from common.utils.format_utils import format_agents, format_objects, format_plac
 
 class EventClass(StrEnum):
 	EVENT = "event"
+	
 	# Move
 	MOVE = "move"
 
