@@ -123,7 +123,7 @@
                                 "description": "Advice or direction provided by mentors to guide the hero.",
                                 "children": {}
                             },
-                            "return_event": {
+                            "return": {
                                 "description": "Partial or full return of the hero to a previous environment during preparation.",
                                 "children": {}
                             },

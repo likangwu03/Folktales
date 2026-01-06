@@ -20,15 +20,13 @@ class RoleClass(StrEnum):
     SECONDARY_CHARACTER = "secondary_character"
     HELPER = "helper"
     MAGICAL_HELPER = "magical_helper"
-    PRISIONER = "prisioner"
+    PRISONER = "prisoner"
     PRINCESS = "princess"
     QUEST_GIVER = "quest_giver"
     HERO_FAMILY = "hero_family" 
 
     # Tertiary characters
     TERTIARY_CHARACTER = "tertiary_character"
-
-# RoleClass = Literal["main_character", "hero", "antagonist", "villain", "false_hero", "helper", "magical_helper", "prisioner", "princess", "quest_giver", "hero_family"]
 
 class Role(BaseModel):
     '''A role that a character plays within the folktale.'''

@@ -201,7 +201,8 @@ def hierarchical_event_classification(model: BaseChatModel, folktale_event: str,
 		
 		winning_event = options_list[winning_event][0]
 
-		if verbose:print(f"  Evento propuesto: {winning_event}")
+		if verbose:
+			print(f"  Evento propuesto: {winning_event}")
 
 		# Si el evento se repite o no tiene hijos
 		if winning_event == previous_event:
@@ -225,10 +226,10 @@ def hierarchical_event_classification(model: BaseChatModel, folktale_event: str,
 			print(f"Descendiendo a los hijos de: {winning_event}")
 			level += 1
 
-	if verbose:
-		print("\n=== Fin de clasificación ===")
-		print(f"  Evento propuesto: {previous_event}")
-		print(f"  Justificación: {final_thinking}")
+	# if verbose:
+	print("\n=== Fin de clasificación ===")
+	print(f"  Evento propuesto: {previous_event}")
+	print(f"  Justificación: {final_thinking}")
 
 	return previous_event, final_thinking
 

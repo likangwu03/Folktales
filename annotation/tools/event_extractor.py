@@ -1,12 +1,11 @@
-from langchain_core.prompts import ChatPromptTemplate, HumanMessagePromptTemplate, SystemMessagePromptTemplate, FewShotChatMessagePromptTemplate, MessagesPlaceholder
-from langchain_core.messages import ToolMessage
+from langchain_core.prompts import ChatPromptTemplate, HumanMessagePromptTemplate, SystemMessagePromptTemplate, MessagesPlaceholder
+from langchain_core.messages import ToolMessage, HumanMessage, AIMessage, BaseMessage
 from common.models.event import StorySegments, MAX_EVENTS, EventElements, EventMetadata, EventExample
 from common.utils.format_utils import format_agents, format_objects, format_places
 from langchain_core.language_models.chat_models import BaseChatModel
 from pydantic_core import ValidationError
 from typing import cast
 from loguru import logger
-import json
 
 event_prompt = ChatPromptTemplate.from_messages(
 	[
@@ -65,13 +64,6 @@ Your task is to identify:
 Please return the index of the selected characters, objects and place from the lists provided above.
 ''')
 
-example_prompt = ChatPromptTemplate.from_messages(
-    [
-        human_prompt,
-        ("ai", "{output}"),
-    ]
-)
-
 system_prompt = SystemMessagePromptTemplate.from_template(template='''You are an AI designed to extract narrative elements from a segment of a folktale. Your task is to identify the characters, objects and location that are part of the segment provided.
 
 For this task, you will be provided with:
@@ -96,54 +88,71 @@ Important Guidelines:
 ''')
 
 def extract_event_elements(model: BaseChatModel, event: EventMetadata, examples: list[EventExample]):
-	few_shot_examples = []
+	few_shot_examples: list[BaseMessage] = []
 
-	for example in examples:
-		output_json = example.output.model_dump(mode="json")
-		output_json = json.dumps(output_json, indent=4)
+	for i, example in enumerate(examples):
+		output_dict = example.output.model_dump()
 
-		few_shot_example = {
-			"title": example.title,
-			"characters": format_agents(example.agents),
-			"objects": format_objects(example.objects),
-			"places": format_places(example.places),
-			"story_segment": example.story_segment,
-			"output": output_json
-		}
-		few_shot_examples.append(few_shot_example)
-	
-	few_shot_prompt = FewShotChatMessagePromptTemplate(
-		example_prompt=example_prompt,
-		examples=few_shot_examples,
-	)
+		id = str(i + 1)
+
+		human_message = human_prompt.format(
+			title=example.title,
+			characters=format_agents(example.agents),
+			objects=format_objects(example.objects),
+			places=format_places(example.places),
+			story_segment=example.story_segment,
+		)
+
+		human_message = HumanMessage(human_message.content, name=f"example_user")
+		few_shot_examples.append(human_message)
+
+		ai_message = AIMessage(
+			"",
+			name="example_assistant",
+			tool_calls=[{
+				"name": EventElements.__name__,
+				"args": output_dict,
+				"id": id
+			}]
+		)
+		few_shot_examples.append(ai_message)
+
+		tool_message = ToolMessage("", tool_call_id=id)
+		few_shot_examples.append(tool_message)
+
+	# for ex in few_shot_examples:
+	# 	ex.pretty_print()
 
 	elements_prompt = ChatPromptTemplate.from_messages(
 		[
 			system_prompt,	
-			few_shot_prompt,
+			MessagesPlaceholder(variable_name="few_shot_examples"),
 			human_prompt,
 			MessagesPlaceholder(variable_name="messages")
 		]
 	)
 
-	messages = []
+	messages: list[BaseMessage] = []
 
-	tools = [EventElements]
-	elements_chain = elements_prompt | model.bind_tools(tools, tool_choice="any")
-	# elements_chain = elements_prompt | model.with_structured_output(EventElements)
+	elements_chain = elements_prompt | model.bind_tools([EventElements], tool_choice="required")
 
 	formatted_agents = format_agents(event.agents)
 	formatted_objects = format_objects(event.objects)
 	formatted_places = format_places(event.places)
 
-	done = False
-	while not done:
-		# logger.info(elements_prompt.format(story_segment=event.story_segment,
-		# 									places=formatted_places,
-		# 									objects=formatted_objects,
-		# 									characters=formatted_agents,
-		# 									title=event.title,
-		# 									messages=messages))
+	success = False
+	while not success:
+		logger.info(
+			elements_prompt.format(
+				story_segment=event.story_segment,
+				places=formatted_places,
+				objects=formatted_objects,
+				characters=formatted_agents,
+				title=event.title,
+				few_shot_examples=few_shot_examples,
+				messages=messages
+			)
+		)
 
 		ai_message = elements_chain.invoke({
 			"story_segment": event.story_segment,
@@ -151,35 +160,44 @@ def extract_event_elements(model: BaseChatModel, event: EventMetadata, examples:
 			"objects": formatted_objects,
 			"characters": formatted_agents,
 			"title": event.title,
+			"few_shot_examples": few_shot_examples,
 			"messages": messages
 		})
 
-		print(ai_message)
+		# print(ai_message)
 
 		messages.append(ai_message)
 
-		done = True
+		error_message = None
 
-		try:
+		if not ai_message.tool_calls:
+			error_message = f"Respond using the {EventElements.__name__} function."
+			logger.error(error_message)
+			human_message = HumanMessage(error_message)
+			messages.append(human_message)
+		else:
 			args = ai_message.tool_calls[0]["args"]
-			elements = EventElements.model_validate(args)
-		except ValidationError as e:
-			error_message = str(e)
-			content = f"Validation error: {error_message}"
-			done = False
 
-		logger.debug(f"Event: {event.story_segment}\nElements: {args}")
-		if done:
-			content = elements.validate_indices(event.agents, event.objects, event.places)
-			done = not bool(content)
+			logger.debug(f"Event: {event.story_segment}\nElements: {args}")
 
-		if not done:
-			tool_message = ToolMessage(
-				content=content,
-				tool_call_id=ai_message.tool_calls[0]["id"]
-			)
-			messages.append(tool_message)
-			logger.error(content)
+			try:
+				elements = EventElements.model_validate(args)
+			except ValidationError as e:
+				error_message = f"Validation error: {e}"
+
+			if error_message is None:
+				# elements.place = -1
+				error_message = elements.validate_indices(event.agents, event.objects, event.places)
+
+			if error_message:
+				logger.error(error_message)
+				tool_message = ToolMessage(
+					error_message,
+					tool_call_id=ai_message.tool_calls[0]["id"]
+				)
+				messages.append(tool_message)
+
+		success = error_message is None
 
 	logger.debug(f"Event: {event.story_segment}\nFinal elements: {elements}")
 

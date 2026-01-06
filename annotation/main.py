@@ -121,7 +121,7 @@ def main():
 				folktale_event=segment,
 				taxonomy_tree=event_hierarchy,
 				n_rounds=3,
-				verbose=True
+				verbose=False
 			)
 			
 			if event_type is None:
