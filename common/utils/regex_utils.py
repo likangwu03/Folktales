@@ -6,6 +6,8 @@ snake_case_regex = r"^[a-z]+(_[a-z]+)*$"
 
 relationship_regex = r"Therefore, their relationship is:\s*['\"]?([^'\"\s.]+)"
 
+clean_regex = r"[^\w\s]"
+
 def split_camel_case(text: str):
 	'''Inserta espacios entre las minúsculas y mayúsculas.
 	

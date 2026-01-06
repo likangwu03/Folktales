@@ -4,6 +4,7 @@ from common.models.place import Place
 from common.models.object import Object
 from common.models.event import Event
 from enum import StrEnum
+from typing import Optional
 
 class GenreClass(StrEnum):
 	'''Enumeration of common genres of folktales, classified by typical themes, characters and narrative conventions.'''
@@ -19,7 +20,7 @@ class Genre(BaseModel):
 
 class AnnotatedFolktale(BaseModel):
 	uri: str
-	nation: str
+	nation: Optional[str] = None
 	title: str
 	has_genre: GenreClass
 	

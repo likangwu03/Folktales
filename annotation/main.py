@@ -3,6 +3,7 @@ from langchain_ollama import ChatOllama
 from langchain_core.language_models.chat_models import BaseChatModel
 from common.models.event import EventElements, EventMetadata, EventExample, Event, EventClass
 from common.utils.loader import load_folktale_csv, load_json_folder, save_annotated_folktale, data_dir, out_dir
+from common.utils.regex_utils import title_case_to_snake_case, clean_regex
 from annotation.tools.place_extractor import extract_places
 from annotation.tools.agent_extractor import extract_agents
 from annotation.tools.genre_extractor import extract_genre
@@ -16,6 +17,7 @@ from annotation.visualization import show_genre_distribution
 from loguru import logger
 import uuid
 import os
+import re
 
 def get_model(temperature: float) -> BaseChatModel:
 	model = ChatOllama(
@@ -106,14 +108,18 @@ def main():
 	object_hierarchy = hierarchies["object"]
 
 	folktales_df = load_folktale_csv()
-	selected_folktales_df = get_folktales_by_count(folktales_df, 750, 1000)
+	selected_folktales_df = get_folktales_by_count(folktales_df, 0, 5000)
 
 	for idx, row in selected_folktales_df.iterrows():
 		text = row["text"]
 		uri = row["source"].rstrip('/')
-		nation = row["nation"].lower()
+		nation = row["nation"]
+		if isinstance(nation, str):
+			nation = nation.lower()
+		else:
+			nation = None
 		title = row["title"]
-
+		
 		logger.debug(f"Annotating '{title}'...")
 
 		try:
@@ -175,7 +181,9 @@ def main():
 				objects=objects,
 				events=events
 			)
-			save_annotated_folktale(folktale, folktale.title)
+			filename = re.sub(clean_regex, "", title)
+			filename = title_case_to_snake_case(filename)
+			save_annotated_folktale(folktale, f"{idx}_{filename}")
 
 		except Exception:
 			logger.exception(

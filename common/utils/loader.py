@@ -81,7 +81,7 @@ def save_annotated_folktale(folktale: AnnotatedFolktale, filename: str):
 		exclude_none=True
 	)
 
-	output_file = title_case_to_snake_case(filename) + ".json"
+	output_file = filename + ".json"
 	path = os.path.join(annotated_dir, output_file)
 
 	with open(path, "w", encoding="utf-8") as f:
@@ -94,7 +94,7 @@ def save_raw_folktale(folktale: str, filename: str):
 
 	os.makedirs(raw_dir, exist_ok=True)
 
-	output_file = title_case_to_snake_case(filename) + ".txt"
+	output_file = filename + ".txt"
 	path = os.path.join(raw_dir, output_file)
 
 	with open(path, "w", encoding="utf-8") as f:
