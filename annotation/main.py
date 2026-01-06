@@ -16,7 +16,6 @@ from annotation.visualization import show_genre_distribution
 from loguru import logger
 import uuid
 import os
-from pydantic import BaseModel
 
 def get_model(temperature: float) -> BaseChatModel:
 	model = ChatOllama(
@@ -115,7 +114,7 @@ def main():
 		nation = row["nation"].lower()
 		title = row["title"]
 
-		logger.info(f"Annotating '{title}'...")
+		logger.debug(f"Annotating '{title}'...")
 
 		try:
 			genre = extract_genre(model, text)

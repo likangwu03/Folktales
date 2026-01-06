@@ -87,7 +87,7 @@ def save_annotated_folktale(folktale: AnnotatedFolktale, filename: str):
 	with open(path, "w", encoding="utf-8") as f:
 		json.dump(folktale_json, f, ensure_ascii=False, indent=4)
 
-	logger.debug(f"Annotated folktale saved sucessfully. Filename: {os.path.basename(path)}.")
+	logger.success(f"Annotated folktale saved sucessfully. Filename: {os.path.basename(path)}.")
 
 def save_raw_folktale(folktale: str, filename: str):
 	raw_dir = os.path.join(out_dir, "raw")

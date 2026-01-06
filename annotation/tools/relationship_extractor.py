@@ -45,9 +45,14 @@ def extract_relationships(model: BaseChatModel, folktale: str, agents: list[Agen
 	for i, agent_1 in enumerate(agents):
 		start = i + 1
 		for j, agent_2 in enumerate(agents[start:]):			
-			# print(relationship_prompt.format(folktale = folktale,
-			# 								agent_1 = agent_1.instance_name,
-			# 								agent_2 = agent_2.instance_name))
+			# logger.info(
+			# 	relationship_prompt.format(
+			# 		folktale = folktale,
+			# 		agent_1 = agent_1.instance_name,
+			# 		agent_2 = agent_2.instance_name
+			# 	)
+			# )
+
 			ai_messsage = relationship_chain.invoke({
 				"folktale": folktale,
 				"agent_1": agent_1.instance_name,

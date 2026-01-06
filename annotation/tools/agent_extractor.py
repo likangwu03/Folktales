@@ -99,6 +99,6 @@ def extract_agents(model: BaseChatModel, folktale: str, example: list[Agent], pl
             logger.warning(f"In agents: {agent.instance_name}. 'lives_in': {agent.lives_in} is out of bounds. It must be less than {n_places}.")
             agent.lives_in = None
     
-    logger.info(f"Characters: {agents}")
+    logger.debug(f"Characters: {agents}")
 
     return agents

@@ -76,10 +76,14 @@ def extract_places(model: BaseChatModel, folktale: str, place_hierarchy: dict):
       "places": formatted_classes
    })
    
-   # print(place_prompt.format(folktale = folktale,
-   #                         max_places = MAX_PLACES,
-   #                         place_hierarchy = formatted_hierarchy,
-   #                         places = formatted_classes))
+   # logger.info(
+   #    place_prompt.format(
+   #       folktale = folktale,
+   #       max_places = MAX_PLACES,
+   #       place_hierarchy = formatted_hierarchy,
+   #       places = formatted_classes
+   #    )
+   # )
    
    logger.debug(f"Places: {places}")
 

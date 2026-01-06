@@ -68,9 +68,13 @@ def extract_objects(model: BaseChatModel, folktale: str, object_hierarchy: dict)
       "objects": formatted_classes
    })
    
-   print(object_prompt.format(folktale = folktale,
-                              object_hierarchy = formatted_hierarchy,
-                              objects = formatted_classes))
+   # logger.info(
+   #    object_prompt.format(
+   #       folktale = folktale,
+   #       object_hierarchy = formatted_hierarchy,
+   #       objects = formatted_classes
+   #    )
+   # )
    
    logger.debug(f"Objects: {objects}")
 
