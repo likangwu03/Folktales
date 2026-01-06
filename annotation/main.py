@@ -16,6 +16,7 @@ from pandas import DataFrame
 from annotation.visualization import show_genre_distribution
 from loguru import logger
 import os
+import traceback
 
 def get_model(temperature: float) -> BaseChatModel:
 	model = ChatOllama(
@@ -63,6 +64,7 @@ def display_genre_distribution(enabled: bool=False):
 		show_genre_distribution(folktales)
 
 def main():
+	
 	load_dotenv()
 
 	model = get_model(0.5)
@@ -82,9 +84,9 @@ def main():
 	object_hierarchy = hierarchies["object"]
 
 	folktales_df = load_folktale_csv()
-	selected_folktales_df = get_folktales_by_count(folktales_df, 0, 1)
+	selected_folktales_df = get_folktales_by_count(folktales_df, 750, 1000)
 
-	for _, row in selected_folktales_df.iterrows():
+	for idx, row in selected_folktales_df.iterrows():
 		text = row["text"]
 		uri = row["source"].rstrip('/')
 		nation = row["nation"].lower()
@@ -92,66 +94,76 @@ def main():
 
 		logger.info(f"Annotating '{title}'...")
 
-		genre = extract_genre(model, text)
+		try:
+			genre = extract_genre(model, text)
 
-		objects = extract_objects(model, text, object_hierarchy)
+			objects = extract_objects(model, text, object_hierarchy)
 
-		places = extract_places(model, text, place_hierarchy)
+			places = extract_places(model, text, place_hierarchy)
 
-		agents = extract_agents(model, text, cinderella.agents, places, role_hierarchy)
+			agents = extract_agents(model, text, cinderella.agents, places, role_hierarchy)
 
-		relationships = extract_relationships(model, text, agents)
+			relationships = extract_relationships(model, text, agents)
 
-		story_segments = extract_story_segments(model, text)
+			story_segments = extract_story_segments(model, text)
 
-		events = []
-		for segment in story_segments:
-			event_metada = EventMetadata(
+			events = []
+			for segment in story_segments:
+				event_metada = EventMetadata(
+					title=title,
+					agents=agents,
+					objects=objects,
+					places=places,
+					story_segment=segment
+				)
+
+				elements = extract_event_elements(model, event_metada, event_examples)
+
+				event_type, thinking = hierarchical_event_classification(
+					model=model,
+					folktale_event=segment,
+					taxonomy_tree=event_hierarchy,
+					n_rounds=3,
+					verbose=False
+				)
+				
+				if event_type is None:
+					event_type = EventClass.EVENT
+				instance_name = extract_event_instance_name(model, event_type, segment, "\n".join(thinking))
+				
+				event = Event(
+					class_name=EventClass(event_type),
+					instance_name=instance_name,
+					description=segment,
+					agents=elements.agents,
+					objects=elements.objects,
+					place=elements.place
+				)
+
+				events.append(event)
+
+			folktale = AnnotatedFolktale(
+				uri=uri,
+				nation=nation,
+				has_genre=genre,
 				title=title,
+				relationships=relationships,
 				agents=agents,
-				objects=objects,
 				places=places,
-				story_segment=segment
+				objects=objects,
+				events=events
 			)
+			save_annotated_folktale(folktale, folktale.title)
 
-			elements = extract_event_elements(model, event_metada, event_examples)
+		except Exception as e:
+		# Guardar el error en un archivo
+			with open("errors.log", "a") as file:
+				file.write(f"Error: \n{e}\n{traceback.format_exc()}\n\n")
+			logger.error("Se ha registrado el error en errores.log")
+			logger.error(f"{title}: {idx}")
+			with open("df.log", "a") as file:
+				file.write(f"{idx}\n")
 
-			event_type, thinking = hierarchical_event_classification(
-				model=model,
-				folktale_event=segment,
-				taxonomy_tree=event_hierarchy,
-				n_rounds=3,
-				verbose=False
-			)
-			
-			if event_type is None:
-				event_type = EventClass.EVENT
-			instance_name = extract_event_instance_name(model, event_type, segment, "\n".join(thinking))
-			
-			event = Event(
-				class_name=EventClass(event_type),
-				instance_name=instance_name,
-				description=segment,
-				agents=elements.agents,
-				objects=elements.objects,
-				place=elements.place
-			)
-
-			events.append(event)
-
-		folktale = AnnotatedFolktale(
-			uri=uri,
-			nation=nation,
-			has_genre=genre,
-			title=title,
-			relationships=relationships,
-			agents=agents,
-			places=places,
-			objects=objects,
-			events=events
-		)
-
-		save_annotated_folktale(folktale, folktale.title)
 
 	display_genre_distribution(True)
 
