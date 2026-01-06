@@ -1,0 +1,380 @@
+{
+    "uri": "https://fairytalez.com/the-warlike-seven",
+    "nation": "north_american_native",
+    "title": "The Warlike Seven",
+    "has_genre": "fable",
+    "agents": [
+        {
+            "class_name": "group_of_agents",
+            "instance_name": "warriors_party",
+            "age_category": "adult",
+            "gender": "female",
+            "has_personality": [],
+            "has_role": {
+                "class_name": "primary_character",
+                "instance_name": "main_hero"
+            }
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "ashes",
+            "age_category": "adult",
+            "gender": "female",
+            "has_personality": [
+                "impulsive"
+            ],
+            "has_role": {
+                "class_name": "secondary_character",
+                "instance_name": "villain_minion"
+            }
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "fire",
+            "age_category": "adult",
+            "gender": "female",
+            "has_personality": [
+                "aggressive"
+            ],
+            "has_role": {
+                "class_name": "secondary_character",
+                "instance_name": "villain_minion"
+            }
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "bladder",
+            "age_category": "adult",
+            "gender": "female",
+            "has_personality": [
+                "assertive"
+            ],
+            "has_role": {
+                "class_name": "secondary_character",
+                "instance_name": "villain_minion"
+            }
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "grasshopper",
+            "age_category": "adult",
+            "gender": "female",
+            "has_personality": [
+                "joyful"
+            ],
+            "has_role": {
+                "class_name": "secondary_character",
+                "instance_name": "villain_minion"
+            }
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "dragonfly",
+            "age_category": "adult",
+            "gender": "female",
+            "has_personality": [
+                "tense"
+            ],
+            "has_role": {
+                "class_name": "secondary_character",
+                "instance_name": "villain_minion"
+            }
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "fish",
+            "age_category": "adult",
+            "gender": "female",
+            "has_personality": [
+                "assertive",
+                "joyful"
+            ],
+            "has_role": {
+                "class_name": "secondary_character",
+                "instance_name": "hero_soulmate"
+            }
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "turtle",
+            "age_category": "adult",
+            "gender": "female",
+            "has_personality": [
+                "impulsive"
+            ],
+            "has_role": {
+                "class_name": "secondary_character",
+                "instance_name": "hero_soulmate"
+            }
+        },
+        {
+            "class_name": "magical_creature",
+            "instance_name": "iktomis_kingdom",
+            "age_category": "adult",
+            "gender": "female",
+            "has_personality": [
+                "assertive"
+            ],
+            "has_role": {
+                "class_name": "tertiary_character",
+                "instance_name": "villain_minion"
+            }
+        }
+    ],
+    "relationships": [
+        {
+            "agent": 0,
+            "other": 1,
+            "relationship": "knows"
+        },
+        {
+            "agent": 0,
+            "other": 4,
+            "relationship": "family_member"
+        },
+        {
+            "agent": 0,
+            "other": 5,
+            "relationship": "knows"
+        },
+        {
+            "agent": 0,
+            "other": 6,
+            "relationship": "friend"
+        },
+        {
+            "agent": 0,
+            "other": 7,
+            "relationship": "enemy"
+        },
+        {
+            "agent": 2,
+            "other": 1,
+            "relationship": "knows"
+        },
+        {
+            "agent": 4,
+            "other": 1,
+            "relationship": "friend"
+        },
+        {
+            "agent": 5,
+            "other": 0,
+            "relationship": "friend"
+        },
+        {
+            "agent": 5,
+            "other": 1,
+            "relationship": "knows"
+        },
+        {
+            "agent": 6,
+            "other": 0,
+            "relationship": "knows"
+        },
+        {
+            "agent": 6,
+            "other": 1,
+            "relationship": "friend"
+        },
+        {
+            "agent": 7,
+            "other": 0,
+            "relationship": "knows"
+        }
+    ],
+    "places": [
+        {
+            "class_name": "river",
+            "instance_name": "warrior_river"
+        },
+        {
+            "class_name": "forest",
+            "instance_name": "great_wood"
+        },
+        {
+            "class_name": "village",
+            "instance_name": "round_village"
+        },
+        {
+            "class_name": "settlement",
+            "instance_name": "lake_shore_settlement"
+        },
+        {
+            "class_name": "kingdom",
+            "instance_name": "iktomis_kingdom"
+        }
+    ],
+    "objects": [
+        {
+            "class_name": "magical_object",
+            "instance_name": "thorn_apple"
+        },
+        {
+            "class_name": "crafted_object",
+            "instance_name": "knife"
+        }
+    ],
+    "events": [
+        {
+            "class_name": "setup",
+            "instance_name": "warriors_disrupted",
+            "description": "Seven warriors, including the Ashes, Fire, Bladder, Grasshopper, Dragon Fly, Fish, and Turtle, set out to make war, but their enthusiasm is disrupted when a wind blows away the Ashes. The remaining six continue on their mission.",
+            "agents": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+            ],
+            "objects": [],
+            "place": 0
+        },
+        {
+            "class_name": "move",
+            "instance_name": "group_crosses_water_feature",
+            "description": "The group descends into a deep valley and reaches a river, where the Fire says 'Hsss—tchu!' and disappears, leaving the other five to continue their journey.",
+            "agents": [
+                0,
+                1,
+                2,
+                4,
+                5
+            ],
+            "objects": [],
+            "place": 0
+        },
+        {
+            "class_name": "struggle",
+            "instance_name": "conflict_elimination",
+            "description": "While navigating through a great wood, the Bladder sneers at his companions and attempts to rise above them. He is pricked by a thorn apple and falls, eliminating him from the group.",
+            "agents": [
+                3
+            ],
+            "objects": [
+                0
+            ],
+            "place": 1
+        },
+        {
+            "class_name": "move",
+            "instance_name": "obstacle_encountered",
+            "description": "The four remaining warriors press on, with the Grasshopper and Dragon Fly taking the lead as they approach a marshy place. The Grasshopper's legs get stuck in the mud, causing him to pull them off and crawl away in distress.",
+            "agents": [
+                4,
+                5
+            ],
+            "objects": [],
+            "place": 0
+        },
+        {
+            "class_name": "struggle",
+            "instance_name": "emotional_collapse",
+            "description": "The Dragon Fly continues on, mourning his cousin's misfortune, but eventually loses control of himself due to excessive grief. His head comes off his neck, leaving him defeated as well.",
+            "agents": [
+                4
+            ],
+            "objects": [],
+            "place": 0
+        },
+        {
+            "class_name": "move",
+            "instance_name": "proceeding_to_new_location",
+            "description": "The Fish, the last warrior standing, is unmoved by the losses of his companions. He and the Turtle proceed to a large camp ground, where they are met with curiosity by the inhabitants of the village.",
+            "agents": [
+                6,
+                7
+            ],
+            "objects": [],
+            "place": 2
+        },
+        {
+            "class_name": "move",
+            "instance_name": "communication_breakdown",
+            "description": "The villagers, unaware of the warriors' true intentions, ask what brings them there. The Fish attempts to communicate using an unclear phrase, 'Shu… hi pi!', but no one understands its meaning.",
+            "agents": [
+                6
+            ],
+            "objects": [],
+            "place": 2
+        },
+        {
+            "class_name": "helper_move",
+            "instance_name": "helper_intervention_triggered_reaction",
+            "description": "A wise old man named Iktomi intervenes and translates the Fish's words as 'Zuya unhipi! We come to make war!' The villagers are shocked and decide to kill the warriors by boiling them in a fire.",
+            "agents": [
+                6
+            ],
+            "objects": [],
+            "place": 0
+        },
+        {
+            "class_name": "beginning_of_counteraction",
+            "instance_name": "antagonist_thwarts_plan",
+            "description": "The Fish, anticipating this plan, uses his powers to blow water all over the people, causing many to be burned and flee in pain.",
+            "agents": [
+                6
+            ],
+            "objects": [],
+            "place": 0
+        },
+        {
+            "class_name": "move",
+            "instance_name": "attempted_harm_deflection",
+            "description": "The villagers, realizing their mistake, try to drown the Fish and Turtle in the lake of muddy water. However, the Turtle dives into the center of the lake and proclaims it as his home, while the Fish swims around with playful darts.",
+            "agents": [
+                6,
+                7
+            ],
+            "objects": [],
+            "place": 4
+        },
+        {
+            "class_name": "helper_move",
+            "instance_name": "villagers_interrupted_consumption",
+            "description": "Panicked by this turn of events, the villagers decide to summon Iya, the Eater, to swallow the lake and eliminate the warriors. But before they can be consumed, Iktomi is swallowed along with them.",
+            "agents": [
+                8
+            ],
+            "objects": [],
+            "place": 3
+        },
+        {
+            "class_name": "move",
+            "instance_name": "character_drives_narrative_forward",
+            "description": "Iktomi uses his cunning within the stomach of Iya to strike a knife upward, releasing a massive amount of water that drowns the people in the village.",
+            "agents": [
+                8
+            ],
+            "objects": [
+                1
+            ],
+            "place": 4
+        },
+        {
+            "class_name": "arrival",
+            "instance_name": "hero_victory_return",
+            "description": "With the crisis resolved, the Fish and Turtle emerge from their hiding place, painted as victors and singing triumphantly. They return home with honor.",
+            "agents": [
+                6,
+                7
+            ],
+            "objects": [],
+            "place": 4
+        },
+        {
+            "class_name": "resolution",
+            "instance_name": "conflict_resolution_closure",
+            "description": "The story concludes with the victorious warriors returning home, leaving behind a tale of their bravery and cunning in the face of overwhelming odds.",
+            "agents": [
+                0
+            ],
+            "objects": [
+                0
+            ],
+            "place": 4
+        }
+    ]
+}

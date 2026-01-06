@@ -1,0 +1,366 @@
+{
+    "uri": "https://fairytalez.com/the-six-sillies",
+    "nation": "english",
+    "title": "The Six Sillies",
+    "has_genre": "fairy_tale",
+    "agents": [
+        {
+            "class_name": "human_being",
+            "instance_name": "bride",
+            "age_category": "adult",
+            "gender": "female",
+            "has_personality": [
+                "impulsive",
+                "tense"
+            ],
+            "has_role": {
+                "class_name": "primary_character",
+                "instance_name": "main_hero"
+            }
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "mother",
+            "age_category": "adult",
+            "gender": "female",
+            "has_personality": [
+                "sociable",
+                "joyful"
+            ],
+            "has_role": {
+                "class_name": "secondary_character",
+                "instance_name": "helper"
+            }
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "father",
+            "age_category": "adult",
+            "gender": "male",
+            "has_personality": [
+                "sociable",
+                "joyful"
+            ],
+            "has_role": {
+                "class_name": "secondary_character",
+                "instance_name": "helper"
+            }
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "lover",
+            "age_category": "young",
+            "gender": "male",
+            "has_personality": [
+                "assertive",
+                "eager"
+            ],
+            "has_role": {
+                "class_name": "primary_character",
+                "instance_name": "hero"
+            },
+            "lives_in": 0
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "man_with_walnuts",
+            "age_category": "adult",
+            "gender": "male",
+            "has_personality": [
+                "impulsive",
+                "tense"
+            ],
+            "has_role": {
+                "class_name": "tertiary_character",
+                "instance_name": "villain_minion"
+            }
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "man_with_acorns",
+            "age_category": "adult",
+            "gender": "male",
+            "has_personality": [
+                "impulsive",
+                "tense"
+            ],
+            "has_role": {
+                "class_name": "tertiary_character",
+                "instance_name": "villain_minion"
+            }
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "man_with_trousers",
+            "age_category": "adult",
+            "gender": "male",
+            "has_personality": [
+                "impulsive",
+                "tense"
+            ],
+            "has_role": {
+                "class_name": "tertiary_character",
+                "instance_name": "villain_minion"
+            }
+        }
+    ],
+    "relationships": [
+        {
+            "agent": 0,
+            "other": 0,
+            "relationship": "friend"
+        },
+        {
+            "agent": 0,
+            "other": 1,
+            "relationship": "family_member"
+        },
+        {
+            "agent": 0,
+            "other": 2,
+            "relationship": "knows"
+        },
+        {
+            "agent": 0,
+            "other": 3,
+            "relationship": "knows"
+        },
+        {
+            "agent": 0,
+            "other": 4,
+            "relationship": "knows"
+        },
+        {
+            "agent": 1,
+            "other": 0,
+            "relationship": "friend"
+        },
+        {
+            "agent": 1,
+            "other": 1,
+            "relationship": "knows"
+        },
+        {
+            "agent": 1,
+            "other": 2,
+            "relationship": "knows"
+        },
+        {
+            "agent": 1,
+            "other": 4,
+            "relationship": "knows"
+        },
+        {
+            "agent": 2,
+            "other": 1,
+            "relationship": "knows"
+        },
+        {
+            "agent": 2,
+            "other": 2,
+            "relationship": "knows"
+        },
+        {
+            "agent": 2,
+            "other": 3,
+            "relationship": "knows"
+        },
+        {
+            "agent": 3,
+            "other": 0,
+            "relationship": "knows"
+        },
+        {
+            "agent": 3,
+            "other": 1,
+            "relationship": "knows"
+        },
+        {
+            "agent": 4,
+            "other": 0,
+            "relationship": "knows"
+        },
+        {
+            "agent": 5,
+            "other": 0,
+            "relationship": "knows"
+        }
+    ],
+    "places": [
+        {
+            "class_name": "building",
+            "instance_name": "family_house"
+        },
+        {
+            "class_name": "natural_place",
+            "instance_name": "orchard"
+        },
+        {
+            "class_name": "forest",
+            "instance_name": "wood"
+        }
+    ],
+    "objects": [
+        {
+            "class_name": "crafted_object",
+            "instance_name": "jug_of_beer"
+        },
+        {
+            "class_name": "natural_object",
+            "instance_name": "oak_tree"
+        }
+    ],
+    "events": [
+        {
+            "class_name": "initial_situation",
+            "instance_name": "unmarriageable_protagonist",
+            "description": "A young girl reached the age of thirty-seven without ever having had a lover due to her foolishness, making her unmarriageable.",
+            "agents": [
+                0
+            ],
+            "objects": [],
+            "place": 0
+        },
+        {
+            "class_name": "initial_situation",
+            "instance_name": "initial_situation_setup",
+            "description": "A young man arrived at the girl's home and paid his addresses to her, causing her mother to send the girl down to the cellar to draw a jug of beer.",
+            "agents": [
+                0,
+                1,
+                2
+            ],
+            "objects": [
+                0
+            ],
+            "place": 0
+        },
+        {
+            "class_name": "move",
+            "instance_name": "character_mistake_occurs",
+            "description": "The girl forgot to close the tap while thinking about naming her future children, resulting in the beer running all over the floor.",
+            "agents": [
+                0
+            ],
+            "objects": [
+                0
+            ],
+            "place": 0
+        },
+        {
+            "class_name": "return",
+            "instance_name": "family_planning_setup",
+            "description": "The mother joined the girl on the stairs, and they both began thinking about names for their future children, with the father eventually joining them downstairs as well.",
+            "agents": [
+                0,
+                1,
+                2
+            ],
+            "objects": [],
+            "place": 0
+        },
+        {
+            "class_name": "beginning_of_counteraction",
+            "instance_name": "protagonist_discovers_family",
+            "description": "When neither family member returned upstairs, the young man grew impatient and went down to the cellar, where he found the three of them sitting together, surrounded by the spilled beer.",
+            "agents": [
+                0,
+                1,
+                2
+            ],
+            "objects": [
+                0
+            ],
+            "place": 0
+        },
+        {
+            "class_name": "move",
+            "instance_name": "prompted_departure",
+            "description": "The young man was asked what they should name their future children since all names in the calendar were taken, prompting him to leave in search of someone sillier than the family.",
+            "agents": [
+                0,
+                1,
+                2
+            ],
+            "objects": [],
+            "place": 0
+        },
+        {
+            "class_name": "move",
+            "instance_name": "proposed_improvement",
+            "description": "He encountered some people trying to load walnuts into a cart with a fork and suggested using a basket instead, thinking he had already found someone more foolish than the girl's family.",
+            "agents": [
+                4
+            ],
+            "objects": [],
+            "place": 0
+        },
+        {
+            "class_name": "receipt_object",
+            "instance_name": "provider_advice",
+            "description": "The young man continued on his way and came across a man trying to get his pig to climb an oak tree to eat acorns, but was told it would be easier if he climbed up himself and shook down the acorns for the pig to pick up.",
+            "agents": [
+                5
+            ],
+            "objects": [
+                1
+            ],
+            "place": 2
+        },
+        {
+            "class_name": "move",
+            "instance_name": "encounter_reflection",
+            "description": "He found another idiot in this situation, leaving him to think about how many more silly people he needed to find.",
+            "agents": [
+                4
+            ],
+            "objects": [],
+            "place": 0
+        },
+        {
+            "class_name": "move",
+            "instance_name": "struggle_with_clothing",
+            "description": "Further along his journey, the young man encountered a man trying to put on trousers by fastening them to a tree and jumping up to hit them with his legs.",
+            "agents": [
+                6
+            ],
+            "objects": [],
+            "place": 2
+        },
+        {
+            "class_name": "move",
+            "instance_name": "problem_resolution",
+            "description": "The young man advised the man to hold the trousers in his hands and put his legs into each hole separately, which the man found to be a clever solution he had not thought of.",
+            "agents": [
+                6
+            ],
+            "objects": [],
+            "place": 0
+        },
+        {
+            "class_name": "resolution",
+            "instance_name": "conflict_resolution_achieved",
+            "description": "Having found three people sillier than his bride's family, the young man decided to return and marry her, finally ending his search for someone more foolish.",
+            "agents": [
+                0,
+                1
+            ],
+            "objects": [
+                1
+            ],
+            "place": 1
+        },
+        {
+            "class_name": "get_throne",
+            "instance_name": "conflict_resolution_achieved",
+            "description": "The young man returned home and married the girl, and in time they had many children together.",
+            "agents": [
+                0,
+                1,
+                2
+            ],
+            "objects": [],
+            "place": 0
+        }
+    ]
+}

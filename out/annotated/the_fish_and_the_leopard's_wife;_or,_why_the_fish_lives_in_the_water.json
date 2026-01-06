@@ -1,0 +1,318 @@
+{
+    "uri": "https://fairytalez.com/the-fish-and-the-leopards-wife-or-why-the-fish-lives-in-the-water",
+    "nation": "nigerian",
+    "title": "The Fish and the Leopard's Wife; or, Why the Fish lives in the Water",
+    "has_genre": "fable",
+    "agents": [
+        {
+            "class_name": "human_being",
+            "instance_name": "king_eyo",
+            "age_category": "adult",
+            "gender": "male",
+            "has_personality": [
+                "assertive",
+                "eager"
+            ],
+            "has_role": {
+                "class_name": "primary_character",
+                "instance_name": "main_authority"
+            },
+            "lives_in": 3
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "leopard",
+            "age_category": "adult",
+            "gender": "male",
+            "has_personality": [
+                "assertive",
+                "eager"
+            ],
+            "has_role": {
+                "class_name": "secondary_character",
+                "instance_name": "wronged_party"
+            },
+            "lives_in": 1
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "leopard_wife",
+            "age_category": "young",
+            "gender": "female",
+            "has_personality": [
+                "joyful",
+                "impulsive"
+            ],
+            "has_role": {
+                "class_name": "secondary_character",
+                "instance_name": "villainous_victim"
+            },
+            "lives_in": 1
+        },
+        {
+            "class_name": "anthropomorphic_animal",
+            "instance_name": "fish",
+            "age_category": "adult",
+            "gender": "male",
+            "has_personality": [
+                "aggressive",
+                "egocentric"
+            ],
+            "has_role": {
+                "class_name": "villain",
+                "instance_name": "main_villain"
+            },
+            "lives_in": 2
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "old_woman",
+            "age_category": "adult",
+            "gender": "female",
+            "has_personality": [
+                "sociable",
+                "joyful"
+            ],
+            "has_role": {
+                "class_name": "secondary_character",
+                "instance_name": "informant"
+            },
+            "lives_in": 0
+        }
+    ],
+    "relationships": [
+        {
+            "agent": 0,
+            "other": 0,
+            "relationship": "friend"
+        },
+        {
+            "agent": 0,
+            "other": 2,
+            "relationship": "knows"
+        },
+        {
+            "agent": 1,
+            "other": 0,
+            "relationship": "friend"
+        },
+        {
+            "agent": 1,
+            "other": 1,
+            "relationship": "enemy"
+        },
+        {
+            "agent": 1,
+            "other": 2,
+            "relationship": "knows"
+        }
+    ],
+    "places": [
+        {
+            "class_name": "natural_place",
+            "instance_name": "calabar_bush"
+        },
+        {
+            "class_name": "building",
+            "instance_name": "leopard_house"
+        },
+        {
+            "class_name": "river",
+            "instance_name": "water"
+        },
+        {
+            "class_name": "settlement",
+            "instance_name": "calabar_city"
+        }
+    ],
+    "objects": [
+        {
+            "class_name": "natural_object",
+            "instance_name": "leopard_wife"
+        },
+        {
+            "class_name": "crafted_object",
+            "instance_name": "palaver_platform"
+        }
+    ],
+    "events": [
+        {
+            "class_name": "initial_situation",
+            "instance_name": "establishing_context",
+            "description": "King Eyo of Calabar was a great ruler who befriended the leopard, often visiting his house in the bush. The leopard had a fine wife whom the fish fell in love with.",
+            "agents": [
+                0,
+                1,
+                2,
+                3
+            ],
+            "objects": [],
+            "place": 1
+        },
+        {
+            "class_name": "move",
+            "instance_name": "illicit_encounter",
+            "description": "The fish would secretly visit the leopard's house when he was away, making love to the leopard's wife until an old woman nearby informed the leopard of the affair.",
+            "agents": [
+                1,
+                2,
+                4
+            ],
+            "objects": [
+                0
+            ],
+            "place": 1
+        },
+        {
+            "class_name": "move",
+            "instance_name": "investigation_action",
+            "description": "Initially, the leopard refused to believe the accusation against his friend, but after being told about it multiple times, he decided to investigate and catch the fish in the act.",
+            "agents": [
+                1,
+                3
+            ],
+            "objects": [],
+            "place": 2
+        },
+        {
+            "class_name": "lack_of_money",
+            "instance_name": "conflict_incited",
+            "description": "One night, the leopard returned home unexpectedly and found the fish with his wife; this discovery made him extremely angry.",
+            "agents": [
+                1,
+                2,
+                3
+            ],
+            "objects": [],
+            "place": 1
+        },
+        {
+            "class_name": "move",
+            "instance_name": "incident_reported",
+            "description": "However, instead of killing the fish himself, the leopard reported the incident to King Eyo, considering that his friend had betrayed him.",
+            "agents": [
+                0,
+                1
+            ],
+            "objects": [
+                0
+            ],
+            "place": 2
+        },
+        {
+            "class_name": "hero_departure",
+            "instance_name": "leopard_presents_case",
+            "description": "The king called a big palaver (meeting) where the leopard stated his case. The leopard's words were brief and straightforward, but the fish remained silent when given the opportunity to defend himself.",
+            "agents": [
+                1,
+                2,
+                3
+            ],
+            "objects": [
+                1
+            ],
+            "place": 0
+        },
+        {
+            "class_name": "move",
+            "instance_name": "king_address",
+            "description": "King Eyo addressed his subjects, saying that this was a grave betrayal by the fish who had been trusted by the leopard as a friend for so long.",
+            "agents": [
+                0,
+                1
+            ],
+            "objects": [
+                0
+            ],
+            "place": 2
+        },
+        {
+            "class_name": "beginning_of_counteraction",
+            "instance_name": "king_imposes_punishment",
+            "description": "The king then made an order: from now on, the fish would live in the water and if he ever came onto land, he would die. Additionally, all men and animals were instructed to kill and eat the fish whenever they caught him, as punishment for his actions.",
+            "agents": [
+                1,
+                3
+            ],
+            "objects": [],
+            "place": 2
+        },
+        {
+            "class_name": "villainy",
+            "instance_name": "villainous_consequence",
+            "description": "This decision was a direct result of the leopard's betrayal by his friend, leading to the king's severe punishment.",
+            "agents": [
+                0,
+                1
+            ],
+            "objects": [],
+            "place": 2
+        },
+        {
+            "class_name": "villainy",
+            "instance_name": "betrayal_consequences",
+            "description": "The story highlights the consequences of betraying trust and friendship.",
+            "agents": [
+                1,
+                2
+            ],
+            "objects": [],
+            "place": 2
+        },
+        {
+            "class_name": "move",
+            "instance_name": "ruler_makes_decision",
+            "description": "King Eyo ruled Calabar wisely and made decisions based on justice.",
+            "agents": [
+                0
+            ],
+            "objects": [],
+            "place": 0
+        },
+        {
+            "class_name": "move",
+            "instance_name": "leopard_reports_fish_actions",
+            "description": "The leopard's loyalty to King Eyo was evident in reporting the fish's actions without taking matters into his own hands.",
+            "agents": [
+                0,
+                1,
+                2
+            ],
+            "objects": [],
+            "place": 1
+        },
+        {
+            "class_name": "move",
+            "instance_name": "information_disclosure",
+            "description": "The old woman who informed the leopard about the affair played a crucial role in uncovering the truth.",
+            "agents": [
+                4
+            ],
+            "objects": [],
+            "place": 0
+        },
+        {
+            "class_name": "move",
+            "instance_name": "leopard_wife_involvement",
+            "description": "The leopard's wife remained silent throughout the story, but her involvement with the fish had significant consequences.",
+            "agents": [
+                1,
+                2
+            ],
+            "objects": [
+                0
+            ],
+            "place": 2
+        },
+        {
+            "class_name": "preparation",
+            "instance_name": "case_deliberation",
+            "description": "King Eyo was fair and just in his judgment, considering both sides of the case before making a decision.",
+            "agents": [
+                0
+            ],
+            "objects": [],
+            "place": 2
+        }
+    ]
+}

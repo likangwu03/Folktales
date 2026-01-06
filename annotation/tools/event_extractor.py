@@ -134,7 +134,7 @@ def extract_event_elements(model: BaseChatModel, event: EventMetadata, examples:
 
 	messages: list[BaseMessage] = []
 
-	elements_chain = elements_prompt | model.bind_tools([EventElements], tool_choice="required")
+	elements_chain = elements_prompt | model.bind_tools([EventElements], tool_choice="any")
 
 	formatted_agents = format_agents(event.agents)
 	formatted_objects = format_objects(event.objects)

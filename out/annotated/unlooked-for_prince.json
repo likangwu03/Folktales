@@ -1,0 +1,323 @@
+{
+    "uri": "https://fairytalez.com/unlooked-for-prince",
+    "nation": "slavic",
+    "title": "Unlooked-For Prince",
+    "has_genre": "fairy_tale",
+    "agents": [
+        {
+            "class_name": "human_being",
+            "instance_name": "the_king",
+            "age_category": "adult",
+            "gender": "male",
+            "has_personality": [
+                "depressive",
+                "impulsive"
+            ],
+            "has_role": {
+                "class_name": "main_character",
+                "instance_name": "the_king"
+            }
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "the_queen",
+            "age_category": "adult",
+            "gender": "female",
+            "has_personality": [
+                "cold",
+                "depressive"
+            ],
+            "has_role": {
+                "class_name": "main_character",
+                "instance_name": "the_queen"
+            }
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "the_prince",
+            "age_category": "young",
+            "gender": "male",
+            "has_personality": [
+                "cold",
+                "depressive"
+            ],
+            "has_role": {
+                "class_name": "main_character",
+                "instance_name": "the_prince"
+            }
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "king_kostiei",
+            "age_category": "adult",
+            "gender": "male",
+            "has_personality": [
+                "cold",
+                "depressive"
+            ],
+            "has_role": {
+                "class_name": "main_character",
+                "instance_name": "king_kostiei"
+            }
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "the_youngest_princess",
+            "age_category": "young",
+            "gender": "female",
+            "has_personality": [
+                "cold",
+                "depressive"
+            ],
+            "has_role": {
+                "class_name": "main_character",
+                "instance_name": "the_youngest_princess"
+            }
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "bee",
+            "age_category": "adult",
+            "gender": "female",
+            "has_personality": [
+                "cold",
+                "depressive"
+            ],
+            "has_role": {
+                "class_name": "main_character",
+                "instance_name": "the_bee"
+            }
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "soldiers",
+            "age_category": "adult",
+            "gender": "male",
+            "has_personality": [
+                "cold",
+                "depressive"
+            ],
+            "has_role": {
+                "class_name": "main_character",
+                "instance_name": "the_soldiers"
+            }
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "kostiei",
+            "age_category": "adult",
+            "gender": "male",
+            "has_personality": [
+                "cold",
+                "depressive"
+            ],
+            "has_role": {
+                "class_name": "main_character",
+                "instance_name": "kostiei"
+            }
+        }
+    ],
+    "relationships": [
+        {
+            "agent": 0,
+            "other": 3,
+            "relationship": "friend"
+        },
+        {
+            "agent": 0,
+            "other": 5,
+            "relationship": "knows"
+        },
+        {
+            "agent": 2,
+            "other": 2,
+            "relationship": "knows"
+        },
+        {
+            "agent": 2,
+            "other": 3,
+            "relationship": "enemy"
+        },
+        {
+            "agent": 2,
+            "other": 4,
+            "relationship": "enemy"
+        },
+        {
+            "agent": 3,
+            "other": 1,
+            "relationship": "knows"
+        },
+        {
+            "agent": 3,
+            "other": 2,
+            "relationship": "enemy"
+        }
+    ],
+    "places": [
+        {
+            "class_name": "city",
+            "instance_name": "kingdom_capital"
+        },
+        {
+            "class_name": "mountain",
+            "instance_name": "high_mountains"
+        },
+        {
+            "class_name": "forest",
+            "instance_name": "woods"
+        },
+        {
+            "class_name": "river",
+            "instance_name": "sea"
+        },
+        {
+            "class_name": "palace",
+            "instance_name": "kostiei_palace"
+        },
+        {
+            "class_name": "building",
+            "instance_name": "church"
+        }
+    ],
+    "objects": [
+        {
+            "class_name": "magical_object",
+            "instance_name": "golden_crown"
+        },
+        {
+            "class_name": "crafted_object",
+            "instance_name": "marble_palace"
+        },
+        {
+            "class_name": "natural_object",
+            "instance_name": "straw"
+        },
+        {
+            "class_name": "magical_object",
+            "instance_name": "ladybird"
+        }
+    ],
+    "events": [
+        {
+            "class_name": "setup",
+            "instance_name": "childlessness_problems_begin",
+            "description": "A long time ago there lived a king and queen who had no children, although they both wished very much for a little son. They tried not to let each other see how unhappy they were, and pretended to take pleasure in hunting and hawking and all sorts of other sports; but at length the king could bear it no longer, and declared that he must go and visit the furthest corners of his kingdom, and that it would be many months before he should return to his capital.By that time he hoped he would have so many things to think about that he would have forgotten to trouble about the little son who never came.",
+            "agents": [
+                0,
+                1
+            ],
+            "objects": [],
+            "place": 0
+        },
+        {
+            "class_name": "hero_departure",
+            "instance_name": "hero_gets_lost_in_desert",
+            "description": "The country the king reigned over was very large, and full of high, stony mountains and sandy deserts, so that it was not at all easy to go from one place to another. One day the king had wandered out alone, meaning to go only a little distance, but everything looked so alike he could not make out the path by which he had come. He walked on and on for hours, the sun beating hotly on his head, and his legs trembling under him, and he might have died of thirst if he had not suddenly stumbled on a little well, which looked as if it had been newly dug.",
+            "agents": [
+                0
+            ],
+            "objects": [],
+            "place": 0
+        },
+        {
+            "class_name": "move",
+            "instance_name": "attempt_to_grasp",
+            "description": "On the surface floated a silver cup with a golden handle, but as it bobbed about whenever the king tried to seize it, he was too thirsty to wait any longer and knelt down and drank his fill.When he had finished he began to rise from his knees, but somehow his beard seemed to have stuck fast in the water, and with all his efforts he could not pull it out.",
+            "agents": [
+                0
+            ],
+            "objects": [],
+            "place": 3
+        },
+        {
+            "class_name": "kidnapping",
+            "instance_name": "character_restrained_by_unexpected_entity",
+            "description": "After two or three jerks to his head, which only hurt him without doing any good, he called out angrily, ‘Let go at once! Who is holding me?’‘It is I, the King Kostiei,’ said a voice from the well, and looking up through the water he saw King Kostiei’s face.",
+            "agents": [
+                3
+            ],
+            "objects": [],
+            "place": 4
+        },
+        {
+            "class_name": "setup",
+            "instance_name": "initial_conflict_established",
+            "description": "The king was amazed to see the face of King Kostiei in the well. He asked him how it came there, but King Kostiei replied that he had been imprisoned by an evil spirit for many years and would not be freed until someone drank from the well.",
+            "agents": [
+                0,
+                3
+            ],
+            "objects": [],
+            "place": 4
+        },
+        {
+            "class_name": "solution_difficult_task",
+            "instance_name": "conflict_resolution_achieved",
+            "description": "The king decided to drink from the well and free King Kostiei. As soon as he did so, King Kostiei was released from his prison and thanked the king for freeing him.",
+            "agents": [
+                0,
+                3
+            ],
+            "objects": [],
+            "place": 4
+        },
+        {
+            "class_name": "setup",
+            "instance_name": "request_for_assistance",
+            "description": "King Kostiei then told the king that he had a daughter who was being held captive by an evil spirit in a far-off land. He asked the king to rescue her and bring her back to him.",
+            "agents": [
+                0,
+                3
+            ],
+            "objects": [],
+            "place": 4
+        },
+        {
+            "class_name": "setup",
+            "instance_name": "king_preparation",
+            "description": "The king agreed to help King Kostiei and set off on his journey to rescue the princess. When he arrived at the castle where the princess was being held, he found that it was surrounded by a moat filled with water.",
+            "agents": [
+                0,
+                3
+            ],
+            "objects": [],
+            "place": 4
+        },
+        {
+            "class_name": "guidance",
+            "instance_name": "receiving_guidance",
+            "description": "He then met the youngest princess who promised to help him. She told him not to worry about building the palace or recognizing her in disguise, but instead to focus on escaping from King Kostiei’s soldiers.",
+            "agents": [
+                0,
+                4
+            ],
+            "objects": [
+                2
+            ],
+            "place": 1
+        },
+        {
+            "class_name": "move",
+            "instance_name": "shape_shift_escape",
+            "description": "The prince and princess were able to escape from King Kostiei’s soldiers by changing themselves into different objects: a river, a bridge, a crow, and so on. They continued their journey until they reached the first church where they changed themselves again into a priest, a church, and a belfry.",
+            "agents": [
+                2,
+                4
+            ],
+            "objects": [],
+            "place": 5
+        },
+        {
+            "class_name": "resolution",
+            "instance_name": "conflict_resolution_achieved",
+            "description": "King Kostiei was unable to follow them beyond this point because his power only extended as far as the first church. The prince and princess were finally able to escape from him and continue their journey in peace.",
+            "agents": [
+                2,
+                4
+            ],
+            "objects": [],
+            "place": 5
+        }
+    ]
+}
