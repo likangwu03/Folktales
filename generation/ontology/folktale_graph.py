@@ -368,14 +368,14 @@ class FolktaleOntology(Graph):
 		if text:
 			self.add((subject, predicate, Literal(text, datatype = XSD.string)))
 			return True
-		logger.info(f"Invalid text: {text}")
+		logger.warning(f"Invalid text: {text}")
 		return False
 
 	def _try_add_existing_instance(self, subject, predicate, key, mapping_map):
 		if key in mapping_map:
 			self.add((subject, predicate, mapping_map[key]))
 			return True
-		logger.info(f"Invalid key: {key}")
+		logger.warning(f"Invalid key: {key}")
 		return False
 
 	def _try_add_existing_instances(self, subject, predicate, lst, mapping_map):
@@ -383,7 +383,7 @@ class FolktaleOntology(Graph):
 			for elem in lst:
 				self.add((subject, predicate, mapping_map[elem]))
 			return True
-		logger.info(f"Invalid list: {lst}")
+		logger.warning(f"Invalid list: {lst}")
 		return False
 
 	def resolve_ontology(self, ontology_reference: str):

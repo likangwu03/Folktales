@@ -158,26 +158,26 @@ class EventElements(BaseModel):
 		for agent_idx in self.agents:
 			if agent_idx < 0 or agent_idx >= n_agents:
 				content = (
-					f"Error: Agent index {agent_idx} is out of bounds. It must be between 0 and {n_agents - 1}. "
+					f"Agent index {agent_idx} is out of bounds. It must be between 0 and {n_agents - 1}. "
 					f"Please choose a valid character from the list below, or remove it if no longer needed:\n"
-					f"{formatted_agents}\n"
+					f"{formatted_agents}"
 				)
 				return content
 
 		for object_idx in self.objects:
 			if object_idx < 0 or object_idx >= n_objects:
 				content = (
-					f"Error: Object index {object_idx} is out of bounds. It must be between 0 and {n_objects - 1}. "
+					f"Object index {object_idx} is out of bounds. It must be between 0 and {n_objects - 1}. "
 					f"Please choose a valid object from the list below, or remove it if no longer needed:\n"
-					f"{formatted_objects}\n"
+					f"{formatted_objects}"
 				)
 				return content
 
 		if self.place < 0 or self.place >= n_places:
 			content = (
-				f"Error: Place index is out of bounds. It must be between 0 and {n_places - 1}. "
+				f"Place index is out of bounds. It must be between 0 and {n_places - 1}. "
 				f"Please choose a valid place from the list below:\n"
-				f"{formatted_places}\n"
+				f"{formatted_places}"
 			)
 			return content
 		

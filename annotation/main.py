@@ -1,6 +1,5 @@
 from dotenv import load_dotenv
 from langchain_ollama import ChatOllama
-from langchain_groq import ChatGroq
 from langchain_core.language_models.chat_models import BaseChatModel
 from common.models.event import EventElements, EventMetadata, EventExample, Event, EventClass
 from common.utils.loader import load_folktale_csv, load_json_folder, save_annotated_folktale, data_dir, out_dir
@@ -15,8 +14,9 @@ from common.models.folktale import AnnotatedFolktale
 from pandas import DataFrame
 from annotation.visualization import show_genre_distribution
 from loguru import logger
+import uuid
 import os
-import traceback
+from pydantic import BaseModel
 
 def get_model(temperature: float) -> BaseChatModel:
 	model = ChatOllama(
@@ -63,8 +63,31 @@ def display_genre_distribution(enabled: bool=False):
 		folktales = [AnnotatedFolktale(**folktale_json) for folktale_json in folktales_json.values()]
 		show_genre_distribution(folktales)
 
+def setup_logging(log_dir: str):
+	os.makedirs(log_dir, exist_ok=True)
+
+	run_id = uuid.uuid4().hex[:8]
+
+	log_format = (
+		"{time:YYYY-MM-DD HH:mm:ss} | "
+        "{level} | "
+        f"run={run_id} | "
+        "{message}"
+	)
+
+	logger.add(
+        f"{log_dir}/exceptions.log",
+        level="ERROR",
+		format=log_format,
+        backtrace=True,
+        diagnose=True,
+        encoding="utf-8",
+    )
+
 def main():
-	
+	log_dir = "./logs"
+	setup_logging(log_dir)
+
 	load_dotenv()
 
 	model = get_model(0.5)
@@ -155,14 +178,14 @@ def main():
 			)
 			save_annotated_folktale(folktale, folktale.title)
 
-		except Exception as e:
-		# Guardar el error en un archivo
-			with open("errors.log", "a") as file:
-				file.write(f"Error: \n{e}\n{traceback.format_exc()}\n\n")
-			logger.error("Se ha registrado el error en errores.log")
-			logger.error(f"{title}: {idx}")
-			with open("df.log", "a") as file:
-				file.write(f"{idx}\n")
+		except Exception:
+			logger.exception(
+        		"Error processing folktale | title={} | index={}",
+        		title,
+				idx
+    		)
+			with open(f"{log_dir}/failed_indexes.log", "a", encoding="utf-8") as f:
+				f.write(f"{idx}\n")
 
 
 	display_genre_distribution(True)

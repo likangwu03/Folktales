@@ -26,4 +26,4 @@ def show_genre_distribution(folktales: list[AnnotatedFolktale]):
 	save_fig(fig, filename)
 	# plt.show()
 
-	logger.info(f"Genre distribution plot saved as {filename}.")
+	logger.debug(f"Genre distribution plot saved as {filename}.")

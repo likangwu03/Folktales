@@ -60,7 +60,7 @@ def load_folktale_csv():
 
 	df = pd.read_csv(path)
 
-	logger.info(df.head())
+	logger.debug(df.head())
 	
 	return df
 
@@ -87,7 +87,7 @@ def save_annotated_folktale(folktale: AnnotatedFolktale, filename: str):
 	with open(path, "w", encoding="utf-8") as f:
 		json.dump(folktale_json, f, ensure_ascii=False, indent=4)
 
-	logger.info(f"Annotated folktale saved sucessfully. Filename: {os.path.basename(path)}.")
+	logger.debug(f"Annotated folktale saved sucessfully. Filename: {os.path.basename(path)}.")
 
 def save_raw_folktale(folktale: str, filename: str):
 	raw_dir = os.path.join(out_dir, "raw")
@@ -100,7 +100,7 @@ def save_raw_folktale(folktale: str, filename: str):
 	with open(path, "w", encoding="utf-8") as f:
 		f.write(folktale)
 	
-	logger.info(f"Raw folktale saved sucessfully. Filename: {os.path.basename(path)}.")
+	logger.debug(f"Raw folktale saved sucessfully. Filename: {os.path.basename(path)}.")
 
 def save_fig(fig: Figure, filename: str):
 	fig.savefig(filename, dpi=300, bbox_inches="tight")

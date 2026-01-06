@@ -87,7 +87,7 @@ Important Guidelines:
 - Be thorough in your analysis and ensure that you select only the relevant elements based on the context of the segment.
 ''')
 
-def extract_event_elements(model: BaseChatModel, event: EventMetadata, examples: list[EventExample]):
+def extract_event_elements(model: BaseChatModel, event: EventMetadata, examples: list[EventExample], max_attempts: int = 5):
 	few_shot_examples: list[BaseMessage] = []
 
 	for i, example in enumerate(examples):
@@ -140,19 +140,18 @@ def extract_event_elements(model: BaseChatModel, event: EventMetadata, examples:
 	formatted_objects = format_objects(event.objects)
 	formatted_places = format_places(event.places)
 
-	success = False
-	while not success:
-		logger.info(
-			elements_prompt.format(
-				story_segment=event.story_segment,
-				places=formatted_places,
-				objects=formatted_objects,
-				characters=formatted_agents,
-				title=event.title,
-				few_shot_examples=few_shot_examples,
-				messages=messages
-			)
-		)
+	for _ in range(max_attempts):
+		# logger.info(
+		# 	elements_prompt.format(
+		# 		story_segment=event.story_segment,
+		# 		places=formatted_places,
+		# 		objects=formatted_objects,
+		# 		characters=formatted_agents,
+		# 		title=event.title,
+		# 		few_shot_examples=few_shot_examples,
+		# 		messages=messages
+		# 	)
+		# )
 
 		ai_message = elements_chain.invoke({
 			"story_segment": event.story_segment,
@@ -172,7 +171,7 @@ def extract_event_elements(model: BaseChatModel, event: EventMetadata, examples:
 
 		if not ai_message.tool_calls:
 			error_message = f"Respond using the {EventElements.__name__} function."
-			logger.error(error_message)
+			logger.warning(error_message)
 			human_message = HumanMessage(error_message)
 			messages.append(human_message)
 		else:
@@ -190,15 +189,18 @@ def extract_event_elements(model: BaseChatModel, event: EventMetadata, examples:
 				error_message = elements.validate_indices(event.agents, event.objects, event.places)
 
 			if error_message:
-				logger.error(error_message)
+				logger.warning(error_message)
 				tool_message = ToolMessage(
 					error_message,
 					tool_call_id=ai_message.tool_calls[0]["id"]
 				)
 				messages.append(tool_message)
-
-		success = error_message is None
-
-	logger.debug(f"Event: {event.story_segment}\nFinal elements: {elements}")
-
-	return elements
+			else:
+				logger.debug(f"Event: {event.story_segment}\nFinal elements: {elements}")
+				return elements
+			
+	raise RuntimeError(
+		f"Failed to extract event elements after {max_attempts} attempts. "
+        f"Last error: {error_message} | "
+        f"Segment: {event.story_segment}"
+    )
