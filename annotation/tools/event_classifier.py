@@ -171,6 +171,8 @@ def hierarchical_event_classification(model: BaseChatModel, folktale_event: str,
 		# Voto por mayoría
 		vote_count = Counter(votes)
 		max_freq = max(vote_count.values())
+
+		#indice de evento 
 		most_frequent = [v for v, c in vote_count.items() if c == max_freq]
 
 		winning_event = most_frequent[0]
@@ -178,13 +180,13 @@ def hierarchical_event_classification(model: BaseChatModel, folktale_event: str,
 		if len(most_frequent) > 1:
 			selected = [options_list[i] for i in most_frequent]
 			selected_str = _build_options_prompt_by_list(selected)
+			# event: indice de evento de lista de most_frequent
 			event, thinking = _extract_event(
 				model=model,
 				folktale_event=folktale_event,
 				options=selected_str,
 				previous_thought=final_thinking_str
 			)
-			winning_event = most_frequent[event]
 
 			if verbose:
 				print(f" Empate:")
@@ -194,6 +196,8 @@ def hierarchical_event_classification(model: BaseChatModel, folktale_event: str,
 
 			if event >= 0 and event < len(selected):
 				return previous_event, final_thinking
+			
+			winning_event = most_frequent[event]
 
 		final_thinking.extend(
 			thoughts[i] for i, v in enumerate(votes) if v == winning_event
