@@ -84,12 +84,12 @@
     "relationships": [
         {
             "agent": 0,
-            "other": 2,
+            "other": 3,
             "relationship": "friend"
         },
         {
             "agent": 1,
-            "other": 1,
+            "other": 3,
             "relationship": "friend"
         }
     ],

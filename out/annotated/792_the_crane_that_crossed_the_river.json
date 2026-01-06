@@ -113,87 +113,87 @@
     "relationships": [
         {
             "agent": 0,
-            "other": 0,
+            "other": 1,
             "relationship": "enemy"
         },
         {
             "agent": 0,
-            "other": 1,
-            "relationship": "knows"
-        },
-        {
-            "agent": 0,
             "other": 2,
-            "relationship": "friend"
+            "relationship": "knows"
         },
         {
             "agent": 0,
             "other": 3,
-            "relationship": "family_member"
+            "relationship": "friend"
         },
         {
             "agent": 0,
             "other": 4,
+            "relationship": "family_member"
+        },
+        {
+            "agent": 0,
+            "other": 5,
             "relationship": "knows"
         },
         {
             "agent": 0,
+            "other": 6,
+            "relationship": "enemy"
+        },
+        {
+            "agent": 1,
+            "other": 2,
+            "relationship": "enemy"
+        },
+        {
+            "agent": 1,
+            "other": 3,
+            "relationship": "enemy"
+        },
+        {
+            "agent": 1,
             "other": 5,
             "relationship": "enemy"
         },
         {
             "agent": 1,
-            "other": 0,
-            "relationship": "enemy"
-        },
-        {
-            "agent": 1,
-            "other": 1,
-            "relationship": "enemy"
-        },
-        {
-            "agent": 1,
-            "other": 3,
-            "relationship": "enemy"
-        },
-        {
-            "agent": 1,
-            "other": 4,
+            "other": 6,
             "relationship": "enemy"
         },
         {
             "agent": 2,
-            "other": 1,
+            "other": 4,
             "relationship": "family_member"
         },
         {
             "agent": 3,
-            "other": 0,
+            "other": 4,
             "relationship": "friend"
         },
         {
             "agent": 3,
-            "other": 1,
+            "other": 5,
             "relationship": "friend"
         },
         {
             "agent": 3,
-            "other": 2,
+            "other": 6,
             "relationship": "family_member"
         },
         {
             "agent": 4,
-            "other": 0,
+            "other": 5,
             "relationship": "knows"
         },
         {
             "agent": 4,
-            "other": 1,
+            "other": 6,
             "relationship": "enemy"
         },
         {
             "agent": 5,
-            "other": 0,
+            "other": 6,
             "relationship": "enemy"
         }
     ],

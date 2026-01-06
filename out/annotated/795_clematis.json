@@ -37,7 +37,7 @@
     "relationships": [
         {
             "agent": 0,
-            "other": 0,
+            "other": 1,
             "relationship": "knows"
         }
     ],

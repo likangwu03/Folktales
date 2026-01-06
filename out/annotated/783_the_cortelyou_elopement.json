@@ -65,22 +65,22 @@
     "relationships": [
         {
             "agent": 0,
-            "other": 0,
+            "other": 1,
             "relationship": "enemy"
         },
         {
             "agent": 0,
-            "other": 1,
+            "other": 2,
             "relationship": "family_member"
         },
         {
             "agent": 0,
-            "other": 2,
+            "other": 3,
             "relationship": "friend"
         },
         {
             "agent": 1,
-            "other": 1,
+            "other": 3,
             "relationship": "enemy"
         }
     ],

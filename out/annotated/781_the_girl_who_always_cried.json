@@ -51,12 +51,12 @@
     "relationships": [
         {
             "agent": 0,
-            "other": 0,
+            "other": 1,
             "relationship": "enemy"
         },
         {
             "agent": 1,
-            "other": 0,
+            "other": 2,
             "relationship": "enemy"
         }
     ],
