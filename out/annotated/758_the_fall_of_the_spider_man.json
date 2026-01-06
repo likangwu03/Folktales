@@ -106,47 +106,47 @@
     "relationships": [
         {
             "agent": 0,
-            "other": 2,
-            "relationship": "enemy"
-        },
-        {
-            "agent": 0,
             "other": 3,
             "relationship": "enemy"
         },
         {
             "agent": 0,
-            "other": 5,
-            "relationship": "enemy"
-        },
-        {
-            "agent": 1,
-            "other": 1,
-            "relationship": "enemy"
-        },
-        {
-            "agent": 1,
-            "other": 2,
-            "relationship": "knows"
-        },
-        {
-            "agent": 1,
             "other": 4,
             "relationship": "enemy"
         },
         {
-            "agent": 2,
+            "agent": 0,
+            "other": 6,
+            "relationship": "enemy"
+        },
+        {
+            "agent": 1,
             "other": 3,
             "relationship": "enemy"
         },
         {
+            "agent": 1,
+            "other": 4,
+            "relationship": "knows"
+        },
+        {
+            "agent": 1,
+            "other": 6,
+            "relationship": "enemy"
+        },
+        {
+            "agent": 2,
+            "other": 6,
+            "relationship": "enemy"
+        },
+        {
             "agent": 3,
-            "other": 2,
+            "other": 6,
             "relationship": "enemy"
         },
         {
             "agent": 5,
-            "other": 0,
+            "other": 6,
             "relationship": "enemy"
         }
     ],

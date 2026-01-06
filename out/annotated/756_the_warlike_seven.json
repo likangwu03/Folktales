@@ -65,12 +65,12 @@
     "relationships": [
         {
             "agent": 1,
-            "other": 0,
+            "other": 2,
             "relationship": "friend"
         },
         {
             "agent": 2,
-            "other": 0,
+            "other": 3,
             "relationship": "friend"
         }
     ],

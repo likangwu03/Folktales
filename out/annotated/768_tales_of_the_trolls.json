@@ -137,21 +137,11 @@
     "relationships": [
         {
             "agent": 0,
-            "other": 0,
+            "other": 1,
             "relationship": "family_member"
         },
         {
             "agent": 0,
-            "other": 1,
-            "relationship": "knows"
-        },
-        {
-            "agent": 1,
-            "other": 1,
-            "relationship": "knows"
-        },
-        {
-            "agent": 1,
             "other": 2,
             "relationship": "knows"
         },
@@ -162,37 +152,47 @@
         },
         {
             "agent": 1,
-            "other": 6,
+            "other": 4,
+            "relationship": "knows"
+        },
+        {
+            "agent": 1,
+            "other": 5,
+            "relationship": "knows"
+        },
+        {
+            "agent": 1,
+            "other": 8,
             "relationship": "enemy"
         },
         {
             "agent": 3,
-            "other": 0,
+            "other": 4,
             "relationship": "knows"
         },
         {
             "agent": 3,
-            "other": 2,
+            "other": 6,
             "relationship": "knows"
         },
         {
             "agent": 4,
-            "other": 0,
+            "other": 5,
             "relationship": "knows"
         },
         {
             "agent": 5,
-            "other": 0,
+            "other": 6,
             "relationship": "knows"
         },
         {
             "agent": 5,
-            "other": 1,
+            "other": 7,
             "relationship": "knows"
         },
         {
             "agent": 7,
-            "other": 0,
+            "other": 8,
             "relationship": "enemy"
         }
     ],

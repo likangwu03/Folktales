@@ -44,7 +44,9 @@ def extract_relationships(model: BaseChatModel, folktale: str, agents: list[Agen
 	relationships = []
 	for i, agent_1 in enumerate(agents):
 		start = i + 1
-		for j, agent_2 in enumerate(agents[start:]):			
+		for j, agent_2 in enumerate(agents[start:], start=start):
+			# print(i, j)
+			
 			# logger.info(
 			# 	relationship_prompt.format(
 			# 		folktale = folktale,

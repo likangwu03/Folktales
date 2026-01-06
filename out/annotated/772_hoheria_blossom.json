@@ -143,92 +143,92 @@
     "relationships": [
         {
             "agent": 0,
-            "other": 4,
+            "other": 5,
             "relationship": "friend"
         },
         {
             "agent": 0,
-            "other": 5,
+            "other": 6,
             "relationship": "knows"
         },
         {
             "agent": 1,
-            "other": 1,
+            "other": 3,
             "relationship": "friend"
         },
         {
             "agent": 1,
-            "other": 2,
+            "other": 4,
             "relationship": "friend"
         },
         {
             "agent": 1,
-            "other": 5,
+            "other": 7,
             "relationship": "knows"
         },
         {
             "agent": 1,
+            "other": 8,
+            "relationship": "knows"
+        },
+        {
+            "agent": 2,
+            "other": 5,
+            "relationship": "knows"
+        },
+        {
+            "agent": 2,
             "other": 6,
             "relationship": "knows"
         },
         {
             "agent": 2,
-            "other": 2,
+            "other": 7,
             "relationship": "knows"
         },
         {
             "agent": 2,
-            "other": 3,
-            "relationship": "knows"
-        },
-        {
-            "agent": 2,
-            "other": 4,
-            "relationship": "knows"
-        },
-        {
-            "agent": 2,
-            "other": 5,
+            "other": 8,
             "relationship": "knows"
         },
         {
             "agent": 3,
-            "other": 2,
+            "other": 6,
             "relationship": "friend"
         },
         {
             "agent": 3,
-            "other": 3,
+            "other": 7,
             "relationship": "knows"
         },
         {
             "agent": 3,
-            "other": 4,
+            "other": 8,
             "relationship": "knows"
         },
         {
             "agent": 4,
-            "other": 2,
+            "other": 7,
             "relationship": "knows"
         },
         {
             "agent": 5,
-            "other": 0,
+            "other": 6,
             "relationship": "knows"
         },
         {
             "agent": 5,
-            "other": 1,
+            "other": 7,
             "relationship": "knows"
         },
         {
             "agent": 5,
-            "other": 2,
+            "other": 8,
             "relationship": "knows"
         },
         {
             "agent": 7,
-            "other": 0,
+            "other": 8,
             "relationship": "friend"
         }
     ],

@@ -47,12 +47,12 @@
     "relationships": [
         {
             "agent": 0,
-            "other": 0,
+            "other": 1,
             "relationship": "friend"
         },
         {
             "agent": 0,
-            "other": 1,
+            "other": 2,
             "relationship": "family_member"
         }
     ],

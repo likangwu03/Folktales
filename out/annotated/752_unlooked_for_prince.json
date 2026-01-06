@@ -150,47 +150,47 @@
         },
         {
             "agent": 1,
-            "other": 0,
+            "other": 2,
             "relationship": "family_member"
         },
         {
             "agent": 1,
-            "other": 3,
+            "other": 5,
             "relationship": "family_member"
         },
         {
             "agent": 2,
-            "other": 0,
+            "other": 3,
             "relationship": "knows"
         },
         {
             "agent": 2,
-            "other": 1,
+            "other": 4,
             "relationship": "enemy"
         },
         {
             "agent": 2,
-            "other": 3,
+            "other": 6,
             "relationship": "enemy"
         },
         {
             "agent": 3,
-            "other": 2,
+            "other": 6,
             "relationship": "friend"
         },
         {
             "agent": 4,
-            "other": 1,
+            "other": 6,
             "relationship": "knows"
         },
         {
             "agent": 4,
-            "other": 3,
+            "other": 8,
             "relationship": "enemy"
         },
         {
             "agent": 5,
-            "other": 0,
+            "other": 6,
             "relationship": "enemy"
         }
     ],

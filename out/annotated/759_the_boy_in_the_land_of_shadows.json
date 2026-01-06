@@ -64,22 +64,22 @@
     "relationships": [
         {
             "agent": 0,
-            "other": 0,
-            "relationship": "family_member"
-        },
-        {
-            "agent": 0,
             "other": 1,
-            "relationship": "friend"
+            "relationship": "family_member"
         },
         {
             "agent": 0,
             "other": 2,
+            "relationship": "friend"
+        },
+        {
+            "agent": 0,
+            "other": 3,
             "relationship": "family_member"
         },
         {
             "agent": 1,
-            "other": 0,
+            "other": 2,
             "relationship": "knows"
         }
     ],

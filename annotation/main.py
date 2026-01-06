@@ -91,6 +91,8 @@ def main():
 
 	load_dotenv()
 
+	display_genre_distribution(True)
+
 	model = get_model(0.5)
 
 	hierarchies = load_json_folder(f"{data_dir}/hierarchies")
@@ -108,7 +110,7 @@ def main():
 	object_hierarchy = hierarchies["object"]
 
 	folktales_df = load_folktale_csv()
-	selected_folktales_df = get_folktales_by_count(folktales_df, 0, 5000)
+	selected_folktales_df = get_folktales_by_count(folktales_df, 300, 301)
 
 	for idx, row in selected_folktales_df.iterrows():
 		text = row["text"]
@@ -120,7 +122,7 @@ def main():
 			nation = None
 		title = row["title"]
 		
-		logger.debug(f"Annotating '{title}'...")
+		logger.debug(f"Starting annotation for title '{title}' (index {idx})...")
 
 		try:
 			genre = extract_genre(model, text)

@@ -83,37 +83,37 @@
     "relationships": [
         {
             "agent": 0,
-            "other": 0,
+            "other": 1,
             "relationship": "enemy"
         },
         {
             "agent": 0,
-            "other": 1,
+            "other": 2,
             "relationship": "friend"
         },
         {
             "agent": 0,
-            "other": 2,
+            "other": 3,
             "relationship": "knows"
         },
         {
             "agent": 1,
-            "other": 1,
+            "other": 3,
             "relationship": "friend"
         },
         {
             "agent": 2,
-            "other": 0,
+            "other": 3,
             "relationship": "friend"
         },
         {
             "agent": 2,
-            "other": 1,
+            "other": 4,
             "relationship": "knows"
         },
         {
             "agent": 3,
-            "other": 0,
+            "other": 4,
             "relationship": "knows"
         }
     ],

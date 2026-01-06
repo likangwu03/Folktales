@@ -53,12 +53,12 @@
     "relationships": [
         {
             "agent": 0,
-            "other": 1,
+            "other": 2,
             "relationship": "knows"
         },
         {
             "agent": 1,
-            "other": 0,
+            "other": 2,
             "relationship": "knows"
         }
     ],

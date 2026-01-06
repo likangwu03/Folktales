@@ -68,27 +68,27 @@
     "relationships": [
         {
             "agent": 0,
-            "other": 0,
-            "relationship": "friend"
-        },
-        {
-            "agent": 0,
             "other": 1,
-            "relationship": "knows"
+            "relationship": "friend"
         },
         {
             "agent": 0,
             "other": 2,
+            "relationship": "knows"
+        },
+        {
+            "agent": 0,
+            "other": 3,
             "relationship": "friend"
         },
         {
             "agent": 1,
-            "other": 0,
+            "other": 2,
             "relationship": "knows"
         },
         {
             "agent": 2,
-            "other": 0,
+            "other": 3,
             "relationship": "knows"
         }
     ],

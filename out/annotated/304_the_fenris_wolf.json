@@ -92,32 +92,32 @@
     "relationships": [
         {
             "agent": 0,
-            "other": 0,
+            "other": 1,
             "relationship": "family_member"
         },
         {
             "agent": 0,
-            "other": 1,
+            "other": 2,
             "relationship": "knows"
         },
         {
             "agent": 1,
-            "other": 1,
+            "other": 3,
             "relationship": "knows"
         },
         {
             "agent": 2,
-            "other": 0,
+            "other": 3,
             "relationship": "knows"
         },
         {
             "agent": 2,
-            "other": 1,
+            "other": 4,
             "relationship": "knows"
         },
         {
             "agent": 2,
-            "other": 2,
+            "other": 5,
             "relationship": "friend"
         }
     ],
