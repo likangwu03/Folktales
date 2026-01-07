@@ -189,3 +189,70 @@ class EventRetriever(GraphRetriever):
 			genre_label = str(row.genreLabel) if row.genreLabel else "Unknown"
 			return genre_id, genre_label
 		return None, None
+	
+	def get_role_classes_dict(self, event_uri: str):
+		query = f"""
+		PREFIX rdfs: <{RDFS}>
+		PREFIX rdf: <{RDF}>
+		PREFIX ont: <{ONT}>
+
+		SELECT ?roleClass (COUNT(?role) AS ?roleCount) (GROUP_CONCAT(DISTINCT ?agent; separator=", ") AS ?agents)
+		WHERE {{
+			<{event_uri}> ont:hasAgent ?agent .
+			?agent ont:hasRole ?role .
+			?role rdf:type ?roleClass .
+		}}
+		GROUP BY ?roleClass
+		"""
+
+		results = self.execute_query(query)
+
+		if results:
+			dict_result = {str(result.roleClass).split('/')[-1]: (int(result.roleCount), str(result.agents).split(',')) for result in results}
+			return dict_result
+		return {}
+
+	def get_object_classes_dict(self, event_uri: str):
+		query = f"""
+		PREFIX rdfs: <{RDFS}>
+		PREFIX rdf: <{RDF}>
+		PREFIX ont: <{ONT}>
+
+		SELECT ?objectClass (COUNT(?object) AS ?objectCount) (GROUP_CONCAT(DISTINCT ?object; separator=",") AS ?objects)
+		WHERE {{
+			<{event_uri}> ont:hasObject ?object .
+			?object rdf:type ?objectClass .
+		}}
+		GROUP BY ?objectClass
+		"""
+
+		results = self.execute_query(query)
+
+		if results:
+			dict_result = {str(result.objectClass).split('/')[-1]: (int(result.objectCount),str(result.objects).split(',') ) for result in results}
+			return dict_result
+
+		return {}
+	
+	def get_place_uri(self, event_uri: str):
+		query = f"""
+		PREFIX rdfs: <{RDFS}>
+		PREFIX rdf: <{RDF}>
+		PREFIX ont: <{ONT}>
+
+		SELECT DISTINCT ?placeClass
+		WHERE {{
+			<{event_uri}> ont:hasPlace ?place .
+			?place rdf:type ?placeClass .
+		}}
+		LIMIT 1
+		"""
+
+		results = self.execute_query(query)
+
+		if results:
+			row = results[0]
+			place_uri = str(row.placeClass)
+			place_id = place_uri.split('/')[-1]
+			return place_id ,place_uri
+		return None

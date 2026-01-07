@@ -2,6 +2,7 @@ from generation.ontology.event_retriever import EventRetriever
 from generation.ontology.similarity_calculator import LocalSemanticSimilarityCalculator
 from generation.adaptation.astar import ConstructiveAdaptation
 from generation.adaptation.query import Query
+from generation.adaptation.alignment import process_events, print_dict
 from common.utils.loader import load_json_folder, load_txt_folder, data_dir, out_dir, save_raw_folktale, load_json
 from generation.ontology.folktale_graph import FolktaleOntology
 from loguru import logger
@@ -74,6 +75,10 @@ def main():
 
     constructive_adaptation = ConstructiveAdaptation(graph, weights, event_retriever, sim_calculator, query.max_events)
     goal_node = constructive_adaptation.generate(query)
+    places,objects,roles= process_events(goal_node.event_elements,event_retriever)
+    print_dict("places", places)
+    print_dict("objects", objects)
+    print_dict("roles", roles)
 
 if __name__ == "__main__":
     main()
