@@ -27,6 +27,18 @@ Folktale:
 )
 
 def extract_story_segments(model: BaseChatModel, folktale: str):
+	"""
+	Extrae los segmentos de una historia (eventos).
+
+	Args:
+		model (BaseChatModel): Modelo de lenguaje utilizado para la extracción de eventos.
+		folktale (str): Texto completo del cuento o relato del cual se extraen los segmentos.
+
+	Returns:
+		list[str]: Lista de segmentos de la historia extraídos por el modelo.
+
+	"""
+
 	event_chain = event_prompt | model.with_structured_output(StorySegments)
 
 	# logger.info(
@@ -92,6 +104,22 @@ Important Guidelines:
 ''')
 
 def extract_event_elements(model: BaseChatModel, event: EventMetadata, examples: list[EventExample], max_attempts: int = 5):
+	"""
+	Extrae los elementos de un evento a partir de un segmento de historia.
+
+	Args:
+		model (BaseChatModel): Modelo de lenguaje que realizará la extracción.
+		event (EventMetadata): datos de evento.
+		examples (list[EventExample]): Lista de ejemplos few-shot para guiar al modelo.
+		max_attempts (int, optional): Número máximo de intentos para obtener una extracción válida.
+
+	Returns:
+		EventElements: Objeto con los elementos extraídos del evento.
+
+	Raises:
+		RuntimeError: Si después de `max_attempts` no se puede extraer un conjunto válido
+		de elementos para el evento.
+	"""
 	few_shot_examples: list[BaseMessage] = []
 
 	for i, example in enumerate(examples):

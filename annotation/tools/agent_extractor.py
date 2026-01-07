@@ -32,17 +32,17 @@ Select the most specific type of character, from the following:
 - Do not include spaces, hyphens, or punctuation.
 - Descriptive but concise.
 - Examples: 'main_hero', 'villain_minion'.
-                                            
+
 3. 'age_category':
 Choose one: 'children', 'young', 'adult', 'senior'.
 
 4. 'gender':
 Choose either: 'feminine' or 'masculine'.
-                                          
+
 5. 'has_personality':
 A list of character traits that reflect the character's behavior and personality, selected from the following options:
 - 'sociable', 'joy', 'active', 'assertive', 'anxious', 'depressive', 'tense', 'aggressive', 'cold', 'egotism', 'impersonal', 'impulsive'.
-                                            
+
 6. 'name':
 The character's name. Use title case, capitalizing the first letter of each word (e.g., 'Cinderella', 'Lady Tremaine', 'Haze'). If no name is provided, leave this field blank.
 
@@ -50,10 +50,10 @@ The character's name. Use title case, capitalizing the first letter of each word
 The role the character plays, inspired by Prop's theory of the five spheres of action. Specify both:
 - 'class_name': the type of role the character plays within the story, based on the hierarchy outlined below.
 - 'instance_name': a more specific instance of the role, written in snake_case (e.g., 'main_hero', 'villain_minion'). Multiple characters can share the same 'instance_name' if they fulfill the exact same role within the story.
-           
+
 Role hierarchy:
 {role_hierarchy}
-                                            
+
 8. 'lives_in':
 Each character may live in one of the following locations:
 {places}
@@ -63,12 +63,12 @@ OUTPUT FORMAT:
 Your output must be a valid JSON array, with one object per character. Each object must adhere strictly to the "Agent" schema.
 
 Ensure your output contains NO extra text, comments, or explanations. Here's the required format:
-                              
+
 {example}
 '''),
 
 		HumanMessagePromptTemplate.from_template(template='''Extract all characters and their characteristics explicitly mentioned in the folktale below. For each character, assign one role and one agent type based on the provided rules.
-                   
+
 Folktale:
 {folktale}
 ''')
@@ -76,6 +76,25 @@ Folktale:
 )
 
 def extract_agents(model: BaseChatModel, folktale: str, example: list[Agent], places: list[Place], role_hierarchy: dict):
+    """
+    Extrae los agentes de un cuento utilizando un modelo de lenguaje con salida estructurada.
+
+    Args:
+        model (BaseChatModel):
+            Modelo de lenguaje utilizado para la extracción de agentes.
+        folktale (str):
+            Texto del cuento o relato del cual se extraen los agentes.
+        example (list[Agent]):
+            Lista de agentes de ejemplo utilizada como referencia para el modelo.
+        places (list[Place]):
+            Lista de lugares válidos donde pueden residir los agentes.
+        role_hierarchy (dict):
+            Diccionario que define la jerarquía de roles entre los agentes.
+
+    Returns:
+        list[Agent]:
+            Lista de agentes extraídos.
+    """
     example_json = json.dumps(
         [agent.model_dump(mode="json") for agent in example],
         indent=4

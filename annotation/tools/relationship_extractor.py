@@ -31,7 +31,7 @@ Think step by step:
 
 Final answer format:
 "Therefore, their relationship is: [chosen relationship]."
-										   										   										   
+
 Folktale:
 {folktale}
 ''')
@@ -39,6 +39,17 @@ Folktale:
 )
 
 def extract_relationships(model: BaseChatModel, folktale: str, agents: list[Agent]):
+	"""
+	Extrae las relaciones entre agentes de un cuento.
+
+	Args:
+		model (BaseChatModel): Modelo de lenguaje utilizado para la extracción de relaciones.
+		folktale (str): Texto completo del cuento.
+		agents (list[Agent]): Lista de agentes presentes en el cuento.
+
+	Returns:
+		list[Relationship]: Lista de relaciones identificadas entre los agentes.
+	"""
 	relationship_chain = relationship_prompt | model
 
 	relationships = []

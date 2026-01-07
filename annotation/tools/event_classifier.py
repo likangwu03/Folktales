@@ -67,6 +67,19 @@ class_prompt = ChatPromptTemplate.from_messages([
 ])
 
 def _build_options_prompt(node: dict, self_name: Optional[str] = None) -> tuple[str, list]:
+	"""
+    Construye un prompt de opciones basado en un nodo y sus hijos, 
+    devolviendo tanto la representación en texto como la lista de opciones.
+
+    Args:
+        node (dict): Diccionario que representa un nodo.
+        self_name (Optional[str]): Nombre opcional para incluir el nodo actual como una opción adicional.
+
+    Returns:
+        tuple[str, list]: 
+            - str: Texto con cada opción numerada y su descripción, lista para mostrar al usuario.
+            - list: Lista de tuplas (node_id, description) correspondientes a cada opción.
+    """
 	options = []
 	
 	for child_id, info in node.get("children", {}).items():
@@ -83,14 +96,38 @@ def _build_options_prompt(node: dict, self_name: Optional[str] = None) -> tuple[
 	return "\n".join(lines), options
 
 def _build_options_prompt_by_list(options: list) -> str:
+	"""
+    Construye un prompt de opciones a partir de una lista de tuplas (node_id, description).
+    Args:
+        options (list[tuple[str, str]]): Lista de tuplas donde cada tupla contiene:
+            - node_id (str): Identificador de la opción
+            - description (str): Descripción de la opción
+
+    Returns:
+        str: Texto con cada opción numerada y su descripción, separadas por saltos de línea.
+    """
 	lines = [
 		f"{idx}. {node_id}: {description}" 
 		for idx, (node_id, description) in enumerate(options)
 	]
 	return "\n".join(lines)
 
-
 def _extract_event(model: BaseChatModel, folktale_event: str, options: str, previous_thought: str = ""):
+	"""
+	Extrae un evento relevante de exto utilizando un modelo de lenguaje.
+
+	Args:
+	model (BaseChatModel): Modelo de lenguaje utilizado para la extracción del evento.
+	folktale_event (str): Texto.
+	options (str): Lista de opciones formateadas
+	previous_thought (str, opcional): Pensamientos o contexto previo del modelo
+
+	Returns:
+	tuple[str, str]:
+		- response (str): Evento seleccionado o generado por el modelo.
+		- thinking (str): Razonamiento del modelo sobre la selección.
+
+	"""
 	class_chain = class_prompt | model.with_structured_output(Response)
 	response = class_chain.invoke({
 		"options": options,
@@ -102,7 +139,6 @@ def _extract_event(model: BaseChatModel, folktale_event: str, options: str, prev
 
 	return response.response, response.thinking
 
-
 def hierarchical_event_classification(model: BaseChatModel, folktale_event: str, taxonomy_tree: dict, n_rounds: int = 3, verbose: bool = False):
 	"""
 	Clasifica un evento usando una taxonomía jerárquica con descripciones.
@@ -110,7 +146,7 @@ def hierarchical_event_classification(model: BaseChatModel, folktale_event: str,
 	Args:
 		model: Instancia de BaseChatModel.
 		folktale_event: Texto del evento a clasificar.
-		taxonomy_tree: Diccionario de taxonomía con estructura {node: {"description": ..., "children": {...}}}.
+		taxonomy_tree: Diccionario de taxonomía.
 		n_rounds: Número de veces a preguntar al LLM por cada nivel.
 
 	Returns:
@@ -306,6 +342,18 @@ instance_prompt = ChatPromptTemplate.from_messages([
 ])
 
 def extract_event_instance_name(model: BaseChatModel, event_type: str, event_text: str, thinking: str = ""):
+	"""
+	Extrae el nombre de la instancia de un evento a partir de su tipo y descripción.
+
+	Args:
+		model (BaseChatModel): Modelo de lenguaje utilizado para la extracción.
+		event_type (str): Tipo del evento.
+		event_text (str): Texto del evento del folktale.
+		thinking (str, optional): Razonamiento previo que puede guiar la selección de la instancia. 
+
+	Returns:
+		str: Nombre de la instancia del evento identificada por el modelo.
+	"""
 	instance_chain = instance_prompt | model.with_structured_output(EventInstanceName)
 	response = instance_chain.invoke({
 		"event_type": event_type,

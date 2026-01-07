@@ -5,6 +5,13 @@ from common.utils.loader import save_fig
 from loguru import logger
 
 def show_genre_distribution(folktales: list[AnnotatedFolktale]):
+	"""
+	Muestra la distribución de géneros de un conjunto de folktales en un gráfico de barras normalizado.
+
+	Args:
+		folktales (list[AnnotatedFolktale]): Lista de folktales anotados con información de género.
+
+	"""
 	labels = [genre.value for genre in GenreClass]
 	
 	genre_counts = Counter(folktale.has_genre for folktale in folktales)

@@ -26,11 +26,22 @@ Folktale:
 )
 
 def extract_genre(model: BaseChatModel, folktale: str):
-    genre_chain = genre_prompt | model.with_structured_output(Genre)
-    genre = genre_chain.invoke({"folktale": folktale})
-    
-    logger.debug(f"Genre: {genre}")
+	"""
+	Extrae el género de un cuento.
 
-    genre = cast(Genre, genre)
+	Args:
+		model (BaseChatModel): Modelo de lenguaje utilizado para la extracción del género.
+		folktale (str): Texto completo del cuento o relato cuyo género se desea identificar.
 
-    return genre.genre
+	Returns:
+		str: Género.
+
+	"""
+	genre_chain = genre_prompt | model.with_structured_output(Genre)
+	genre = genre_chain.invoke({"folktale": folktale})
+	
+	logger.debug(f"Genre: {genre}")
+
+	genre = cast(Genre, genre)
+
+	return genre.genre

@@ -35,7 +35,7 @@ CLASS SELECTION RULES:
 3. Each place MUST have exactly ONE 'class_name'.
    - Do NOT combine multiple classes.
    - Do NOT repeat fields.
-          
+
 INSTANCE NAME RULES:
 - 'instance_name' must be written in snake_case.
 - Use lowercase letters and underscores only.
@@ -57,7 +57,7 @@ For each location:
 - Create a concise, descriptive 'instance_name' written in snake_case.
 
 Do not include more than {max_places} places.                                      
-                     
+
 Folktale:
 {folktale}
 ''')
@@ -65,25 +65,37 @@ Folktale:
 )
 
 def extract_places(model: BaseChatModel, folktale: str, place_hierarchy: dict):
+   """
+   Extrae los lugares presentes en un cuento.
+
+   Args:
+	  model (BaseChatModel): Modelo de lenguaje utilizado para la extracción de lugares.
+	  folktale (str): Texto completo del cuento o relato del cual se extraen los lugares.
+	  place_hierarchy (dict): Diccionario que define la jerarquía de lugares.
+
+   Returns:
+	  list[str]: Lista de lugares.
+
+   """
    formatted_hierarchy = format_hierarchy(place_hierarchy)
    formatted_classes = format_classes(place_hierarchy)
 
    place_chain = place_prompt | model.with_structured_output(Places)
    places = place_chain.invoke({
-      "folktale": folktale,
-      "max_places": MAX_PLACES,
-      "place_hierarchy": formatted_hierarchy,
-      "places": formatted_classes
+	  "folktale": folktale,
+	  "max_places": MAX_PLACES,
+	  "place_hierarchy": formatted_hierarchy,
+	  "places": formatted_classes
    })
    
-   # logger.info(
-   #    place_prompt.format(
-   #       folktale = folktale,
-   #       max_places = MAX_PLACES,
-   #       place_hierarchy = formatted_hierarchy,
-   #       places = formatted_classes
-   #    )
-   # )
+#    logger.info(
+# 	  place_prompt.format(
+# 		 folktale = folktale,
+# 		 max_places = MAX_PLACES,
+# 		 place_hierarchy = formatted_hierarchy,
+# 		 places = formatted_classes
+# 	  )
+#    )
    
    logger.debug(f"Places: {places}")
 
