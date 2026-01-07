@@ -241,7 +241,7 @@ class EventRetriever(GraphRetriever):
 		PREFIX rdf: <{RDF}>
 		PREFIX ont: <{ONT}>
 
-		SELECT DISTINCT ?placeClass
+		SELECT DISTINCT ?place ?placeClass
 		WHERE {{
 			<{event_uri}> ont:hasPlace ?place .
 			?place rdf:type ?placeClass .
@@ -253,8 +253,8 @@ class EventRetriever(GraphRetriever):
 
 		if results:
 			row = results[0]
-			place_uri = str(row.placeClass)
-			place_id = place_uri.split('/')[-1]
+			place_uri = str(row.place)
+			place_id = str(row.placeClass.split('/')[-1])
 			return place_id ,place_uri
 		return None
 	
@@ -355,9 +355,10 @@ class EventRetriever(GraphRetriever):
 			for row in results
 		]
 
-	def get_ordered_events_for_agent(self, agent_uri):
+	def get_ordered_events_for_agent(self, agent_uri) -> list[tuple[str, str]]:
 		query = f"""
 		PREFIX rdfs: <{RDFS}>
+				PREFIX rdf: <{RDF}>
 		PREFIX ont: <{ONT}>
 
 		SELECT ?event ?label ?eventType (COUNT(?prev) AS ?order)
@@ -376,10 +377,72 @@ class EventRetriever(GraphRetriever):
 		results = self.execute_query(query)
 
 		return [
-			(str(r.eventType.split("/")[-1]), str(r.event), str(r.label), str(r.order))
+			(str(r.eventType.split("/")[-1]),str(r.event), str(r.label),str(r.order))
 			for r in results
 		]
 
+	def get_ordered_events_for_object(self, object_uri) -> list[tuple[str, str, str, str]]:
+		query = f"""
+		PREFIX rdfs: <{RDFS}>
+		PREFIX rdf: <{RDF}>
+		PREFIX ont: <{ONT}>
+
+		SELECT ?event ?label ?eventType (COUNT(?prev) AS ?order)
+		WHERE {{
+			?event ont:hasObject <{object_uri}> ;
+				rdf:type ?eventType .
+			OPTIONAL {{ ?event rdfs:label ?label }}
+
+			OPTIONAL {{
+				?prev ont:postEvent+ ?event .
+			}}
+		}}
+		GROUP BY ?event ?label ?eventType
+		ORDER BY ?order
+		"""
+		results = self.execute_query(query)
+
+		return [
+			(
+				str(r.eventType.split("/")[-1]),
+				str(r.event),
+				str(r.label),
+				str(r.order)
+			)
+			for r in results
+		]
+
+	def get_ordered_events_for_place(self, place_uri) -> list[tuple[str, str, str, str]]:
+		query = f"""
+		PREFIX rdfs: <{RDFS}>
+		PREFIX rdf: <{RDF}>
+		PREFIX ont: <{ONT}>
+
+		SELECT ?event ?label ?eventType (COUNT(?prev) AS ?order)
+		WHERE {{
+			?event ont:hasPlace <{place_uri}> ;
+				rdf:type ?eventType .
+			OPTIONAL {{ ?event rdfs:label ?label }}
+
+			OPTIONAL {{
+				?prev ont:postEvent+ ?event .
+			}}
+		}}
+		GROUP BY ?event ?label ?eventType
+		ORDER BY ?order
+		"""
+		results = self.execute_query(query)
+
+		return [
+			(
+				str(r.eventType.split("/")[-1]),
+				str(r.event),
+				str(r.label),
+				str(r.order)
+			)
+			for r in results
+		]
+	
 	def get_event_type_name(self, event_uri: str) -> str | None:
 		query = f"""
 		PREFIX rdf: <{RDF}>

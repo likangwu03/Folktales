@@ -2,7 +2,7 @@ from generation.ontology.event_retriever import EventRetriever
 from generation.ontology.similarity_calculator import LocalSemanticSimilarityCalculator
 from generation.adaptation.astar import ConstructiveAdaptation
 from generation.adaptation.query import Query
-from generation.adaptation.alignment import process_events, print_dict, process_roles
+from generation.adaptation.alignment import process_events, print_dict, process_roles,process_objects,process_places
 from common.utils.loader import load_json_folder, load_txt_folder, data_dir, out_dir, save_raw_folktale, load_json
 from generation.ontology.folktale_graph import FolktaleOntology
 from loguru import logger
@@ -92,6 +92,9 @@ def main():
     if goal_node is not None:
         places, objects, roles = process_events(goal_node.event_elements,event_retriever)
         process_roles("fable", roles, event_retriever, sim_calculator)
+        process_objects("fable",objects,event_retriever,sim_calculator)
+        process_places("fable",places,event_retriever,sim_calculator)
+
         print_dict("places", places)
         print_dict("objects", objects)
         print_dict("roles", roles)
