@@ -355,7 +355,7 @@ class EventRetriever(GraphRetriever):
 			for row in results
 		]
 
-	def get_ordered_events_for_agent(self, agent_uri) -> list[tuple[str, str]]:
+	def get_ordered_events_for_agent(self, agent_uri):
 		query = f"""
 		PREFIX rdfs: <{RDFS}>
 		PREFIX ont: <{ONT}>
@@ -376,7 +376,7 @@ class EventRetriever(GraphRetriever):
 		results = self.execute_query(query)
 
 		return [
-			(str(r.eventType.split("/")[-1]),str(r.event), str(r.label),str(r.order))
+			(str(r.eventType.split("/")[-1]), str(r.event), str(r.label), str(r.order))
 			for r in results
 		]
 

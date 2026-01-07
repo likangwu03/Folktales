@@ -14,7 +14,7 @@ class ItemContainer:
         self.event_types: list[str] = []
         self.queue: PriorityQueue[tuple[int, str]] = PriorityQueue()
 
-    def add_event(self, event_id: str,event_type:str):
+    def add_event(self, event_id: str, event_type:str):
         self.events.append(event_id)
         self.event_types.append(event_type)
 
@@ -36,7 +36,7 @@ def print_dict(title: str, container_dict: dict[str, list[ItemContainer]]):
             queue_contents = list(container.queue.queue)
             print(f"    queue: {queue_contents}")
 
-def process_events(events: dict[str, dict],eventRetriever:EventRetriever):
+def process_events(events: dict[str, dict], eventRetriever:EventRetriever):
     places: dict[str, list[ItemContainer]] = {}
     objects: dict[str, list[ItemContainer]] = {}
     roles: dict[str, list[ItemContainer]] = {}
@@ -115,16 +115,16 @@ def process_events(events: dict[str, dict],eventRetriever:EventRetriever):
 
     return places, objects, roles
 
-def process_roles(genre: str, container_dict: dict[str, list[ItemContainer]],eventRetriever:EventRetriever, sim:LocalSemanticSimilarityCalculator):
+def process_roles(genre: str, container_dict: dict[str, list[ItemContainer]], eventRetriever: EventRetriever, sim: LocalSemanticSimilarityCalculator):
     for key, container_list in container_dict.items():
-        roles = eventRetriever.get_roles_by_type_and_genre(snake_case_to_pascal_case(key),FolktaleOntology.GENRE_MAP[genre])
+        roles = eventRetriever.get_roles_by_type_and_genre(snake_case_to_pascal_case(key), FolktaleOntology.GENRE_MAP[genre])
         for uri, label, folktale_title in roles:
             events = eventRetriever.get_ordered_events_for_agent(uri)
             event_types = [row[0] for row in events]
             print(f"uri: {uri}")
             print(event_types)
             for container in container_list:
-                score, _ = best_similarity(event_types,container.event_types,sim.wu_palmer_similarity_class)
+                score, _ = best_similarity(event_types,container.event_types, sim.wu_palmer_similarity_class)
                 print(f"    - event_types: {container.event_types}")
                 print(f"    - events: {container.events}")
                 print(f"    - score: {score}")
