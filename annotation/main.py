@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 from langchain_ollama import ChatOllama
 from langchain_core.language_models.chat_models import BaseChatModel
 from common.models.event import EventElements, EventMetadata, EventExample, Event, EventClass
-from common.utils.loader import load_folktale_csv, load_json_folder, save_annotated_folktale, data_dir, out_dir
+from common.utils.loader import load_folktale_csv, load_json_folder, save_annotated_folktale, data_dir
 from common.utils.regex_utils import title_case_to_snake_case, clean_regex
 from annotation.tools.place_extractor import extract_places
 from annotation.tools.agent_extractor import extract_agents

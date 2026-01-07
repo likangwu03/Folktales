@@ -2,6 +2,7 @@ from common.utils.loader import load_json_folder, out_dir
 from common.models.folktale import AnnotatedFolktale
 from common.models.event import MIN_EVENTS
 from annotation.visualization import show_genre_distribution
+from loguru import logger
 
 def main():
 	folktales_json = load_json_folder(f"{out_dir}/annotated")
@@ -10,8 +11,7 @@ def main():
 	for filename, folktale in zip(folktales_json.keys(), folktales):
 		n_events = len(folktale.events)
 		if n_events <= MIN_EVENTS:
-			print(filename)
-
+			print(f"'{filename}' has too few events ({n_events}, minimum required: {MIN_EVENTS})")
 	show_genre_distribution(folktales)
 
 if __name__ == "__main__":
