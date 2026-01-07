@@ -63,7 +63,7 @@ def compute_event_similarity(node: Node, query: Query, weights: dict[str, float]
 
 
 
-def best_similarity(A: List[Any],B: List[Any],sim: Callable[[Any, Any], float],penalty: float) -> Tuple[float, List[Tuple[int, int]]]:
+def best_similarity(A: List[Any],B: List[Any],sim: Callable[[Any, Any], float],penalty: float = 0.0) -> Tuple[float, List[Tuple[int, int]]]:
     """
     Devuelve:
     - score óptimo

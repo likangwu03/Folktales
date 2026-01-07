@@ -1,4 +1,4 @@
-from generation.ontology.namespaces import ONT
+from generation.ontology.namespaces import ONT,WD
 from rdflib.namespace import RDF, RDFS
 from generation.ontology.graph_retriever import GraphRetriever
 from rdflib import Graph
@@ -190,6 +190,7 @@ class EventRetriever(GraphRetriever):
 			return genre_id, genre_label
 		return None, None
 	
+
 	def get_role_classes_dict(self, event_uri: str):
 		query = f"""
 		PREFIX rdfs: <{RDFS}>
@@ -256,3 +257,145 @@ class EventRetriever(GraphRetriever):
 			place_id = place_uri.split('/')[-1]
 			return place_id ,place_uri
 		return None
+	
+	def get_roles_by_type_and_genre(self, role_type, genre) -> list[tuple[str, str, str]]:
+		"""
+		Returns:
+			[(role_uri, role_label, folktale_title), ...]
+		"""
+
+		query = f"""
+		PREFIX rdfs: <{RDFS}>
+		PREFIX rdf: <{RDF}>
+		PREFIX rdfs: <{RDFS}>
+		PREFIX ont: <{ONT}>
+		PREFIX wd: <{WD}>
+
+
+		SELECT DISTINCT ?agent ?roleLabel ?folktaleTitle
+		WHERE {{
+			?folktale a ont:Folktale ;
+					ont:hasGenre <{genre}> ;
+					ont:title ?folktaleTitle ;
+					ont:hasEvent ?event .
+
+			?event ont:hasAgent ?agent .
+			?agent ont:hasRole ?role .
+
+			?role rdf:type ont:{role_type} .
+			OPTIONAL {{ ?role rdfs:label ?roleLabel }}
+		}}
+		"""
+
+		results = self.execute_query(query)
+
+		return [
+			(str(row.agent), str(row.roleLabel), str(row.folktaleTitle))
+			for row in results
+		]
+
+	def get_place_by_type_and_genre(self, place_type,genre) -> list[tuple[str, str, str]]:
+
+		query = f"""
+		PREFIX rdfs: <{RDFS}>
+		PREFIX rdf: <{RDF}>
+		PREFIX rdfs: <{RDFS}>
+		PREFIX ont: <{ONT}>
+		PREFIX wd: <{WD}>
+
+
+		SELECT DISTINCT ?place ?placeLabel ?folktaleTitle
+		WHERE {{
+			?folktale a ont:Folktale ;
+					ont:hasGenre <{genre}> ;
+					ont:title ?folktaleTitle ;
+					ont:hasEvent ?event .
+
+			?event ont:hasPlace ?place .
+			?place rdf:type ont:{place_type} .
+			OPTIONAL {{ ?place rdfs:label ?placeLabel }}
+		}}
+		"""
+
+		results = self.execute_query(query)
+
+		return [
+			(str(row.place), str(row.placeLabel), str(row.folktaleTitle))
+			for row in results
+		]
+
+	def get_objects_by_type_and_genre(self, object_type,genre) -> list[tuple[str, str, str]]:
+		
+
+		query = f"""
+		PREFIX rdfs: <{RDFS}>
+		PREFIX rdf: <{RDF}>
+		PREFIX rdfs: <{RDFS}>
+		PREFIX ont: <{ONT}>
+		PREFIX wd: <{WD}>
+
+
+		SELECT DISTINCT ?object ?objectLabel ?folktaleTitle
+		WHERE {{
+			?folktale a ont:Folktale ;
+					ont:hasGenre <{genre}> ;
+					ont:title ?folktaleTitle ;
+					ont:hasEvent ?event .
+
+			?event ont:hasObject ?object .
+			?object rdf:type ont:{object_type} .
+			OPTIONAL {{ ?object rdfs:label ?objectLabel }}
+		}}
+		"""
+
+		results = self.execute_query(query)
+
+		return [
+			(str(row.object), str(row.objectLabel), str(row.folktaleTitle))
+			for row in results
+		]
+
+	def get_ordered_events_for_agent(self, agent_uri) -> list[tuple[str, str]]:
+		query = f"""
+		PREFIX rdfs: <{RDFS}>
+		PREFIX ont: <{ONT}>
+
+		SELECT ?event ?label ?eventType (COUNT(?prev) AS ?order)
+		WHERE {{
+			?event ont:hasAgent <{agent_uri}> ;
+				rdf:type ?eventType .
+			OPTIONAL {{ ?event rdfs:label ?label }}
+
+			OPTIONAL {{
+				?prev ont:postEvent+ ?event .
+			}}
+		}}
+		GROUP BY ?event ?label
+		ORDER BY ?order
+		"""
+		results = self.execute_query(query)
+
+		return [
+			(str(r.eventType.split("/")[-1]),str(r.event), str(r.label),str(r.order))
+			for r in results
+		]
+
+	def get_event_type_name(self, event_uri: str) -> str | None:
+		query = f"""
+		PREFIX rdf: <{RDF}>
+		PREFIX ont: <{ONT}>
+
+		SELECT ?type
+		WHERE {{
+			<{event_uri}> rdf:type ?type .
+			FILTER(STRSTARTS(STR(?type), STR(ont:)))
+		}}
+		LIMIT 1
+		"""
+		
+		results = self.execute_query(query)
+
+		if not results:
+			return None
+
+		return str(results[0].type).split("/")[-1]

@@ -1,15 +1,23 @@
 from queue import PriorityQueue
 from generation.ontology.event_retriever import EventRetriever
+from generation.ontology.folktale_graph import FolktaleOntology
+from generation.adaptation.similarity import best_similarity
+from generation.ontology.similarity_calculator import LocalSemanticSimilarityCalculator
+
+from common.utils.regex_utils import snake_case_to_pascal_case
 from loguru import logger
 
 class ItemContainer:
     def __init__(self, id_: str):
         self.id = id_
         self.events: list[str] = []
+        self.event_types: list[str] = []
         self.queue: PriorityQueue[tuple[int, str]] = PriorityQueue()
 
-    def add_event(self, event_id: str, value: int = 0):
+    def add_event(self, event_id: str,event_type:str):
         self.events.append(event_id)
+        self.event_types.append(event_type)
+
 
     def add_candidate(self, event_id: str, value: int = 0):
         self.queue.put((value, event_id))
@@ -32,7 +40,9 @@ def process_events(events: dict[str, dict],eventRetriever:EventRetriever):
     places: dict[str, list[ItemContainer]] = {}
     objects: dict[str, list[ItemContainer]] = {}
     roles: dict[str, list[ItemContainer]] = {}
+
     for event_id, data in events.items():
+        event_type= eventRetriever.get_event_type_name(event_id)
 
         place_id ,place_uri= eventRetriever.get_place_uri(event_id)
         object_dict= eventRetriever.get_object_classes_dict(event_id)
@@ -46,7 +56,7 @@ def process_events(events: dict[str, dict],eventRetriever:EventRetriever):
         if place != place_id:
             logger.error(f"Lugar no coincide: {place},{place_id}")
 
-        places[place][0].add_event(event_id)
+        places[place][0].add_event(event_id,event_type)
         places[place][0].add_candidate(place_uri)
 
         # -------- OBJECTS --------
@@ -71,7 +81,7 @@ def process_events(events: dict[str, dict],eventRetriever:EventRetriever):
 
             # añadir evento y candidates a los primeros n contenedores
             for i in range(expected_count):
-                containers[i].add_event(event_id)
+                containers[i].add_event(event_id,event_type)
                 # añadir candidate si hay suficientes uris
                 if i < len(uris):
                     containers[i].add_candidate(uris[i])
@@ -99,12 +109,59 @@ def process_events(events: dict[str, dict],eventRetriever:EventRetriever):
 
             # añadir evento y candidates (agentes)
             for i in range(expected_count):
-                containers[i].add_event(event_id)
+                containers[i].add_event(event_id,event_type)
                 if i < len(agents):
                     containers[i].add_candidate(agents[i])
 
     return places, objects, roles
 
-def process_roles(item_dict: dict[str, list[ItemContainer]]):
+def process_roles(genre: str, container_dict: dict[str, list[ItemContainer]],eventRetriever:EventRetriever, sim:LocalSemanticSimilarityCalculator):
+    for key, container_list in container_dict.items():
+        roles = eventRetriever.get_roles_by_type_and_genre(snake_case_to_pascal_case(key),FolktaleOntology.GENRE_MAP[genre])
+        for uri, label, folktale_title in roles:
+            events = eventRetriever.get_ordered_events_for_agent(uri)
+            event_types = [row[0] for row in events]
+            print(f"uri: {uri}")
+            print(event_types)
+            for container in container_list:
+                score, _ = best_similarity(event_types,container.event_types,sim.wu_palmer_similarity_class)
+                print(f"    - event_types: {container.event_types}")
+                print(f"    - events: {container.events}")
+                print(f"    - score: {score}")
+                container.add_candidate(uri,score)
 
     return
+
+# def process_roles(genre: str, container_dict: dict[str, list[ItemContainer]],eventRetriever:EventRetriever, sim:LocalSemanticSimilarityCalculator):
+#     for key, container_list in container_dict.items():
+#         roles = eventRetriever.get_roles_by_type_and_genre(snake_case_to_pascal_case(key),FolktaleOntology.GENRE_MAP[genre])
+#         for uri, label, folktale_title in roles:
+#             events = eventRetriever.get_ordered_events_for_agent(uri)
+#             event_types = [row[0] for row in events]
+#             print(f"uri: {uri}")
+#             print(event_types)
+#             for container in container_list:
+#                 score, _ = best_similarity(event_types,container.event_types,sim.wu_palmer_similarity_class)
+#                 print(f"    - event_types: {container.event_types}")
+#                 print(f"    - events: {container.events}")
+#                 print(f"    - score: {score}")
+#                 container.add_candidate(uri,score)
+
+#     return
+
+# def process_roles(genre: str, container_dict: dict[str, list[ItemContainer]],eventRetriever:EventRetriever, sim:LocalSemanticSimilarityCalculator):
+#     for key, container_list in container_dict.items():
+#         roles = eventRetriever.get_roles_by_type_and_genre(snake_case_to_pascal_case(key),FolktaleOntology.GENRE_MAP[genre])
+#         for uri, label, folktale_title in roles:
+#             events = eventRetriever.get_ordered_events_for_agent(uri)
+#             event_types = [row[0] for row in events]
+#             print(f"uri: {uri}")
+#             print(event_types)
+#             for container in container_list:
+#                 score, _ = best_similarity(event_types,container.event_types,sim.wu_palmer_similarity_class)
+#                 print(f"    - event_types: {container.event_types}")
+#                 print(f"    - events: {container.events}")
+#                 print(f"    - score: {score}")
+#                 container.add_candidate(uri,score)
+
+#     return
