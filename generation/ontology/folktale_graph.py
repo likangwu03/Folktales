@@ -438,11 +438,14 @@ class FolktaleOntology(Graph):
 				self.add((agent_uri, RDF.type, agent_class))
 				self.add((agent_uri, RDFS.label, Literal(snake_case_to_title_case(instance_name), datatype = XSD.string)))
 
+				gender = agent.gender
+				self.add((agent_uri, ONT.gender, Literal(gender, datatype = XSD.string)))
+
 				name = agent.name
 				if name is not None:
 					self.add((agent_uri, ONT.name, Literal(name, datatype = XSD.string)))
 				
-				self.add((agent_uri, RDF.type, self.AGE_GROUP_MAP[agent.age_category]))
+				self.add((agent_uri, ONT.ageCategory, self.AGE_GROUP_MAP[agent.age_category]))
 
 				personality = agent.has_personality
 				for trait in personality:

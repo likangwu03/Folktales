@@ -2,7 +2,7 @@ from generation.ontology.event_retriever import EventRetriever
 from generation.ontology.similarity_calculator import LocalSemanticSimilarityCalculator
 from generation.adaptation.astar import ConstructiveAdaptation
 from generation.adaptation.query import Query
-from generation.adaptation.alignment import process_events, print_dict, process_roles,process_objects,process_places,print_selected_uris,build_unique_uri_dict
+from generation.adaptation.alignment import process_events, print_dict, process_roles, process_objects, process_places, print_selected_uris, build_unique_uri_dict
 from generation.adaptation.story_builder import StoryBuilder,story_builder
 from common.utils.loader import load_json_folder, load_txt_folder, data_dir, out_dir, save_raw_folktale, load_json
 from generation.ontology.folktale_graph import FolktaleOntology
@@ -65,7 +65,7 @@ def main():
     # folktales.extend(out)
 
     graph = create_graph(
-        folktales=folktales[:100],
+        folktales=folktales,
         build=True,
         render_html=False
     )
@@ -88,7 +88,7 @@ def main():
 
     logger.info(query)
 
-    goal_node = constructive_adaptation.generate(query)
+    goal_node = constructive_adaptation.generate(query, query.max_events)
 
     if goal_node is not None:
         places, objects, roles = process_events(goal_node.event_elements,event_retriever)

@@ -1,8 +1,7 @@
 from common.utils.loader import load_json_folder, out_dir
 from common.models.folktale import AnnotatedFolktale
 from common.models.event import MIN_EVENTS
-from annotation.visualization import show_genre_distribution
-from loguru import logger
+from common.utils.visualization import show_genre_distribution
 
 def main():
 	folktales_json = load_json_folder(f"{out_dir}/annotated")

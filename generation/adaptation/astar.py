@@ -28,7 +28,7 @@ class ConstructiveAdaptation:
 	def _heuristic(self, node: Node, query: Query):
 		return compute_event_similarity(node, query, self.weights, self.retriever, self.sim_calculator)
 	
-	def path_cost(self, node: Node, max_events: int):
+	def _path_cost(self, node: Node, max_events: int):
 		return math.log(1 + (max_events - node.depth) / max_events)
 	
 	def _debug_node(self, message: str, node: Node):
@@ -80,7 +80,7 @@ class ConstructiveAdaptation:
 					depth=depth,
 				)
 				new_node.add_event(candidate, self.retriever)
-				new_node.g = self.path_cost(node, max_events)
+				new_node.g = self._path_cost(node, max_events)
 				new_node.h = self._heuristic(new_node, query) * self.h_weight
 				new_node.f = new_node.g + new_node.h
 				scored_candidates.append(new_node)

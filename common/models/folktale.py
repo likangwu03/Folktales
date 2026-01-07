@@ -19,7 +19,7 @@ class Genre(BaseModel):
 	genre: GenreClass = Field(..., description="The genre assigned to the folktale, chosen from a set of predefined categories.")
 
 class AnnotatedFolktale(BaseModel):
-	uri: str
+	uri: Optional[str] = None
 	nation: Optional[str] = None
 	title: str
 	has_genre: GenreClass

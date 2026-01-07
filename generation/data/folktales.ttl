@@ -867,9 +867,10 @@ ont:Victory a owl:Class ;
     rdfs:label "Victory" ;
     rdfs:subClassOf ont:Resolution .
 
-<https://rbc.org/resources/agent/cinderella/fairy_godmother> a ont:MagicalCreature,
-        pearl:adult ;
+<https://rbc.org/resources/agent/cinderella/fairy_godmother> a ont:MagicalCreature ;
     rdfs:label "Fairy Godmother"^^xsd:string ;
+    ont:ageCategory pearl:adult ;
+    ont:gender "female"^^xsd:string ;
     ont:hasPersonality pearl:Joyful,
         pearl:Sociable ;
     ont:hasRole <https://rbc.org/resources/role/cinderella/fairy_godmother_helper> ;
@@ -993,9 +994,10 @@ ont:knows a owl:ObjectProperty ;
     owl:equivalentProperty foaf:knows ;
     owl:inverseOf rel:knowsOf .
 
-<https://rbc.org/resources/agent/the_hare_and_the_tortoise/fox> a ont:AnthropomorphicAnimal,
-        pearl:adult ;
+<https://rbc.org/resources/agent/the_hare_and_the_tortoise/fox> a ont:AnthropomorphicAnimal ;
     rdfs:label "Fox"^^xsd:string ;
+    ont:ageCategory pearl:adult ;
+    ont:gender "male"^^xsd:string ;
     ont:hasPersonality pearl:Impersonal ;
     ont:hasRole <https://rbc.org/resources/role/the_hare_and_the_tortoise/race_jugde> ;
     ont:knows <https://rbc.org/resources/agent/the_hare_and_the_tortoise/hare>,
@@ -1223,9 +1225,10 @@ ont:Settlement a owl:Class ;
     rdfs:label "Settlement" ;
     rdfs:subClassOf ont:Place .
 
-<https://rbc.org/resources/agent/cinderella/prince> a ont:HumanBeing,
-        pearl:young ;
+<https://rbc.org/resources/agent/cinderella/prince> a ont:HumanBeing ;
     rdfs:label "Prince"^^xsd:string ;
+    ont:ageCategory pearl:young ;
+    ont:gender "male"^^xsd:string ;
     ont:hasPersonality pearl:Assertive,
         pearl:Eager ;
     ont:hasRole <https://rbc.org/resources/role/cinderella/hero_soulmate> ;
@@ -1260,9 +1263,10 @@ ont:Setup a owl:Class ;
     rdfs:label "Setup" ;
     rdfs:subClassOf ont:Move .
 
-<https://rbc.org/resources/agent/the_three_little_pigs/pig_three> a ont:AnthropomorphicAnimal,
-        pearl:children ;
+<https://rbc.org/resources/agent/the_three_little_pigs/pig_three> a ont:AnthropomorphicAnimal ;
     rdfs:label "Pig Three"^^xsd:string ;
+    ont:ageCategory pearl:children ;
+    ont:gender "male"^^xsd:string ;
     ont:hasEnemy <https://rbc.org/resources/agent/the_three_little_pigs/big_bad_wolf> ;
     ont:hasFamilyMember <https://rbc.org/resources/agent/the_three_little_pigs/pig_one>,
         <https://rbc.org/resources/agent/the_three_little_pigs/pig_two> ;
@@ -1287,9 +1291,10 @@ ont:SecondaryCharacter a owl:Class ;
     rdfs:label "Secondary Character" ;
     rdfs:subClassOf ont:Role .
 
-<https://rbc.org/resources/agent/cinderella/stepmother> a ont:HumanBeing,
-        pearl:adult ;
+<https://rbc.org/resources/agent/cinderella/stepmother> a ont:HumanBeing ;
     rdfs:label "Stepmother"^^xsd:string ;
+    ont:ageCategory pearl:adult ;
+    ont:gender "female"^^xsd:string ;
     ont:hasFamilyMember <https://rbc.org/resources/agent/cinderella/cinderella>,
         <https://rbc.org/resources/agent/cinderella/stepsister_one>,
         <https://rbc.org/resources/agent/cinderella/stepsister_two> ;
@@ -1300,9 +1305,10 @@ ont:SecondaryCharacter a owl:Class ;
     ont:livesIn <https://rbc.org/resources/place/cinderella/hero_house> ;
     ont:name "Lady Tremaine"^^xsd:string .
 
-<https://rbc.org/resources/agent/cinderella/stepsister_two> a ont:HumanBeing,
-        pearl:young ;
+<https://rbc.org/resources/agent/cinderella/stepsister_two> a ont:HumanBeing ;
     rdfs:label "Stepsister Two"^^xsd:string ;
+    ont:ageCategory pearl:young ;
+    ont:gender "female"^^xsd:string ;
     ont:hasFamilyMember <https://rbc.org/resources/agent/cinderella/cinderella>,
         <https://rbc.org/resources/agent/cinderella/stepmother>,
         <https://rbc.org/resources/agent/cinderella/stepsister_one> ;
@@ -1312,9 +1318,10 @@ ont:SecondaryCharacter a owl:Class ;
     ont:livesIn <https://rbc.org/resources/place/cinderella/hero_house> ;
     ont:name "Drizella"^^xsd:string .
 
-<https://rbc.org/resources/agent/the_three_little_pigs/big_bad_wolf> a ont:AnthropomorphicAnimal,
-        pearl:adult ;
+<https://rbc.org/resources/agent/the_three_little_pigs/big_bad_wolf> a ont:AnthropomorphicAnimal ;
     rdfs:label "Big Bad Wolf"^^xsd:string ;
+    ont:ageCategory pearl:adult ;
+    ont:gender "male"^^xsd:string ;
     ont:hasEnemy <https://rbc.org/resources/agent/the_three_little_pigs/pig_one>,
         <https://rbc.org/resources/agent/the_three_little_pigs/pig_three>,
         <https://rbc.org/resources/agent/the_three_little_pigs/pig_two> ;
@@ -1324,9 +1331,10 @@ ont:SecondaryCharacter a owl:Class ;
     ont:livesIn <https://rbc.org/resources/place/the_three_little_pigs/near_forest> ;
     ont:name "Big bad wolf"^^xsd:string .
 
-<https://rbc.org/resources/agent/the_three_little_pigs/pig_two> a ont:AnthropomorphicAnimal,
-        pearl:children ;
+<https://rbc.org/resources/agent/the_three_little_pigs/pig_two> a ont:AnthropomorphicAnimal ;
     rdfs:label "Pig Two"^^xsd:string ;
+    ont:ageCategory pearl:children ;
+    ont:gender "male"^^xsd:string ;
     ont:hasEnemy <https://rbc.org/resources/agent/the_three_little_pigs/big_bad_wolf> ;
     ont:hasFamilyMember <https://rbc.org/resources/agent/the_three_little_pigs/pig_one>,
         <https://rbc.org/resources/agent/the_three_little_pigs/pig_three> ;
@@ -1344,9 +1352,10 @@ ont:Folktale a owl:Class ;
     rdfs:subClassOf schema:CreativeWork ;
     owl:equivalentClass wd:Q1221280 .
 
-<https://rbc.org/resources/agent/cinderella/stepsister_one> a ont:HumanBeing,
-        pearl:young ;
+<https://rbc.org/resources/agent/cinderella/stepsister_one> a ont:HumanBeing ;
     rdfs:label "Stepsister One"^^xsd:string ;
+    ont:ageCategory pearl:young ;
+    ont:gender "female"^^xsd:string ;
     ont:hasFamilyMember <https://rbc.org/resources/agent/cinderella/cinderella>,
         <https://rbc.org/resources/agent/cinderella/stepmother>,
         <https://rbc.org/resources/agent/cinderella/stepsister_two> ;
@@ -1357,9 +1366,10 @@ ont:Folktale a owl:Class ;
     ont:livesIn <https://rbc.org/resources/place/cinderella/hero_house> ;
     ont:name "Anastasia"^^xsd:string .
 
-<https://rbc.org/resources/agent/the_three_little_pigs/pig_one> a ont:AnthropomorphicAnimal,
-        pearl:children ;
+<https://rbc.org/resources/agent/the_three_little_pigs/pig_one> a ont:AnthropomorphicAnimal ;
     rdfs:label "Pig One"^^xsd:string ;
+    ont:ageCategory pearl:children ;
+    ont:gender "male"^^xsd:string ;
     ont:hasEnemy <https://rbc.org/resources/agent/the_three_little_pigs/big_bad_wolf> ;
     ont:hasFamilyMember <https://rbc.org/resources/agent/the_three_little_pigs/pig_three>,
         <https://rbc.org/resources/agent/the_three_little_pigs/pig_two> ;
@@ -1379,9 +1389,10 @@ ont:Preparation a owl:Class ;
     rdfs:label "Preparation" ;
     rdfs:subClassOf ont:Move .
 
-<https://rbc.org/resources/agent/the_hare_and_the_tortoise/hare> a ont:AnthropomorphicAnimal,
-        pearl:adult ;
+<https://rbc.org/resources/agent/the_hare_and_the_tortoise/hare> a ont:AnthropomorphicAnimal ;
     rdfs:label "Hare"^^xsd:string ;
+    ont:ageCategory pearl:adult ;
+    ont:gender "male"^^xsd:string ;
     ont:hasEnemy <https://rbc.org/resources/agent/the_hare_and_the_tortoise/tortoise> ;
     ont:hasPersonality pearl:Egocentric,
         pearl:Impulsive ;
@@ -1397,9 +1408,10 @@ ont:Move a owl:Class ;
     rdfs:label "Move" ;
     rdfs:subClassOf ont:Event .
 
-<https://rbc.org/resources/agent/the_hare_and_the_tortoise/tortoise> a ont:AnthropomorphicAnimal,
-        pearl:adult ;
+<https://rbc.org/resources/agent/the_hare_and_the_tortoise/tortoise> a ont:AnthropomorphicAnimal ;
     rdfs:label "Tortoise"^^xsd:string ;
+    ont:ageCategory pearl:adult ;
+    ont:gender "male"^^xsd:string ;
     ont:hasEnemy <https://rbc.org/resources/agent/the_hare_and_the_tortoise/hare> ;
     ont:hasPersonality pearl:Assertive,
         pearl:Eager ;
@@ -1424,9 +1436,10 @@ ont:Resolution a owl:Class ;
 
 <http://www.gsi.upm.es/ontologies/pearl/ns#Personality> a owl:Class .
 
-<https://rbc.org/resources/agent/cinderella/cinderella> a ont:HumanBeing,
-        pearl:young ;
+<https://rbc.org/resources/agent/cinderella/cinderella> a ont:HumanBeing ;
     rdfs:label "Cinderella"^^xsd:string ;
+    ont:ageCategory pearl:young ;
+    ont:gender "female"^^xsd:string ;
     ont:hasFamilyMember <https://rbc.org/resources/agent/cinderella/stepmother>,
         <https://rbc.org/resources/agent/cinderella/stepsister_one>,
         <https://rbc.org/resources/agent/cinderella/stepsister_two> ;
