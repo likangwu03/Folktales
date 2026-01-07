@@ -6,6 +6,8 @@ from generation.ontology.similarity_calculator import LocalSemanticSimilarityCal
 
 from common.utils.regex_utils import snake_case_to_pascal_case
 from loguru import logger
+from collections import defaultdict
+from typing import Dict, List, Set
 
 class ItemContainer:
     def __init__(self, id_: str, n: int =2):
@@ -80,7 +82,7 @@ def process_events(events: dict[str, dict], eventRetriever: EventRetriever):
 
             # asegurar suficientes contenedores según count real
             while len(containers) < expected_count:
-                containers.append(ItemContainer(obj_id))
+                containers.append(ItemContainer(obj_id,len(containers)+1))
 
             # añadir evento y candidates a los primeros n contenedores
             for i in range(expected_count):
@@ -108,7 +110,7 @@ def process_events(events: dict[str, dict], eventRetriever: EventRetriever):
 
             # asegurar suficientes contenedores según count real
             while len(containers) < expected_count:
-                containers.append(ItemContainer(role_id))
+                containers.append(ItemContainer(role_id,len(containers)+1))
 
             # añadir evento y candidates (agentes)
             for i in range(expected_count):
@@ -133,8 +135,6 @@ def process_roles(genre: str, container_dict: dict[str, list[ItemContainer]], ev
                 print(f"    - score: {score}")
                 container.add_candidate(uri,score)
 
-    return
-
 def process_objects(genre: str, container_dict: dict[str, list[ItemContainer]], eventRetriever: EventRetriever, sim:LocalSemanticSimilarityCalculator):
     for key, container_list in container_dict.items():
         objects = eventRetriever.get_objects_by_type_and_genre(snake_case_to_pascal_case(key),FolktaleOntology.GENRE_MAP[genre])
@@ -149,8 +149,6 @@ def process_objects(genre: str, container_dict: dict[str, list[ItemContainer]], 
                 print(f"    - events: {container.events}")
                 print(f"    - score: {score}")
                 container.add_candidate(uri,score)
-
-    return
 
 def process_places(genre: str, container_dict: dict[str, list[ItemContainer]], eventRetriever: EventRetriever, sim: LocalSemanticSimilarityCalculator):
     for key, container_list in container_dict.items():
@@ -167,4 +165,48 @@ def process_places(genre: str, container_dict: dict[str, list[ItemContainer]], e
                 print(f"    - score: {score}")
                 container.add_candidate(uri,score)
 
-    return
+
+
+def build_unique_uri_dict(container_dict: Dict[str, List[ItemContainer]]) -> Dict[str, List[str]]:
+
+    result: Dict[str, List[str]] = defaultdict(list)
+    used_uris: Set[str] = set()
+
+    for key, containers in container_dict.items():
+        for container in containers:
+            # Obtener candidatos ordenados por score DESC
+            candidates = sorted(
+                container.queue.queue,
+                key=lambda x: x[0],
+                reverse=True
+            )
+
+            selected_uri = None
+            for score, uri in candidates:
+                if uri not in used_uris:
+                    selected_uri = uri
+                    break
+
+            if selected_uri is not None:
+                result[container.id].append(selected_uri)
+                used_uris.add(selected_uri)
+            else:
+                # TODO
+                pass
+
+    return dict(result)
+
+def print_selected_uris(title: str, uri_dict: dict[str, list[str]]):
+    print(f"\n=== {title.upper()} ===")
+
+    if not uri_dict:
+        print("  (vacío)")
+        return
+
+    for id_, uris in uri_dict.items():
+        print(f"{id_}:")
+        if not uris:
+            print("  - (sin URI asignada)")
+        else:
+            for uri in uris:
+                print(f"  - {uri}")
