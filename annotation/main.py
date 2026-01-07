@@ -13,7 +13,6 @@ from annotation.tools.object_extractor import extract_objects
 from annotation.tools.relationship_extractor import extract_relationships
 from common.models.folktale import AnnotatedFolktale
 from pandas import DataFrame
-from annotation.visualization import show_genre_distribution
 from loguru import logger
 import uuid
 import os
@@ -58,12 +57,6 @@ def get_folktales_by_count(folktales_df: DataFrame, start_index: int, n_folktale
 
 	return selected_folktales_df
 
-def display_genre_distribution(enabled: bool=False):
-	if enabled:
-		folktales_json = load_json_folder(f"{out_dir}/annotated")
-		folktales = [AnnotatedFolktale(**folktale_json) for folktale_json in folktales_json.values()]
-		show_genre_distribution(folktales)
-
 def setup_logging(log_dir: str):
 	os.makedirs(log_dir, exist_ok=True)
 
@@ -91,8 +84,6 @@ def main():
 
 	load_dotenv()
 
-	display_genre_distribution(True)
-
 	model = get_model(0.5)
 
 	hierarchies = load_json_folder(f"{data_dir}/hierarchies")
@@ -110,7 +101,7 @@ def main():
 	object_hierarchy = hierarchies["object"]
 
 	folktales_df = load_folktale_csv()
-	selected_folktales_df = get_folktales_by_count(folktales_df, 300, 301)
+	selected_folktales_df = get_folktales_by_count(folktales_df, 5, 300)
 
 	for idx, row in selected_folktales_df.iterrows():
 		text = row["text"]
@@ -195,9 +186,6 @@ def main():
     		)
 			with open(f"{log_dir}/failed_indexes.log", "a", encoding="utf-8") as f:
 				f.write(f"{idx}\n")
-
-
-	display_genre_distribution(True)
 
 if __name__ == "__main__":
 	main()

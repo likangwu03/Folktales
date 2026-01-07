@@ -10,11 +10,11 @@ class Query(BaseModel):
 	title: str
 	initial_event: EventClass
 	genre: GenreClass
-	events: list[EventClass] = Field(..., min_length=1, max_length=2)
-	role: list[RoleClass] = Field(..., min_length=1, max_length=2)
-	place: PlaceClass
-	object: ObjectClass
-	max_events: int = Field(..., ge=5, le=10)
+	events: list[EventClass]
+	roles: list[RoleClass]
+	places: list[PlaceClass]
+	objects: list[ObjectClass]
+	max_events: int
 
 	@field_validator("*", mode="after")
 	@classmethod

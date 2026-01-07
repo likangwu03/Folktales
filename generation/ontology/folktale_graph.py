@@ -3,6 +3,7 @@ import typing
 from generation.ontology.namespaces import *
 from common.utils.regex_utils import title_case_to_snake_case, snake_case_to_title_case, snake_case_to_pascal_case
 import generation.utils.sbc_tools as sbc
+from common.models.folktale import AnnotatedFolktale
 from loguru import logger
 
 class FolktaleOntology(Graph):
@@ -364,33 +365,11 @@ class FolktaleOntology(Graph):
 		graph = sbc.load(filename)
 		self._merge_graph(graph)
 
-	def _try_add_text(self, subject, predicate, text):
-		if text:
-			self.add((subject, predicate, Literal(text, datatype = XSD.string)))
-			return True
-		logger.warning(f"Invalid text: {text}")
-		return False
-
-	def _try_add_existing_instance(self, subject, predicate, key, mapping_map):
-		if key in mapping_map:
-			self.add((subject, predicate, mapping_map[key]))
-			return True
-		logger.warning(f"Invalid key: {key}")
-		return False
-
-	def _try_add_existing_instances(self, subject, predicate, lst, mapping_map):
-		if isinstance(lst, list):
-			for elem in lst:
-				self.add((subject, predicate, mapping_map[elem]))
-			return True
-		logger.warning(f"Invalid list: {lst}")
-		return False
-
 	def resolve_ontology(self, ontology_reference: str):
 		return getattr(ONT, ontology_reference.split('.')[-1])
 	
-	def add_folktale(self, data: dict):
-		title = data["title"]
+	def add_folktale(self, data: AnnotatedFolktale):
+		title = data.title
 
 		snake_case_title = title_case_to_snake_case(title)
 
@@ -398,25 +377,27 @@ class FolktaleOntology(Graph):
 		self.add((folktale_uri, RDF.type, ONT.Folktale))
 		self.add((folktale_uri, ONT.title, Literal(title, datatype = XSD.string)))
 		self.add((folktale_uri, RDFS.label, Literal(title, datatype = XSD.string)))
-		self.add((folktale_uri, OWL.sameAs, URIRef(data["uri"])))
+		self.add((folktale_uri, OWL.sameAs, URIRef(data.uri)))
 
-		self._try_add_text(folktale_uri, ONT.nation, data.get("nation"))
-
-		self._try_add_existing_instance(folktale_uri, ONT.hasGenre, data.get("has_genre"), self.GENRE_MAP)
+		nation = data.nation
+		if nation is not None:
+			self.add((folktale_uri, ONT.nation, Literal(nation, datatype = XSD.string)))
+		
+		self.add((folktale_uri, ONT.hasGenre, self.GENRE_MAP[data.has_genre]))
 
 		# -----------------------------
 		# Crear lugares
 		# -----------------------------
-		places = data.get("places")
+		places = data.places
 		place_uris = {}
 		if places and isinstance(places, list):
 			for i, place in enumerate(places):
 				# Se crea el lugar y se añade al grafo
-				instance_name = place["instance_name"]
+				instance_name = place.instance_name
 
 				place_uri = RES[f"place/{snake_case_title}/{instance_name}"]
 
-				place_class = snake_case_to_pascal_case(place["class_name"])
+				place_class = snake_case_to_pascal_case(place.class_name)
 				place_class = self.resolve_ontology(place_class)
 				self.add((place_uri, RDF.type, place_class))
 				self.add((place_uri, RDFS.label, Literal(snake_case_to_title_case(instance_name), datatype = XSD.string)))
@@ -425,16 +406,16 @@ class FolktaleOntology(Graph):
 		# -----------------------------
 		# Crear objetos
 		# -----------------------------
-		objects = data.get("objects")
+		objects = data.objects
 		object_uris = {}
 		if objects and isinstance(objects, list):
 			for i, object in enumerate(objects):
 				# Se crea el lugar y se añade al grafo
-				instance_name = object["instance_name"]
+				instance_name = object.instance_name
 
 				object_uri = RES[f"object/{snake_case_title}/{instance_name}"]
 
-				object_class = snake_case_to_pascal_case(object["class_name"])
+				object_class = snake_case_to_pascal_case(object.class_name)
 				object_class = self.resolve_ontology(object_class)
 				self.add((object_uri, RDF.type, object_class))
 				self.add((object_uri, RDFS.label, Literal(snake_case_to_title_case(instance_name), datatype = XSD.string)))            
@@ -443,66 +424,71 @@ class FolktaleOntology(Graph):
 		# -----------------------------
 		# Crear agentes
 		# -----------------------------
-		agents = data.get("agents")
-		agent_uri_map = {}  # mapear índices de JSON a URIs
+		agents = data.agents
+		agent_uris = {}  # mapear índices de JSON a URIs
 		if agents and isinstance(agents, list):
 			for i, agent in enumerate(agents):
 				# Se crea el agente y se añade al grafo
-				instance_name = agent["instance_name"]
+				instance_name = agent.instance_name
 
 				agent_uri = RES[f"agent/{snake_case_title}/{instance_name}"]
 
-				agent_class = snake_case_to_pascal_case(agent["class_name"])
+				agent_class = snake_case_to_pascal_case(agent.class_name)
 				agent_class = self.resolve_ontology(agent_class)
 				self.add((agent_uri, RDF.type, agent_class))
 				self.add((agent_uri, RDFS.label, Literal(snake_case_to_title_case(instance_name), datatype = XSD.string)))
 
-				self._try_add_text(agent_uri, ONT.name, agent.get("name"))
-				self._try_add_existing_instance(agent_uri, RDF.type, agent.get("age_category"), self.AGE_GROUP_MAP)
-				self._try_add_existing_instances(agent_uri, ONT.hasPersonality, agent.get("has_personality"), self.PERSONALITY_MAP)
+				name = agent.name
+				if name is not None:
+					self.add((agent_uri, ONT.name, Literal(name, datatype = XSD.string)))
+				
+				self.add((agent_uri, RDF.type, self.AGE_GROUP_MAP[agent.age_category]))
 
-				lives_in = agent.get("lives_in")
-				if lives_in and isinstance(lives_in, int):
+				personality = agent.has_personality
+				for trait in personality:
+					self.add((agent_uri, ONT.hasPersonality, self.PERSONALITY_MAP[trait]))
+				
+				lives_in = agent.lives_in
+				if lives_in is not None:
 					self.add((agent_uri,  ONT.livesIn, place_uris[lives_in]))
 
-				hasRole = agent.get("has_role")
+				hasRole = agent.has_role
 				if hasRole:
-					instance_name = hasRole["instance_name"]
+					instance_name = hasRole.instance_name
 
 					role_uri = RES[f"role/{snake_case_title}/{instance_name}"]
 
-					role_class = snake_case_to_pascal_case(hasRole["class_name"])
+					role_class = snake_case_to_pascal_case(hasRole.class_name)
 					role_class = self.resolve_ontology(role_class)
 					self.add((role_uri, RDF.type, role_class))
 					self.add((role_uri, RDFS.label, Literal(snake_case_to_title_case(instance_name), datatype = XSD.string)))            
 					self.add((agent_uri, ONT.hasRole, role_uri))
 
-				agent_uri_map[i] = agent_uri
+				agent_uris[i] = agent_uri
 
 		# -----------------------------
 		# Crear relaciones
 		# -----------------------------
-		relationships = data.get("relationships")
-		if relationships and isinstance(relationships, list):
-			for relationship in relationships:
-				agent_uri = agent_uri_map[relationship["agent"]]
-				other_uri = agent_uri_map[relationship["other"]]
-				relationship_type = relationship["relationship"]
-				self.add((agent_uri, self.RELATIONSHIP_MAP[relationship_type], other_uri))
-				self.add((other_uri, self.RELATIONSHIP_MAP[relationship_type], agent_uri))
+		relationships = data.relationships
+		for relationship in relationships:
+			agent_uri = agent_uris[relationship.agent]
+			other_uri = agent_uris[relationship.other]
+			relationship_type = relationship.relationship
+			self.add((agent_uri, self.RELATIONSHIP_MAP[relationship_type], other_uri))
+			self.add((other_uri, self.RELATIONSHIP_MAP[relationship_type], agent_uri))
 
 		# -----------------------------
 		# Crear eventos
 		# -----------------------------
 		pre_event_uri = None
-		events = data.get("events")
+		events = data.events
 		if events and isinstance(events, list):
 			for event in events:
-				instance_name = event["instance_name"]
+				instance_name = event.instance_name
 
 				event_uri = RES[f"event/{snake_case_title}/{instance_name}"]
 
-				event_class = snake_case_to_pascal_case(event["class_name"])
+				event_class = snake_case_to_pascal_case(event.class_name)
 				event_class = self.resolve_ontology(event_class)
 				self.add((event_uri, RDF.type, event_class))
 				self.add((event_uri, RDFS.label, Literal(snake_case_to_title_case(instance_name), datatype = XSD.string)))
@@ -511,14 +497,16 @@ class FolktaleOntology(Graph):
 				self.add((folktale_uri, ONT.hasEvent, event_uri))
 				
 				# Se añaden los agentes que hay en el evento
-				self._try_add_existing_instances(event_uri, ONT.hasAgent, event.get("agents"), agent_uri_map)
-				
-				# Se añaden los lugares que hay en el evento
-				self._try_add_existing_instance(event_uri, ONT.hasPlace, event.get("place"), place_uris)
+				for agent in event.agents:
+					self.add((event_uri, ONT.hasAgent, agent_uris[agent]))
+								
+				# Se añaden el lugar en el que ocurre el evento
+				self.add((event_uri, ONT.hasPlace, place_uris[event.place]))
 
 				# Se añaden los objetos que hay en el evento
-				self._try_add_existing_instances(event_uri, ONT.hasObject, event.get("objects"), object_uris)
-
+				for object in event.objects:
+					self.add((event_uri, ONT.hasObject, object_uris[object]))
+				
 				# Se establece la secuencia de ventos
 				if pre_event_uri:
 					self.add((pre_event_uri, ONT.postEvent, event_uri))

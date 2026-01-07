@@ -327,8 +327,8 @@ ont:ReleaseFromCaptivity a owl:Class ;
     rdfs:label "Release From Captivity" ;
     rdfs:subClassOf ont:LiquidiationOfLack .
 
-ont:ReturnEvent a owl:Class ;
-    rdfs:label "Return Event" ;
+ont:Return a owl:Class ;
+    rdfs:label "Return" ;
     rdfs:subClassOf ont:Preparation .
 
 ont:Reward a owl:Class ;
@@ -874,6 +874,7 @@ ont:Victory a owl:Class ;
         pearl:Sociable ;
     ont:hasRole <https://rbc.org/resources/role/cinderella/fairy_godmother_helper> ;
     ont:knows <https://rbc.org/resources/agent/cinderella/cinderella> ;
+    ont:livesIn <https://rbc.org/resources/place/cinderella/hero_house> ;
     ont:name "Fairy Godmother"^^xsd:string .
 
 <https://rbc.org/resources/event/cinderella/hero_works_hard> a ont:Setup ;
@@ -920,9 +921,6 @@ ont:Victory a owl:Class ;
         <https://rbc.org/resources/agent/the_three_little_pigs/pig_two> ;
     ont:hasPlace <https://rbc.org/resources/place/the_three_little_pigs/brick_house> ;
     ont:preEvent <https://rbc.org/resources/event/the_three_little_pigs/villain_attacks_medium_resistant_house> .
-
-<https://rbc.org/resources/place/the_three_little_pigs/straw_house> a ont:House ;
-    rdfs:label "Straw House"^^xsd:string .
 
 <https://rbc.org/resources/role/cinderella/villain_minion> a ont:Villain ;
     rdfs:label "Villain Minion"^^xsd:string .
@@ -1160,6 +1158,9 @@ ont:knows a owl:ObjectProperty ;
 <https://rbc.org/resources/place/the_three_little_pigs/stick_house> a ont:House ;
     rdfs:label "Stick House"^^xsd:string .
 
+<https://rbc.org/resources/place/the_three_little_pigs/straw_house> a ont:House ;
+    rdfs:label "Straw House"^^xsd:string .
+
 sem:Actor a owl:Class ;
     rdfs:label "Actor" ;
     rdfs:comment """Actors are entities that take part in an Event, either actively or passively. Actors do not necessarily have to be sentient. They can also be objects. Actors are a thing, animate or inanimate, physical or non-physical.
@@ -1271,9 +1272,6 @@ ont:Setup a owl:Class ;
     ont:livesIn <https://rbc.org/resources/place/the_three_little_pigs/brick_house> ;
     ont:name "Little Pig 3"^^xsd:string .
 
-<https://rbc.org/resources/place/cinderella/hero_house> a ont:House ;
-    rdfs:label "Hero House"^^xsd:string .
-
 <https://rbc.org/resources/place/cinderella/royal_ballroom> a ont:Palace ;
     rdfs:label "Royal Ballroom"^^xsd:string .
 
@@ -1299,6 +1297,7 @@ ont:SecondaryCharacter a owl:Class ;
         pearl:Egocentric ;
     ont:hasRole <https://rbc.org/resources/role/cinderella/main_villain> ;
     ont:knows <https://rbc.org/resources/agent/cinderella/stepsister_one> ;
+    ont:livesIn <https://rbc.org/resources/place/cinderella/hero_house> ;
     ont:name "Lady Tremaine"^^xsd:string .
 
 <https://rbc.org/resources/agent/cinderella/stepsister_two> a ont:HumanBeing,
@@ -1310,6 +1309,7 @@ ont:SecondaryCharacter a owl:Class ;
     ont:hasPersonality pearl:Impulsive,
         pearl:Joyful ;
     ont:hasRole <https://rbc.org/resources/role/cinderella/villain_minion> ;
+    ont:livesIn <https://rbc.org/resources/place/cinderella/hero_house> ;
     ont:name "Drizella"^^xsd:string .
 
 <https://rbc.org/resources/agent/the_three_little_pigs/big_bad_wolf> a ont:AnthropomorphicAnimal,
@@ -1354,6 +1354,7 @@ ont:Folktale a owl:Class ;
         pearl:Tense ;
     ont:hasRole <https://rbc.org/resources/role/cinderella/villain_minion> ;
     ont:knows <https://rbc.org/resources/agent/cinderella/stepmother> ;
+    ont:livesIn <https://rbc.org/resources/place/cinderella/hero_house> ;
     ont:name "Anastasia"^^xsd:string .
 
 <https://rbc.org/resources/agent/the_three_little_pigs/pig_one> a ont:AnthropomorphicAnimal,
@@ -1365,6 +1366,7 @@ ont:Folktale a owl:Class ;
     ont:hasPersonality pearl:Active,
         pearl:Sociable ;
     ont:hasRole <https://rbc.org/resources/role/the_three_little_pigs/hero_brother_one> ;
+    ont:livesIn <https://rbc.org/resources/place/the_three_little_pigs/straw_house> ;
     ont:name "Little Pig 1"^^xsd:string .
 
 sem:Type a owl:Class ;
@@ -1417,6 +1419,9 @@ ont:Resolution a owl:Class ;
     rdfs:label "Resolution" ;
     rdfs:subClassOf ont:Event .
 
+<https://rbc.org/resources/place/cinderella/hero_house> a ont:House ;
+    rdfs:label "Hero House"^^xsd:string .
+
 <http://www.gsi.upm.es/ontologies/pearl/ns#Personality> a owl:Class .
 
 <https://rbc.org/resources/agent/cinderella/cinderella> a ont:HumanBeing,
@@ -1430,6 +1435,7 @@ ont:Resolution a owl:Class ;
         pearl:Sociable ;
     ont:hasRole <https://rbc.org/resources/role/cinderella/main_hero> ;
     ont:knows <https://rbc.org/resources/agent/cinderella/fairy_godmother> ;
+    ont:livesIn <https://rbc.org/resources/place/cinderella/hero_house> ;
     ont:name "Cinderella"^^xsd:string .
 
 ont:Agent a owl:Class ;

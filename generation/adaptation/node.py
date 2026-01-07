@@ -9,6 +9,7 @@ class Node(BaseModel):
 	f: float = 0
 	g: float = 0
 	h: float = 0
+	depth: int = 0
 	events: list[str] = Field(default_factory=list)
 	roles: dict[str, int] = Field(default_factory=dict)
 	places: set[str] = Field(default_factory=set)
@@ -60,7 +61,7 @@ class Node(BaseModel):
 			"roles": role_map
 		}
 
-	def clone(self, parent: Node, g: float):
+	def clone(self, parent: Node, depth: int):
 		return Node(
 			events=list(self.events),
 			places=set(self.places),
@@ -68,7 +69,7 @@ class Node(BaseModel):
 			roles=dict(self.roles),
 			event_elements=copy.deepcopy(self.event_elements),
 			parent=parent,
-			g=g,
+			depth=depth,
 		)
 	
 	def get_event_names(self):

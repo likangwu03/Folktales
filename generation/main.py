@@ -10,16 +10,16 @@ from rdflib import Graph
 from dotenv import load_dotenv
 from generation.story_generator import generate_story
 from common.models.folktale import AnnotatedFolktale
+from common.models.event import MIN_EVENTS
 import os
 
-def create_graph(build: bool=False, render_html: bool=False) -> Graph:
+def create_graph(folktales: list[AnnotatedFolktale], build: bool=False, render_html: bool=False) -> Graph:
     graph = FolktaleOntology()
     if build:
         hierarchies = load_json_folder(f"{data_dir}/hierarchies")
         graph.build(hierarchies)
 
-        examples = load_json_folder(f"{data_dir}/examples/annotated")
-        for folktale in examples.values():
+        for folktale in folktales:
             graph.add_folktale(folktale)
 
         graph.add_imports()
@@ -53,33 +53,48 @@ def main():
 
     # save_raw_folktale(story, folktale.title)
 
-    graph = create_graph(build=False,
-                         render_html=False)
+    folktales = []
+    examples = load_json_folder(f"{data_dir}/examples/annotated")
+    examples = [AnnotatedFolktale(**folktale) for folktale in examples.values()]
+    folktales.extend(examples)
+
+    # out = load_json_folder(f"{out_dir}/annotated")
+    # out = [AnnotatedFolktale(**folktale) for folktale in out.values()]
+    # out = [folktale for folktale in out if len(folktale.events) > MIN_EVENTS]
+    # folktales.extend(out)
+
+    graph = create_graph(
+        folktales=folktales[:100],
+        build=True,
+        render_html=False
+    )
     
     event_retriever = EventRetriever(graph)
     sim_calculator = LocalSemanticSimilarityCalculator(graph)
 
-    query_json = load_json("./query.json")
+    weights = {
+        "genre": 0.15,
+        "event": 0.40,
+        "role": 0.20,
+        "place": 0.15,
+        "object": 0.10
+    }
 
+    constructive_adaptation = ConstructiveAdaptation(graph, weights, event_retriever, sim_calculator)
+
+    query_json = load_json("./query.json")
     query = Query.model_validate(query_json)
 
     logger.info(query)
 
-    weights = {
-        "genre": 0.30,
-        "event": 0.35,
-        "role": 0.15,
-        "place": 0.10,
-        "object": 0.10,
-    }
-
-    constructive_adaptation = ConstructiveAdaptation(graph, weights, event_retriever, sim_calculator, query.max_events)
     goal_node = constructive_adaptation.generate(query)
-    places,objects,roles= process_events(goal_node.event_elements,event_retriever)
-    process_roles("fable",roles,event_retriever,sim_calculator)
-    print_dict("places", places)
-    print_dict("objects", objects)
-    print_dict("roles", roles)
+
+    if goal_node is not None:
+        places, objects, roles = process_events(goal_node.event_elements,event_retriever)
+        process_roles("fable", roles, event_retriever, sim_calculator)
+        print_dict("places", places)
+        print_dict("objects", objects)
+        print_dict("roles", roles)
 
 if __name__ == "__main__":
     main()

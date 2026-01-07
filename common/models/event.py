@@ -112,6 +112,7 @@ class Event(BaseModel):
 	objects: list[int] = Field(default_factory=list)
 	place: int
 
+MIN_EVENTS = 3
 MAX_EVENTS = 15
 
 class StorySegments(BaseModel):

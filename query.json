@@ -1,14 +1,18 @@
 {
-    "title": "A Christmas Carol",
+    "title": "The Hare and The Tortoise",
     "initial_event": "setup",
     "events": [
         "initial_situation"
     ],
-    "role": [
-        "hero"
+    "roles": [
+        "hero",
+        "antagonist",
+        "secondary_character"
     ],
-    "object": "crafted_object",
-    "place": "house",
-    "genre": "fairy_tale",
-    "max_events": 10
+    "objects": [],
+    "places": [
+        "forest"
+    ],
+    "genre": "fable",
+    "max_events": 9
 }
