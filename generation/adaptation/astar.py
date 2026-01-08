@@ -6,7 +6,6 @@ from generation.ontology.similarity_calculator import LocalSemanticSimilarityCal
 from common.models.event import MAX_EVENTS
 from rdflib import Graph
 from loguru import logger
-import math
 import heapq
 
 class ConstructiveAdaptation:
@@ -15,21 +14,26 @@ class ConstructiveAdaptation:
 	weights: dict[str, float]
 	sim_calculator: LocalSemanticSimilarityCalculator
 	top_n: int
+	g_weight: float
 	h_weight: float
 	
-	def __init__(self, graph: Graph, weights: dict[str, float], retriever: EventRetriever, sim_calculator: LocalSemanticSimilarityCalculator, top_n: int = 5, h_weight: float = 1.5):
+	def __init__(self, graph: Graph, weights: dict[str, float], retriever: EventRetriever, sim_calculator: LocalSemanticSimilarityCalculator, top_n: int = 5, g_weight: float = 1.0, h_weight: float = 2.0):
 		self.graph = graph
 		self.weights = weights
 		self.retriever = retriever
 		self.sim_calculator = sim_calculator
 		self.top_n = top_n
+		self.g_weight = g_weight
 		self.h_weight = h_weight
 
 	def _heuristic(self, node: Node, query: Query):
-		return compute_event_similarity(node, query, self.weights, self.retriever, self.sim_calculator)
+		sim = compute_event_similarity(node, query, self.weights, self.retriever, self.sim_calculator)
+		h = -sim * self.h_weight
+		return h
 	
 	def _path_cost(self, node: Node, max_events: int):
-		return math.log(1 + (max_events - node.depth) / max_events)
+		n_events = len(node.events)
+		return ((max_events - n_events) / max_events) ** 2 * self.g_weight
 	
 	def _debug_node(self, message: str, node: Node):
 		logger.debug(f"{message}: events={node.get_event_names()}, g={node.g:.2f}, h={node.h:.2f}, f={node.f:.2f}")
@@ -54,8 +58,7 @@ class ConstructiveAdaptation:
 		top_initial_candidates = heapq.nsmallest(self.top_n, scored_initial_candidates, key=lambda node: node.h)
 
 		for node in top_initial_candidates:
-			f = -node.f
-			heapq.heappush(open_heap, (f, counter, node))
+			heapq.heappush(open_heap, (node.f, counter, node))
 			counter += 1
 			self._debug_node("Initial node added", node)
 
@@ -74,22 +77,19 @@ class ConstructiveAdaptation:
 			scored_candidates: list[Node] = []
 
 			for candidate in candidates:
-				depth = node.depth + 1
 				new_node = node.clone(
-					parent=node,
-					depth=depth,
+					parent=node
 				)
 				new_node.add_event(candidate, self.retriever)
 				new_node.g = self._path_cost(node, max_events)
-				new_node.h = self._heuristic(new_node, query) * self.h_weight
+				new_node.h = self._heuristic(new_node, query)
 				new_node.f = new_node.g + new_node.h
 				scored_candidates.append(new_node)
 
 			top_candidates = heapq.nsmallest(self.top_n, scored_candidates, key=lambda node: node.h)
 
 			for new_node in top_candidates:
-				f = -new_node.f
-				heapq.heappush(open_heap, (f, counter, new_node))
+				heapq.heappush(open_heap, (new_node.f, counter, new_node))
 				self._debug_node("New node added", new_node)
 				counter += 1
 		

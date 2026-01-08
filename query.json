@@ -2,7 +2,12 @@
     "title": "The Hare and The Tortoise",
     "initial_event": "setup",
     "events": [
-        "initial_situation"
+        "setup",
+        "conflict",
+        "move",
+        "connective_incident",
+        "resolution",
+        "victory"
     ],
     "roles": [
         "hero",

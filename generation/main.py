@@ -55,14 +55,16 @@ def main():
     # save_raw_folktale(story, folktale.title)
 
     folktales = []
-    examples = load_json_folder(f"{data_dir}/examples/annotated")
-    examples = [AnnotatedFolktale(**folktale) for folktale in examples.values()]
-    folktales.extend(examples)
+    # examples = load_json_folder(f"{data_dir}/examples/annotated")
+    # examples = [AnnotatedFolktale(**folktale) for folktale in examples.values()]
+    # folktales.extend(examples)
 
-    # out = load_json_folder(f"{out_dir}/annotated")
-    # out = [AnnotatedFolktale(**folktale) for folktale in out.values()]
-    # out = [folktale for folktale in out if len(folktale.events) > MIN_EVENTS]
-    # folktales.extend(out)
+    out = load_json_folder(f"{out_dir}/annotated")
+    out = [AnnotatedFolktale(**folktale) for folktale in out.values()]
+    out = [folktale for folktale in out if len(folktale.events) > MIN_EVENTS]
+    folktales.extend(out)
+
+    print(len(folktales))
 
     graph = create_graph(
         folktales=folktales,
