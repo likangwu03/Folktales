@@ -443,14 +443,14 @@ class EventRetriever(GraphRetriever):
 			for r in results
 		]
 	
-	def get_event_type_name(self, event_uri: str) -> str | None:
+	def get_type_name(self, uri: str) -> str | None:
 		query = f"""
 		PREFIX rdf: <{RDF}>
 		PREFIX ont: <{ONT}>
 
 		SELECT ?type
 		WHERE {{
-			<{event_uri}> rdf:type ?type .
+			<{uri}> rdf:type ?type .
 			FILTER(STRSTARTS(STR(?type), STR(ont:)))
 		}}
 		LIMIT 1
@@ -462,3 +462,105 @@ class EventRetriever(GraphRetriever):
 			return None
 
 		return str(results[0].type).split("/")[-1]
+	
+	def get_label(self, resource_uri: str) -> str | None:
+		query = f"""
+		PREFIX rdfs: <{RDFS}>
+
+		SELECT ?label
+		WHERE {{
+			<{resource_uri}> rdfs:label ?label .
+		}}
+		LIMIT 1
+		"""
+		results = self.execute_query(query)
+
+		if not results:
+			return None
+
+		return str(results[0].label)
+	
+	def get_gender(self, agent_uri: str) -> str | None:
+		query = f"""
+		PREFIX ont: <{ONT}>
+
+		SELECT ?gender
+		WHERE {{
+			<{agent_uri}> ont:gender ?gender .
+		}}
+		LIMIT 1
+		"""
+
+		results = self.execute_query(query)
+
+		if not results:
+			return None
+
+		return str(results[0].gender)
+	
+	def get_name(self, agent_uri: str) -> str | None:
+		query = f"""
+		PREFIX ont: <{ONT}>
+
+		SELECT ?name
+		WHERE {{
+			<{agent_uri}> ont:name ?name .
+		}}
+		LIMIT 1
+		"""
+
+		results = self.execute_query(query)
+
+		if not results: return None
+
+		return str(results[0].name)
+	
+	def get_age_category(self, agent_uri: str) -> str | None:
+		query = f"""
+		PREFIX ont: <{ONT}>
+
+		SELECT ?age
+		WHERE {{
+			<{agent_uri}> ont:ageCategory ?age .
+		}}
+		LIMIT 1
+		"""
+
+		results = self.execute_query(query)
+
+		if not results: return None
+
+		return str(results[0].age)
+	
+	def get_personality_traits(self, agent_uri: str) -> list[str]:
+		query = f"""
+		PREFIX ont: <{ONT}>
+
+		SELECT ?trait
+		WHERE {{
+			<{agent_uri}> ont:hasPersonality ?trait .
+		}}
+		"""
+
+		results = self.execute_query(query)
+
+		return [str(row.trait)for row in results]
+
+
+	def get_role_labels(self, agent_uri: str) -> list[str]:
+		query = f"""
+		PREFIX ont: <{ONT}>
+		PREFIX rdfs: <{RDFS}>
+
+		SELECT ?label
+		WHERE {{
+			<{agent_uri}> ont:hasRole ?role .
+			?role rdfs:label ?label .
+		}}
+		"""
+
+		results = self.execute_query(query)
+		if not results: return None
+		return str(results[0].label)
+
+

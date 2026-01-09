@@ -10,20 +10,20 @@ from collections import defaultdict
 from typing import Dict, List, Set
 
 class ItemContainer:
-    def __init__(self, id_: str, n: int =2):
+    def __init__(self, id: str, n: int =2):
         self.n = n
-        self.id = id_
+        self.id = id
         self.events: list[str] = []
         self.event_types: list[str] = []
         self.queue: PriorityQueue[tuple[int, str]] = PriorityQueue()
 
-    def add_event(self, event_id: str,event_type:str):
-        self.events.append(event_id)
+    def add_event(self, event_uri: str,event_type:str):
+        self.events.append(event_uri)
         self.event_types.append(event_type)
 
 
-    def add_candidate(self, event_id: str, value: int = 0):
-        self.queue.put((value, event_id))
+    def add_candidate(self, event_uri: str, value: int = 0):
+        self.queue.put((value, event_uri))
         if self.queue.qsize() > self.n:
             self.queue.get()
 
@@ -46,12 +46,12 @@ def process_events(events: dict[str, dict], eventRetriever: EventRetriever):
     objects: dict[str, list[ItemContainer]] = {}
     roles: dict[str, list[ItemContainer]] = {}
 
-    for event_id, data in events.items():
-        event_type= eventRetriever.get_event_type_name(event_id)
+    for event_uri, data in events.items():
+        event_type= eventRetriever.get_type_name(event_uri)
 
-        place_id ,place_uri= eventRetriever.get_place_uri(event_id)
-        object_dict= eventRetriever.get_object_classes_dict(event_id)
-        role_dict= eventRetriever.get_role_classes_dict(event_id)
+        place_id ,place_uri= eventRetriever.get_place_uri(event_uri)
+        object_dict= eventRetriever.get_object_classes_dict(event_uri)
+        role_dict= eventRetriever.get_role_classes_dict(event_uri)
 
         # -------- PLACE --------
         place = data["place"]
@@ -61,7 +61,7 @@ def process_events(events: dict[str, dict], eventRetriever: EventRetriever):
         if place != place_id:
             logger.error(f"Lugar no coincide: {place},{place_id}")
 
-        places[place][0].add_event(event_id,event_type)
+        places[place][0].add_event(event_uri,event_type)
         places[place][0].add_candidate(place_uri)
 
         # -------- OBJECTS --------
@@ -86,7 +86,7 @@ def process_events(events: dict[str, dict], eventRetriever: EventRetriever):
 
             # añadir evento y candidates a los primeros n contenedores
             for i in range(expected_count):
-                containers[i].add_event(event_id,event_type)
+                containers[i].add_event(event_uri,event_type)
                 # añadir candidate si hay suficientes uris
                 if i < len(uris):
                     containers[i].add_candidate(uris[i])
@@ -114,7 +114,7 @@ def process_events(events: dict[str, dict], eventRetriever: EventRetriever):
 
             # añadir evento y candidates (agentes)
             for i in range(expected_count):
-                containers[i].add_event(event_id,event_type)
+                containers[i].add_event(event_uri,event_type)
                 if i < len(agents):
                     containers[i].add_candidate(agents[i])
 
@@ -164,8 +164,6 @@ def process_places(genre: str, container_dict: dict[str, list[ItemContainer]], e
                 print(f"    - events: {container.events}")
                 print(f"    - score: {score}")
                 container.add_candidate(uri,score)
-
-
 
 def build_unique_uri_dict(container_dict: Dict[str, List[ItemContainer]]) -> Dict[str, List[str]]:
 

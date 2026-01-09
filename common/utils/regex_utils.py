@@ -36,7 +36,6 @@ def title_case_to_snake_case(text: str):
         'Multiple   Spaces'    -> 'multiple_spaces'
 		'   Leading and trailing spaces   ' -> 'leading_and_trailing_spaces'
 	"""
-	
 	return text.lower().replace(" ", "_")
 
 def snake_case_to_title_case(text: str):
@@ -76,3 +75,7 @@ def snake_case_to_camel_case(text: str):
     
     words = text.split('_')
     return words[0].lower() + "".join(word.capitalize() for word in words[1:])
+
+def camel_to_snake(name: str) -> str:
+    s1 = re.sub("(.)([A-Z][a-z]+)", r"\1_\2", name)
+    return re.sub("([a-z0-9])([A-Z])", r"\1_\2", s1).lower()
