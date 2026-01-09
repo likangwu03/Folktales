@@ -110,7 +110,7 @@ def main():
 
         folktale = story_builder(query.title,query.genre, goal_node.event_elements, places_dict, objects_dict, roles_dict, event_retriever)
 
-        story = generate_story(folktale, generation_examples)
+        # story = generate_story(folktale, generation_examples)
 
         filename = re.sub(clean_regex, "", folktale.title)
         filename = title_case_to_snake_case(filename)

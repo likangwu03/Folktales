@@ -4,7 +4,8 @@ from generation.ontology.namespaces import *
 from common.utils.regex_utils import title_case_to_snake_case, snake_case_to_title_case, snake_case_to_pascal_case
 import generation.utils.sbc_tools as sbc
 from common.models.folktale import AnnotatedFolktale
-from loguru import logger
+from common.utils.regex_utils import clean_regex
+import re
 
 class FolktaleOntology(Graph):
 	GENRE_MAP = {
@@ -371,7 +372,8 @@ class FolktaleOntology(Graph):
 	def add_folktale(self, data: AnnotatedFolktale):
 		title = data.title
 
-		snake_case_title = title_case_to_snake_case(title)
+		snake_case_title = re.sub(clean_regex, "", title)
+		snake_case_title = title_case_to_snake_case(snake_case_title)
 
 		folktale_uri = RES[f"folktale/{snake_case_title}"]
 		self.add((folktale_uri, RDF.type, ONT.Folktale))
