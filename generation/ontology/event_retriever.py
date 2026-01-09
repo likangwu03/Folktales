@@ -191,13 +191,13 @@ class EventRetriever(GraphRetriever):
 		return None, None
 	
 
-	def get_role_classes_dict(self, event_uri: str):
+	def get_role_classes_dict(self, event_uri: str, separator: str= ",,"):
 		query = f"""
 		PREFIX rdfs: <{RDFS}>
 		PREFIX rdf: <{RDF}>
 		PREFIX ont: <{ONT}>
 
-		SELECT ?roleClass (COUNT(?role) AS ?roleCount) (GROUP_CONCAT(DISTINCT ?agent; separator=", ") AS ?agents)
+		SELECT ?roleClass (COUNT(?role) AS ?roleCount) (GROUP_CONCAT(DISTINCT ?agent; separator="{separator}") AS ?agents)
 		WHERE {{
 			<{event_uri}> ont:hasAgent ?agent .
 			?agent ont:hasRole ?role .
@@ -209,17 +209,17 @@ class EventRetriever(GraphRetriever):
 		results = self.execute_query(query)
 
 		if results:
-			dict_result = {str(result.roleClass).split('/')[-1]: (int(result.roleCount), [agent_uri.strip() for agent_uri in str(result.agents).split(",")]) for result in results}
+			dict_result = {str(result.roleClass).split('/')[-1]: (int(result.roleCount), [agent_uri.strip() for agent_uri in str(result.agents).split(separator)]) for result in results}
 			return dict_result
 		return {}
 
-	def get_object_classes_dict(self, event_uri: str, separator: str= "/"):
+	def get_object_classes_dict(self, event_uri: str, separator: str= ",,"):
 		query = f"""
 		PREFIX rdfs: <{RDFS}>
 		PREFIX rdf: <{RDF}>
 		PREFIX ont: <{ONT}>
 
-		SELECT ?objectClass (COUNT(?object) AS ?objectCount) (GROUP_CONCAT(DISTINCT ?object; separator={separator}) AS ?objects)
+		SELECT ?objectClass (COUNT(?object) AS ?objectCount) (GROUP_CONCAT(DISTINCT ?object; separator="{separator}") AS ?objects)
 		WHERE {{
 			<{event_uri}> ont:hasObject ?object .
 			?object rdf:type ?objectClass .
