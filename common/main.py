@@ -4,7 +4,7 @@ from common.models.event import MIN_EVENTS
 from common.utils.visualization import show_genre_distribution
 
 def main():
-	folktales_json = load_json_folder(f"{out_dir}/annotated")
+	folktales_json = load_json_folder(out_dir)
 	folktales = [AnnotatedFolktale(**folktale_json) for folktale_json in folktales_json.values()]
 	
 	for filename, folktale in zip(folktales_json.keys(), folktales):

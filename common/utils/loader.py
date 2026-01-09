@@ -3,6 +3,7 @@ from common.utils.regex_utils import title_case_to_snake_case
 from matplotlib.figure import Figure
 from loguru import logger
 import pandas as pd
+from typing import Any
 import json
 import os
 
@@ -16,6 +17,10 @@ def load_json(path: str):
 		data = json.load(f)
 
 	return data
+
+def save_json(path: str, data: dict[str, Any]):
+	with open(path, "w", encoding="utf-8") as f:
+		json.dump(data, f, ensure_ascii=False, indent=4)
 
 def load_json_folder(dir: str):
 	"""
@@ -52,6 +57,21 @@ def load_txt_folder(dir: str):
 			files[filename] = text
 	return files
 
+def save_structured_folktale(folktale: AnnotatedFolktale, dir: str, filename: str):
+	os.makedirs(dir, exist_ok=True)
+
+	folktale_json = folktale.model_dump(
+		mode="json",
+		exclude_none=True
+	)
+
+	output_file = filename + ".json"
+	path = os.path.join(dir, output_file)
+
+	save_json(path, folktale_json)
+
+	logger.success(f"Annotated folktale saved sucessfully. Filename: {os.path.basename(path)}.")
+
 data_dir = "./data"
 
 def load_folktale_csv():
@@ -67,40 +87,9 @@ def load_folktale_csv():
 out_dir = "./out"
 
 def save_annotated_folktale(folktale: AnnotatedFolktale, filename: str):
-	"""
-	Serializa y guarda un cuento anotado en formato JSON.
-	:param folktale: Objeto AnnotatedFolktale (modelo Pydantic)
-	:param filename: Título original del cuento
-	"""
 	annotated_dir = os.path.join(out_dir, "annotated")
 
-	os.makedirs(annotated_dir, exist_ok=True)
-
-	folktale_json = folktale.model_dump(
-		mode="json",
-		exclude_none=True
-	)
-
-	output_file = filename + ".json"
-	path = os.path.join(annotated_dir, output_file)
-
-	with open(path, "w", encoding="utf-8") as f:
-		json.dump(folktale_json, f, ensure_ascii=False, indent=4)
-
-	logger.success(f"Annotated folktale saved sucessfully. Filename: {os.path.basename(path)}.")
-
-def save_raw_folktale(folktale: str, filename: str):
-	raw_dir = os.path.join(out_dir, "raw")
-
-	os.makedirs(raw_dir, exist_ok=True)
-
-	output_file = filename + ".txt"
-	path = os.path.join(raw_dir, output_file)
-
-	with open(path, "w", encoding="utf-8") as f:
-		f.write(folktale)
-	
-	logger.debug(f"Raw folktale saved sucessfully. Filename: {os.path.basename(path)}.")
+	save_structured_folktale(folktale, annotated_dir, filename)
 
 def save_fig(fig: Figure, filename: str):
 	fig.savefig(filename, dpi=300, bbox_inches="tight")

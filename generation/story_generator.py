@@ -80,14 +80,14 @@ def generate_story(folktale: AnnotatedFolktale, examples: list[tuple[AnnotatedFo
 	folktale_json = folktale.model_dump(mode="json")
 	folktale_json = json.dumps(folktale_json, indent=4)
 
-	print(story_prompt.format(folktale=folktale_json))
+	# print(story_prompt.format(folktale=folktale_json))
 
 	ai_message = story_chain.invoke({
 		"folktale": folktale_json
 	})
 
-	story = ai_message.content.strip()
+	story = folktale.title + "\n" + ai_message.content.strip()
 
-	logger.debug(f"Folktale '{folktale.title}':\n{story}")
+	logger.debug(f"Folktale:\n{story}")
 
 	return story

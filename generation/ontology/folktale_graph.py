@@ -377,7 +377,8 @@ class FolktaleOntology(Graph):
 		self.add((folktale_uri, RDF.type, ONT.Folktale))
 		self.add((folktale_uri, ONT.title, Literal(title, datatype = XSD.string)))
 		self.add((folktale_uri, RDFS.label, Literal(title, datatype = XSD.string)))
-		self.add((folktale_uri, OWL.sameAs, URIRef(data.uri)))
+		if data.uri is not None:
+			self.add((folktale_uri, OWL.sameAs, URIRef(data.uri)))
 
 		nation = data.nation
 		if nation is not None:

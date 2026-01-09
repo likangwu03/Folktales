@@ -512,6 +512,22 @@ ont:title a owl:DatatypeProperty ;
     ont:nation "czechoslovak"^^xsd:string ;
     ont:title "Budulinek: The Story of Another Little Boy Who Opened the Door"^^xsd:string .
 
+<https://rbc.org/resources/folktale/cinderella> a ont:Folktale ;
+    rdfs:label "Cinderella"^^xsd:string ;
+    owl:sameAs <https://www.worldstoriesbank.org/story/cinderella-fairy-tale-english-story-for-kids> ;
+    ont:hasEvent <https://rbc.org/resources/event/cinderella/hero_attends_ball>,
+        <https://rbc.org/resources/event/cinderella/hero_leaves_ball>,
+        <https://rbc.org/resources/event/cinderella/hero_meets_his_soulmate>,
+        <https://rbc.org/resources/event/cinderella/hero_works_hard>,
+        <https://rbc.org/resources/event/cinderella/magical_helper_grants_wish>,
+        <https://rbc.org/resources/event/cinderella/soulmate_reveals_hero_true_identity>,
+        <https://rbc.org/resources/event/cinderella/soulmate_searches_for_hero>,
+        <https://rbc.org/resources/event/cinderella/villains_insult_hero>,
+        <https://rbc.org/resources/event/cinderella/wedding_and_throne> ;
+    ont:hasGenre wd:Q699 ;
+    ont:nation "german"^^xsd:string ;
+    ont:title "Cinderella"^^xsd:string .
+
 <https://rbc.org/resources/folktale/clematis> a ont:Folktale ;
     rdfs:label "Clematis"^^xsd:string ;
     owl:sameAs <https://fairytalez.com/clematis> ;
@@ -1642,6 +1658,22 @@ ont:title a owl:DatatypeProperty ;
     ont:nation "french"^^xsd:string ;
     ont:title "The Groac-h of the Isle of Lok"^^xsd:string .
 
+<https://rbc.org/resources/folktale/the_hare_and_the_tortoise> a ont:Folktale ;
+    rdfs:label "The Hare and The Tortoise"^^xsd:string ;
+    owl:sameAs <https://read.gov/aesop/025> ;
+    ont:hasEvent <https://rbc.org/resources/event/the_hare_and_the_tortoise/antagonist_mocking_hero>,
+        <https://rbc.org/resources/event/the_hare_and_the_tortoise/antagonist_naps_during_race>,
+        <https://rbc.org/resources/event/the_hare_and_the_tortoise/antagonist_rushes_to_finish_line>,
+        <https://rbc.org/resources/event/the_hare_and_the_tortoise/challenge_accepted>,
+        <https://rbc.org/resources/event/the_hare_and_the_tortoise/challenge_issued>,
+        <https://rbc.org/resources/event/the_hare_and_the_tortoise/hero_passing_antagonist>,
+        <https://rbc.org/resources/event/the_hare_and_the_tortoise/hero_steady_progress>,
+        <https://rbc.org/resources/event/the_hare_and_the_tortoise/hero_wins_race>,
+        <https://rbc.org/resources/event/the_hare_and_the_tortoise/race_begins> ;
+    ont:hasGenre wd:Q693 ;
+    ont:nation "greek"^^xsd:string ;
+    ont:title "The Hare and The Tortoise"^^xsd:string .
+
 <https://rbc.org/resources/folktale/the_history_of_whittington> a ont:Folktale ;
     rdfs:label "The History of Whittington"^^xsd:string ;
     owl:sameAs <https://fairytalez.com/the-history-of-whittington> ;
@@ -2301,6 +2333,19 @@ ont:title a owl:DatatypeProperty ;
     ont:hasGenre wd:Q693 ;
     ont:nation "german"^^xsd:string ;
     ont:title "The Three Green Twigs"^^xsd:string .
+
+<https://rbc.org/resources/folktale/the_three_little_pigs> a ont:Folktale ;
+    rdfs:label "The Three Little Pigs"^^xsd:string ;
+    owl:sameAs <https://americanliterature.com/childrens-stories/the-three-little-pigs> ;
+    ont:hasEvent <https://rbc.org/resources/event/the_three_little_pigs/build_flimsy_house>,
+        <https://rbc.org/resources/event/the_three_little_pigs/build_medium_resistant_house>,
+        <https://rbc.org/resources/event/the_three_little_pigs/build_sturdy_house>,
+        <https://rbc.org/resources/event/the_three_little_pigs/villain_attacks_flimsy_house>,
+        <https://rbc.org/resources/event/the_three_little_pigs/villain_attacks_medium_resistant_house>,
+        <https://rbc.org/resources/event/the_three_little_pigs/villain_fails_sturdy_house> ;
+    ont:hasGenre wd:Q693 ;
+    ont:nation "english"^^xsd:string ;
+    ont:title "The Three Little Pigs"^^xsd:string .
 
 <https://rbc.org/resources/folktale/the_tiger,_the_brahman_and_the_jackal> a ont:Folktale ;
     rdfs:label "The Tiger, the Brahman and the Jackal"^^xsd:string ;
@@ -3366,10 +3411,6 @@ ont:FalseHeroMakeUnfoundedClaim a owl:Class ;
     rdfs:label "False Hero Make Unfounded Claim" ;
     rdfs:subClassOf ont:Move .
 
-ont:HeroFamily a owl:Class ;
-    rdfs:label "Hero Family" ;
-    rdfs:subClassOf ont:SecondaryCharacter .
-
 ont:HomeArrival a owl:Class ;
     rdfs:label "Home Arrival" ;
     rdfs:subClassOf ont:UnrecognisedArrival .
@@ -3569,6 +3610,12 @@ ont:preEvent a owl:ObjectProperty ;
         pearl:Sociable ;
     ont:hasRole <https://rbc.org/resources/role/why_the_curlew's_bill_is_long_and_crooked/background_figure> ;
     ont:knows <https://rbc.org/resources/agent/why_the_curlew's_bill_is_long_and_crooked/coyote> .
+
+<https://rbc.org/resources/object/cinderella/ball_gown> a ont:CraftedObject ;
+    rdfs:label "Ball Gown"^^xsd:string .
+
+<https://rbc.org/resources/object/cinderella/carriage> a ont:MagicalObject ;
+    rdfs:label "Carriage"^^xsd:string .
 
 <https://rbc.org/resources/object/cudgel,_bestir_yourself!/lamb_with_ducats> a ont:MagicalObject ;
     rdfs:label "Lamb With Ducats"^^xsd:string .
@@ -3863,6 +3910,15 @@ ont:preEvent a owl:ObjectProperty ;
 
 <https://rbc.org/resources/object/the_storks/frogs> a ont:CraftedObject ;
     rdfs:label "Frogs"^^xsd:string .
+
+<https://rbc.org/resources/object/the_three_little_pigs/brick> a ont:CraftedObject ;
+    rdfs:label "Brick"^^xsd:string .
+
+<https://rbc.org/resources/object/the_three_little_pigs/stick> a ont:NaturalObject ;
+    rdfs:label "Stick"^^xsd:string .
+
+<https://rbc.org/resources/object/the_three_little_pigs/straw> a ont:NaturalObject ;
+    rdfs:label "Straw"^^xsd:string .
 
 <https://rbc.org/resources/object/the_tiger,_the_brahman_and_the_jackal/pipal_tree> a ont:NaturalObject ;
     rdfs:label "Pipal Tree"^^xsd:string .
@@ -4173,6 +4229,9 @@ ont:preEvent a owl:ObjectProperty ;
 <https://rbc.org/resources/place/the_three_green_twigs/water_mountain> a ont:Mountain ;
     rdfs:label "Water Mountain"^^xsd:string .
 
+<https://rbc.org/resources/place/the_three_little_pigs/near_forest> a ont:Forest ;
+    rdfs:label "Near Forest"^^xsd:string .
+
 <https://rbc.org/resources/place/the_tiger,_the_brahman_and_the_jackal/well_wheel_shed> a ont:Building ;
     rdfs:label "Well Wheel Shed"^^xsd:string .
 
@@ -4252,6 +4311,18 @@ ont:preEvent a owl:ObjectProperty ;
     rdfs:label "Main Hero"^^xsd:string .
 
 <https://rbc.org/resources/role/budulinek:_the_story_of_another_little_boy_who_opened_the_door/main_villain> a ont:Villain ;
+    rdfs:label "Main Villain"^^xsd:string .
+
+<https://rbc.org/resources/role/cinderella/fairy_godmother_helper> a ont:MagicalHelper ;
+    rdfs:label "Fairy Godmother Helper"^^xsd:string .
+
+<https://rbc.org/resources/role/cinderella/hero_soulmate> a ont:SecondaryCharacter ;
+    rdfs:label "Hero Soulmate"^^xsd:string .
+
+<https://rbc.org/resources/role/cinderella/main_hero> a ont:Hero ;
+    rdfs:label "Main Hero"^^xsd:string .
+
+<https://rbc.org/resources/role/cinderella/main_villain> a ont:Villain ;
     rdfs:label "Main Villain"^^xsd:string .
 
 <https://rbc.org/resources/role/clematis/hero_sidekick> a ont:SecondaryCharacter ;
@@ -4743,6 +4814,15 @@ ont:preEvent a owl:ObjectProperty ;
 <https://rbc.org/resources/role/the_groac-h_of_the_isle_of_lok/sorceress> a ont:Villain ;
     rdfs:label "Sorceress"^^xsd:string .
 
+<https://rbc.org/resources/role/the_hare_and_the_tortoise/hero> a ont:Hero ;
+    rdfs:label "Hero"^^xsd:string .
+
+<https://rbc.org/resources/role/the_hare_and_the_tortoise/hero_rival> a ont:Antagonist ;
+    rdfs:label "Hero Rival"^^xsd:string .
+
+<https://rbc.org/resources/role/the_hare_and_the_tortoise/race_jugde> a ont:SecondaryCharacter ;
+    rdfs:label "Race Jugde"^^xsd:string .
+
 <https://rbc.org/resources/role/the_history_of_whittington/accountant> a ont:Helper ;
     rdfs:label "Accountant"^^xsd:string .
 
@@ -5136,6 +5216,18 @@ ont:preEvent a owl:ObjectProperty ;
 <https://rbc.org/resources/role/the_three_green_twigs/villain> a ont:PrimaryCharacter ;
     rdfs:label "Villain"^^xsd:string .
 
+<https://rbc.org/resources/role/the_three_little_pigs/hero> a ont:Hero ;
+    rdfs:label "Hero"^^xsd:string .
+
+<https://rbc.org/resources/role/the_three_little_pigs/hero_brother_one> a ont:HeroFamily ;
+    rdfs:label "Hero Brother One"^^xsd:string .
+
+<https://rbc.org/resources/role/the_three_little_pigs/hero_brother_two> a ont:HeroFamily ;
+    rdfs:label "Hero Brother Two"^^xsd:string .
+
+<https://rbc.org/resources/role/the_three_little_pigs/villain> a ont:Villain ;
+    rdfs:label "Villain"^^xsd:string .
+
 <https://rbc.org/resources/role/the_tiger,_the_brahman_and_the_jackal/helper> a ont:SecondaryCharacter ;
     rdfs:label "Helper"^^xsd:string .
 
@@ -5343,9 +5435,16 @@ ont:ReceiveInjury a owl:Class ;
     rdfs:label "Receive Injury" ;
     rdfs:subClassOf ont:Branding .
 
-ont:Victory a owl:Class ;
-    rdfs:label "Victory" ;
-    rdfs:subClassOf ont:Resolution .
+<https://rbc.org/resources/agent/cinderella/fairy_godmother> a ont:MagicalCreature ;
+    rdfs:label "Fairy Godmother"^^xsd:string ;
+    ont:ageCategory pearl:adult ;
+    ont:gender "female"^^xsd:string ;
+    ont:hasPersonality pearl:Joyful,
+        pearl:Sociable ;
+    ont:hasRole <https://rbc.org/resources/role/cinderella/fairy_godmother_helper> ;
+    ont:knows <https://rbc.org/resources/agent/cinderella/cinderella> ;
+    ont:livesIn <https://rbc.org/resources/place/cinderella/hero_house> ;
+    ont:name "Fairy Godmother"^^xsd:string .
 
 <https://rbc.org/resources/agent/grandfather_and_grandson_and_an_eagle_woman/spider> a ont:MagicalCreature ;
     rdfs:label "Spider"^^xsd:string ;
@@ -5761,6 +5860,22 @@ ont:Victory a owl:Class ;
     ont:hasObject <https://rbc.org/resources/object/budulinek:_the_story_of_another_little_boy_who_opened_the_door/organ> ;
     ont:hasPlace <https://rbc.org/resources/place/budulinek:_the_story_of_another_little_boy_who_opened_the_door/foxes_home_forest> ;
     ont:preEvent <https://rbc.org/resources/event/budulinek:_the_story_of_another_little_boy_who_opened_the_door/organ_grinder_searches_forest> .
+
+<https://rbc.org/resources/event/cinderella/hero_works_hard> a ont:Setup ;
+    rdfs:label "Hero Works Hard"^^xsd:string ;
+    ont:hasAgent <https://rbc.org/resources/agent/cinderella/cinderella>,
+        <https://rbc.org/resources/agent/cinderella/stepmother>,
+        <https://rbc.org/resources/agent/cinderella/stepsister_one>,
+        <https://rbc.org/resources/agent/cinderella/stepsister_two> ;
+    ont:hasPlace <https://rbc.org/resources/place/cinderella/hero_house> ;
+    ont:postEvent <https://rbc.org/resources/event/cinderella/villains_insult_hero> .
+
+<https://rbc.org/resources/event/cinderella/wedding_and_throne> a ont:WeddingOrThrone ;
+    rdfs:label "Wedding And Throne"^^xsd:string ;
+    ont:hasAgent <https://rbc.org/resources/agent/cinderella/cinderella>,
+        <https://rbc.org/resources/agent/cinderella/prince> ;
+    ont:hasPlace <https://rbc.org/resources/place/cinderella/royal_ballroom> ;
+    ont:preEvent <https://rbc.org/resources/event/cinderella/soulmate_reveals_hero_true_identity> .
 
 <https://rbc.org/resources/event/clematis/celebration_after_conflict_resolution> a ont:Wedding ;
     rdfs:label "Celebration After Conflict Resolution"^^xsd:string ;
@@ -6571,6 +6686,19 @@ ont:Victory a owl:Class ;
     ont:hasPlace <https://rbc.org/resources/place/the_groac-h_of_the_isle_of_lok/farm> ;
     ont:postEvent <https://rbc.org/resources/event/the_groac-h_of_the_isle_of_lok/character_transformed_against_will> .
 
+<https://rbc.org/resources/event/the_hare_and_the_tortoise/challenge_issued> a ont:Setup ;
+    rdfs:label "Challenge Issued"^^xsd:string ;
+    ont:hasAgent <https://rbc.org/resources/agent/the_hare_and_the_tortoise/hare>,
+        <https://rbc.org/resources/agent/the_hare_and_the_tortoise/tortoise> ;
+    ont:hasPlace <https://rbc.org/resources/place/the_hare_and_the_tortoise/race_track> ;
+    ont:postEvent <https://rbc.org/resources/event/the_hare_and_the_tortoise/antagonist_mocking_hero> .
+
+<https://rbc.org/resources/event/the_hare_and_the_tortoise/hero_wins_race> a ont:Victory ;
+    rdfs:label "Hero Wins Race"^^xsd:string ;
+    ont:hasAgent <https://rbc.org/resources/agent/the_hare_and_the_tortoise/tortoise> ;
+    ont:hasPlace <https://rbc.org/resources/place/the_hare_and_the_tortoise/race_track> ;
+    ont:preEvent <https://rbc.org/resources/event/the_hare_and_the_tortoise/antagonist_rushes_to_finish_line> .
+
 <https://rbc.org/resources/event/the_history_of_whittington/boy_arrives_in_london> a ont:InitialSituation ;
     rdfs:label "Boy Arrives In London"^^xsd:string ;
     ont:hasAgent <https://rbc.org/resources/agent/the_history_of_whittington/wagoner>,
@@ -7051,6 +7179,22 @@ ont:Victory a owl:Class ;
     ont:hasAgent <https://rbc.org/resources/agent/the_three_green_twigs/hermit> ;
     ont:hasPlace <https://rbc.org/resources/place/the_three_green_twigs/hermit_forest> ;
     ont:postEvent <https://rbc.org/resources/event/the_three_green_twigs/entity_assistance_occurs> .
+
+<https://rbc.org/resources/event/the_three_little_pigs/build_flimsy_house> a ont:InitialSituation ;
+    rdfs:label "Build Flimsy House"^^xsd:string ;
+    ont:hasAgent <https://rbc.org/resources/agent/the_three_little_pigs/pig_one> ;
+    ont:hasObject <https://rbc.org/resources/object/the_three_little_pigs/straw> ;
+    ont:hasPlace <https://rbc.org/resources/place/the_three_little_pigs/straw_house> ;
+    ont:postEvent <https://rbc.org/resources/event/the_three_little_pigs/build_medium_resistant_house> .
+
+<https://rbc.org/resources/event/the_three_little_pigs/villain_fails_sturdy_house> a ont:VillainDefeated ;
+    rdfs:label "Villain Fails Sturdy House"^^xsd:string ;
+    ont:hasAgent <https://rbc.org/resources/agent/the_three_little_pigs/big_bad_wolf>,
+        <https://rbc.org/resources/agent/the_three_little_pigs/pig_one>,
+        <https://rbc.org/resources/agent/the_three_little_pigs/pig_three>,
+        <https://rbc.org/resources/agent/the_three_little_pigs/pig_two> ;
+    ont:hasPlace <https://rbc.org/resources/place/the_three_little_pigs/brick_house> ;
+    ont:preEvent <https://rbc.org/resources/event/the_three_little_pigs/villain_attacks_medium_resistant_house> .
 
 <https://rbc.org/resources/event/the_tiger,_the_brahman_and_the_jackal/conflict_resolution> a ont:Resolution ;
     rdfs:label "Conflict Resolution"^^xsd:string ;
@@ -7685,6 +7829,9 @@ ont:Victory a owl:Class ;
 <https://rbc.org/resources/place/why_the_curlew's_bill_is_long_and_crooked/war_eagles_lodge> a ont:Building ;
     rdfs:label "War Eagles Lodge"^^xsd:string .
 
+<https://rbc.org/resources/role/cinderella/villain_minion> a ont:Villain ;
+    rdfs:label "Villain Minion"^^xsd:string .
+
 <https://rbc.org/resources/role/cudgel,_bestir_yourself!/family_member> a ont:SecondaryCharacter,
         ont:TertiaryCharacter ;
     rdfs:label "Family Member"^^xsd:string .
@@ -7838,6 +7985,10 @@ ont:Farmhouse a owl:Class ;
     rdfs:label "Farmhouse" ;
     rdfs:subClassOf ont:Dwelling .
 
+ont:HeroFamily a owl:Class ;
+    rdfs:label "Hero Family" ;
+    rdfs:subClassOf ont:SecondaryCharacter .
+
 ont:IndividualAgent a owl:Class ;
     rdfs:subClassOf ont:Agent .
 
@@ -7856,6 +8007,10 @@ ont:School a owl:Class ;
 ont:Tavern a owl:Class ;
     rdfs:label "Tavern" ;
     rdfs:subClassOf ont:CommunityBuilding .
+
+ont:Victory a owl:Class ;
+    rdfs:label "Victory" ;
+    rdfs:subClassOf ont:Resolution .
 
 ont:knows a owl:ObjectProperty ;
     rdfs:domain ont:Agent ;
@@ -8069,6 +8224,16 @@ ont:knows a owl:ObjectProperty ;
         pearl:Assertive ;
     ont:hasRole <https://rbc.org/resources/role/the_fenris-wolf/magical_helper> ;
     ont:knows <https://rbc.org/resources/agent/the_fenris-wolf/odin> .
+
+<https://rbc.org/resources/agent/the_hare_and_the_tortoise/fox> a ont:AnthropomorphicAnimal ;
+    rdfs:label "Fox"^^xsd:string ;
+    ont:ageCategory pearl:adult ;
+    ont:gender "male"^^xsd:string ;
+    ont:hasPersonality pearl:Impersonal ;
+    ont:hasRole <https://rbc.org/resources/role/the_hare_and_the_tortoise/race_jugde> ;
+    ont:knows <https://rbc.org/resources/agent/the_hare_and_the_tortoise/hare>,
+        <https://rbc.org/resources/agent/the_hare_and_the_tortoise/tortoise> ;
+    ont:name "Fox"^^xsd:string .
 
 <https://rbc.org/resources/agent/the_history_of_whittington/baker> a ont:HumanBeing ;
     rdfs:label "Baker"^^xsd:string ;
@@ -8524,6 +8689,70 @@ ont:knows a owl:ObjectProperty ;
     ont:hasPlace <https://rbc.org/resources/place/budulinek:_the_story_of_another_little_boy_who_opened_the_door/foxes_home_forest> ;
     ont:postEvent <https://rbc.org/resources/event/budulinek:_the_story_of_another_little_boy_who_opened_the_door/harassment_occurs> ;
     ont:preEvent <https://rbc.org/resources/event/budulinek:_the_story_of_another_little_boy_who_opened_the_door/convincing_entry> .
+
+<https://rbc.org/resources/event/cinderella/hero_attends_ball> a ont:Move ;
+    rdfs:label "Hero Attends Ball"^^xsd:string ;
+    ont:hasAgent <https://rbc.org/resources/agent/cinderella/cinderella> ;
+    ont:hasPlace <https://rbc.org/resources/place/cinderella/royal_ballroom> ;
+    ont:postEvent <https://rbc.org/resources/event/cinderella/hero_meets_his_soulmate> ;
+    ont:preEvent <https://rbc.org/resources/event/cinderella/magical_helper_grants_wish> .
+
+<https://rbc.org/resources/event/cinderella/hero_leaves_ball> a ont:Resolution ;
+    rdfs:label "Hero Leaves Ball"^^xsd:string ;
+    ont:hasAgent <https://rbc.org/resources/agent/cinderella/cinderella> ;
+    ont:hasObject <https://rbc.org/resources/object/cinderella/glass_slipper> ;
+    ont:hasPlace <https://rbc.org/resources/place/cinderella/royal_ballroom> ;
+    ont:postEvent <https://rbc.org/resources/event/cinderella/soulmate_searches_for_hero> ;
+    ont:preEvent <https://rbc.org/resources/event/cinderella/hero_meets_his_soulmate> .
+
+<https://rbc.org/resources/event/cinderella/hero_meets_his_soulmate> a ont:Struggle ;
+    rdfs:label "Hero Meets His Soulmate"^^xsd:string ;
+    ont:hasAgent <https://rbc.org/resources/agent/cinderella/cinderella>,
+        <https://rbc.org/resources/agent/cinderella/prince> ;
+    ont:hasPlace <https://rbc.org/resources/place/cinderella/royal_ballroom> ;
+    ont:postEvent <https://rbc.org/resources/event/cinderella/hero_leaves_ball> ;
+    ont:preEvent <https://rbc.org/resources/event/cinderella/hero_attends_ball> .
+
+<https://rbc.org/resources/event/cinderella/magical_helper_grants_wish> a ont:HeroDeparture ;
+    rdfs:label "Magical Helper Grants Wish"^^xsd:string ;
+    ont:hasAgent <https://rbc.org/resources/agent/cinderella/cinderella>,
+        <https://rbc.org/resources/agent/cinderella/fairy_godmother> ;
+    ont:hasObject <https://rbc.org/resources/object/cinderella/ball_gown>,
+        <https://rbc.org/resources/object/cinderella/carriage>,
+        <https://rbc.org/resources/object/cinderella/glass_slipper> ;
+    ont:hasPlace <https://rbc.org/resources/place/cinderella/hero_house> ;
+    ont:postEvent <https://rbc.org/resources/event/cinderella/hero_attends_ball> ;
+    ont:preEvent <https://rbc.org/resources/event/cinderella/villains_insult_hero> .
+
+<https://rbc.org/resources/event/cinderella/soulmate_reveals_hero_true_identity> a ont:ResolutionFunction ;
+    rdfs:label "Soulmate Reveals Hero True Identity"^^xsd:string ;
+    ont:hasAgent <https://rbc.org/resources/agent/cinderella/cinderella>,
+        <https://rbc.org/resources/agent/cinderella/prince> ;
+    ont:hasObject <https://rbc.org/resources/object/cinderella/glass_slipper> ;
+    ont:hasPlace <https://rbc.org/resources/place/cinderella/hero_house> ;
+    ont:postEvent <https://rbc.org/resources/event/cinderella/wedding_and_throne> ;
+    ont:preEvent <https://rbc.org/resources/event/cinderella/soulmate_searches_for_hero> .
+
+<https://rbc.org/resources/event/cinderella/soulmate_searches_for_hero> a ont:Resolution ;
+    rdfs:label "Soulmate Searches For Hero"^^xsd:string ;
+    ont:hasAgent <https://rbc.org/resources/agent/cinderella/cinderella>,
+        <https://rbc.org/resources/agent/cinderella/prince>,
+        <https://rbc.org/resources/agent/cinderella/stepsister_one>,
+        <https://rbc.org/resources/agent/cinderella/stepsister_two> ;
+    ont:hasObject <https://rbc.org/resources/object/cinderella/glass_slipper> ;
+    ont:hasPlace <https://rbc.org/resources/place/cinderella/hero_house> ;
+    ont:postEvent <https://rbc.org/resources/event/cinderella/soulmate_reveals_hero_true_identity> ;
+    ont:preEvent <https://rbc.org/resources/event/cinderella/hero_leaves_ball> .
+
+<https://rbc.org/resources/event/cinderella/villains_insult_hero> a ont:Villainy ;
+    rdfs:label "Villains Insult Hero"^^xsd:string ;
+    ont:hasAgent <https://rbc.org/resources/agent/cinderella/cinderella>,
+        <https://rbc.org/resources/agent/cinderella/stepmother>,
+        <https://rbc.org/resources/agent/cinderella/stepsister_one>,
+        <https://rbc.org/resources/agent/cinderella/stepsister_two> ;
+    ont:hasPlace <https://rbc.org/resources/place/cinderella/hero_house> ;
+    ont:postEvent <https://rbc.org/resources/event/cinderella/magical_helper_grants_wish> ;
+    ont:preEvent <https://rbc.org/resources/event/cinderella/hero_works_hard> .
 
 <https://rbc.org/resources/event/clematis/challenge_initiated> a ont:Move ;
     rdfs:label "Challenge Initiated"^^xsd:string ;
@@ -13404,6 +13633,59 @@ ont:knows a owl:ObjectProperty ;
     ont:postEvent <https://rbc.org/resources/event/the_groac-h_of_the_isle_of_lok/confrontation_resolution> ;
     ont:preEvent <https://rbc.org/resources/event/the_groac-h_of_the_isle_of_lok/character_transformed_against_will> .
 
+<https://rbc.org/resources/event/the_hare_and_the_tortoise/antagonist_mocking_hero> a ont:Conflict ;
+    rdfs:label "Antagonist Mocking Hero"^^xsd:string ;
+    ont:hasAgent <https://rbc.org/resources/agent/the_hare_and_the_tortoise/hare>,
+        <https://rbc.org/resources/agent/the_hare_and_the_tortoise/tortoise> ;
+    ont:hasPlace <https://rbc.org/resources/place/the_hare_and_the_tortoise/race_track> ;
+    ont:postEvent <https://rbc.org/resources/event/the_hare_and_the_tortoise/challenge_accepted> ;
+    ont:preEvent <https://rbc.org/resources/event/the_hare_and_the_tortoise/challenge_issued> .
+
+<https://rbc.org/resources/event/the_hare_and_the_tortoise/antagonist_naps_during_race> a ont:Conflict ;
+    rdfs:label "Antagonist Naps During Race"^^xsd:string ;
+    ont:hasAgent <https://rbc.org/resources/agent/the_hare_and_the_tortoise/hare> ;
+    ont:hasPlace <https://rbc.org/resources/place/the_hare_and_the_tortoise/race_track> ;
+    ont:postEvent <https://rbc.org/resources/event/the_hare_and_the_tortoise/hero_steady_progress> ;
+    ont:preEvent <https://rbc.org/resources/event/the_hare_and_the_tortoise/race_begins> .
+
+<https://rbc.org/resources/event/the_hare_and_the_tortoise/antagonist_rushes_to_finish_line> a ont:Resolution ;
+    rdfs:label "Antagonist Rushes To Finish Line"^^xsd:string ;
+    ont:hasAgent <https://rbc.org/resources/agent/the_hare_and_the_tortoise/hare> ;
+    ont:hasPlace <https://rbc.org/resources/place/the_hare_and_the_tortoise/race_track> ;
+    ont:postEvent <https://rbc.org/resources/event/the_hare_and_the_tortoise/hero_wins_race> ;
+    ont:preEvent <https://rbc.org/resources/event/the_hare_and_the_tortoise/hero_passing_antagonist> .
+
+<https://rbc.org/resources/event/the_hare_and_the_tortoise/challenge_accepted> a ont:Setup ;
+    rdfs:label "Challenge Accepted"^^xsd:string ;
+    ont:hasAgent <https://rbc.org/resources/agent/the_hare_and_the_tortoise/tortoise> ;
+    ont:hasPlace <https://rbc.org/resources/place/the_hare_and_the_tortoise/race_track> ;
+    ont:postEvent <https://rbc.org/resources/event/the_hare_and_the_tortoise/race_begins> ;
+    ont:preEvent <https://rbc.org/resources/event/the_hare_and_the_tortoise/antagonist_mocking_hero> .
+
+<https://rbc.org/resources/event/the_hare_and_the_tortoise/hero_passing_antagonist> a ont:ConnectiveIncident ;
+    rdfs:label "Hero Passing Antagonist"^^xsd:string ;
+    ont:hasAgent <https://rbc.org/resources/agent/the_hare_and_the_tortoise/hare>,
+        <https://rbc.org/resources/agent/the_hare_and_the_tortoise/tortoise> ;
+    ont:hasPlace <https://rbc.org/resources/place/the_hare_and_the_tortoise/race_track> ;
+    ont:postEvent <https://rbc.org/resources/event/the_hare_and_the_tortoise/antagonist_rushes_to_finish_line> ;
+    ont:preEvent <https://rbc.org/resources/event/the_hare_and_the_tortoise/hero_steady_progress> .
+
+<https://rbc.org/resources/event/the_hare_and_the_tortoise/hero_steady_progress> a ont:Move ;
+    rdfs:label "Hero Steady Progress"^^xsd:string ;
+    ont:hasAgent <https://rbc.org/resources/agent/the_hare_and_the_tortoise/tortoise> ;
+    ont:hasPlace <https://rbc.org/resources/place/the_hare_and_the_tortoise/race_track> ;
+    ont:postEvent <https://rbc.org/resources/event/the_hare_and_the_tortoise/hero_passing_antagonist> ;
+    ont:preEvent <https://rbc.org/resources/event/the_hare_and_the_tortoise/antagonist_naps_during_race> .
+
+<https://rbc.org/resources/event/the_hare_and_the_tortoise/race_begins> a ont:Setup ;
+    rdfs:label "Race Begins"^^xsd:string ;
+    ont:hasAgent <https://rbc.org/resources/agent/the_hare_and_the_tortoise/fox>,
+        <https://rbc.org/resources/agent/the_hare_and_the_tortoise/hare>,
+        <https://rbc.org/resources/agent/the_hare_and_the_tortoise/tortoise> ;
+    ont:hasPlace <https://rbc.org/resources/place/the_hare_and_the_tortoise/race_track> ;
+    ont:postEvent <https://rbc.org/resources/event/the_hare_and_the_tortoise/antagonist_naps_during_race> ;
+    ont:preEvent <https://rbc.org/resources/event/the_hare_and_the_tortoise/challenge_accepted> .
+
 <https://rbc.org/resources/event/the_history_of_whittington/defusing_tension> a ont:Preparation ;
     rdfs:label "Defusing Tension"^^xsd:string ;
     ont:hasAgent <https://rbc.org/resources/agent/the_history_of_whittington/porter>,
@@ -16312,6 +16594,39 @@ ont:knows a owl:ObjectProperty ;
     ont:postEvent <https://rbc.org/resources/event/the_three_green_twigs/conflict_resolution> ;
     ont:preEvent <https://rbc.org/resources/event/the_three_green_twigs/encountered_external_character> .
 
+<https://rbc.org/resources/event/the_three_little_pigs/build_medium_resistant_house> a ont:InitialSituation ;
+    rdfs:label "Build Medium Resistant House"^^xsd:string ;
+    ont:hasAgent <https://rbc.org/resources/agent/the_three_little_pigs/pig_two> ;
+    ont:hasObject <https://rbc.org/resources/object/the_three_little_pigs/stick> ;
+    ont:hasPlace <https://rbc.org/resources/place/the_three_little_pigs/stick_house> ;
+    ont:postEvent <https://rbc.org/resources/event/the_three_little_pigs/build_sturdy_house> ;
+    ont:preEvent <https://rbc.org/resources/event/the_three_little_pigs/build_flimsy_house> .
+
+<https://rbc.org/resources/event/the_three_little_pigs/build_sturdy_house> a ont:InitialSituation ;
+    rdfs:label "Build Sturdy House"^^xsd:string ;
+    ont:hasAgent <https://rbc.org/resources/agent/the_three_little_pigs/pig_three> ;
+    ont:hasObject <https://rbc.org/resources/object/the_three_little_pigs/brick> ;
+    ont:hasPlace <https://rbc.org/resources/place/the_three_little_pigs/brick_house> ;
+    ont:postEvent <https://rbc.org/resources/event/the_three_little_pigs/villain_attacks_flimsy_house> ;
+    ont:preEvent <https://rbc.org/resources/event/the_three_little_pigs/build_medium_resistant_house> .
+
+<https://rbc.org/resources/event/the_three_little_pigs/villain_attacks_flimsy_house> a ont:Villainy ;
+    rdfs:label "Villain Attacks Flimsy House"^^xsd:string ;
+    ont:hasAgent <https://rbc.org/resources/agent/the_three_little_pigs/big_bad_wolf>,
+        <https://rbc.org/resources/agent/the_three_little_pigs/pig_one> ;
+    ont:hasPlace <https://rbc.org/resources/place/the_three_little_pigs/straw_house> ;
+    ont:postEvent <https://rbc.org/resources/event/the_three_little_pigs/villain_attacks_medium_resistant_house> ;
+    ont:preEvent <https://rbc.org/resources/event/the_three_little_pigs/build_sturdy_house> .
+
+<https://rbc.org/resources/event/the_three_little_pigs/villain_attacks_medium_resistant_house> a ont:Villainy ;
+    rdfs:label "Villain Attacks Medium Resistant House"^^xsd:string ;
+    ont:hasAgent <https://rbc.org/resources/agent/the_three_little_pigs/big_bad_wolf>,
+        <https://rbc.org/resources/agent/the_three_little_pigs/pig_one>,
+        <https://rbc.org/resources/agent/the_three_little_pigs/pig_two> ;
+    ont:hasPlace <https://rbc.org/resources/place/the_three_little_pigs/stick_house> ;
+    ont:postEvent <https://rbc.org/resources/event/the_three_little_pigs/villain_fails_sturdy_house> ;
+    ont:preEvent <https://rbc.org/resources/event/the_three_little_pigs/villain_attacks_flimsy_house> .
+
 <https://rbc.org/resources/event/the_tiger,_the_brahman_and_the_jackal/abuse_of_trust> a ont:Villainy ;
     rdfs:label "Abuse Of Trust"^^xsd:string ;
     ont:hasAgent <https://rbc.org/resources/agent/the_tiger,_the_brahman_and_the_jackal/brahman> ;
@@ -17722,6 +18037,15 @@ ont:knows a owl:ObjectProperty ;
 <https://rbc.org/resources/place/the_three_green_twigs/robbers_forest> a ont:Forest ;
     rdfs:label "Robbers Forest"^^xsd:string .
 
+<https://rbc.org/resources/place/the_three_little_pigs/brick_house> a ont:House ;
+    rdfs:label "Brick House"^^xsd:string .
+
+<https://rbc.org/resources/place/the_three_little_pigs/stick_house> a ont:House ;
+    rdfs:label "Stick House"^^xsd:string .
+
+<https://rbc.org/resources/place/the_three_little_pigs/straw_house> a ont:House ;
+    rdfs:label "Straw House"^^xsd:string .
+
 <https://rbc.org/resources/place/the_tiger,_the_brahman_and_the_jackal/road_pathway> a ont:CommunityBuilding ;
     rdfs:label "Road Pathway"^^xsd:string .
 
@@ -17851,6 +18175,16 @@ ont:Tower a owl:Class ;
     ont:gender "male"^^xsd:string ;
     ont:hasRole <https://rbc.org/resources/role/anthony's_nose/quest_giver> ;
     ont:knows <https://rbc.org/resources/agent/anthony's_nose/anthony_van_corlaer> .
+
+<https://rbc.org/resources/agent/cinderella/prince> a ont:HumanBeing ;
+    rdfs:label "Prince"^^xsd:string ;
+    ont:ageCategory pearl:young ;
+    ont:gender "male"^^xsd:string ;
+    ont:hasPersonality pearl:Assertive,
+        pearl:Eager ;
+    ont:hasRole <https://rbc.org/resources/role/cinderella/hero_soulmate> ;
+    ont:livesIn <https://rbc.org/resources/place/cinderella/royal_ballroom> ;
+    ont:name "Prince"^^xsd:string .
 
 <https://rbc.org/resources/agent/cudgel,_bestir_yourself!/old_shepherd> a ont:HumanBeing ;
     rdfs:label "Old Shepherd"^^xsd:string ;
@@ -18483,6 +18817,9 @@ ont:Tower a owl:Class ;
 <https://rbc.org/resources/object/budulinek:_the_story_of_another_little_boy_who_opened_the_door/peas> a ont:NaturalObject ;
     rdfs:label "Peas"^^xsd:string .
 
+<https://rbc.org/resources/object/cinderella/glass_slipper> a ont:CraftedObject ;
+    rdfs:label "Glass Slipper"^^xsd:string .
+
 <https://rbc.org/resources/object/lazy_jack/string> a ont:CraftedObject ;
     rdfs:label "String"^^xsd:string .
 
@@ -18656,10 +18993,6 @@ ont:Place a owl:Class ;
     owl:equivalentClass dcterms:Location,
         sem:Place,
         schema:Place .
-
-ont:VillainDefeated a owl:Class ;
-    rdfs:label "Villain Defeated" ;
-    rdfs:subClassOf ont:Victory .
 
 <https://rbc.org/resources/agent/budulinek:_the_story_of_another_little_boy_who_opened_the_door/organ_grinder> a ont:HumanBeing ;
     rdfs:label "Organ Grinder"^^xsd:string ;
@@ -19089,6 +19422,19 @@ ont:VillainDefeated a owl:Class ;
         <https://rbc.org/resources/agent/the_three_green_twigs/robber_one> ;
     ont:livesIn <https://rbc.org/resources/place/the_three_green_twigs/robbers_forest> .
 
+<https://rbc.org/resources/agent/the_three_little_pigs/pig_three> a ont:AnthropomorphicAnimal ;
+    rdfs:label "Pig Three"^^xsd:string ;
+    ont:ageCategory pearl:children ;
+    ont:gender "male"^^xsd:string ;
+    ont:hasEnemy <https://rbc.org/resources/agent/the_three_little_pigs/big_bad_wolf> ;
+    ont:hasFamilyMember <https://rbc.org/resources/agent/the_three_little_pigs/pig_one>,
+        <https://rbc.org/resources/agent/the_three_little_pigs/pig_two> ;
+    ont:hasPersonality pearl:Assertive,
+        pearl:Eager ;
+    ont:hasRole <https://rbc.org/resources/role/the_three_little_pigs/hero> ;
+    ont:livesIn <https://rbc.org/resources/place/the_three_little_pigs/brick_house> ;
+    ont:name "Little Pig 3"^^xsd:string .
+
 <https://rbc.org/resources/agent/the_wise_judgment/the_queen> a ont:HumanBeing ;
     rdfs:label "The Queen"^^xsd:string ;
     ont:ageCategory pearl:adult ;
@@ -19266,6 +19612,9 @@ ont:VillainDefeated a owl:Class ;
 <https://rbc.org/resources/place/budulinek:_the_story_of_another_little_boy_who_opened_the_door/foxes_home_forest> a ont:Forest ;
     rdfs:label "Foxes Home Forest"^^xsd:string .
 
+<https://rbc.org/resources/place/cinderella/royal_ballroom> a ont:Palace ;
+    rdfs:label "Royal Ballroom"^^xsd:string .
+
 <https://rbc.org/resources/place/first_month/hero_house> a ont:House ;
     rdfs:label "Hero House"^^xsd:string .
 
@@ -19369,10 +19718,6 @@ ont:VillainDefeated a owl:Class ;
 <https://rbc.org/resources/role/the_old_woman_and_the_cat/magical_helper> a ont:Helper ;
     rdfs:label "Magical Helper"^^xsd:string .
 
-ont:Antagonist a owl:Class ;
-    rdfs:label "Antagonist" ;
-    rdfs:subClassOf ont:PrimaryCharacter .
-
 ont:Genre a owl:Class ;
     rdfs:label "Genre" ;
     owl:equivalentClass wd:Q223393 .
@@ -19392,9 +19737,40 @@ ont:LackOfMoney a owl:Class ;
     rdfs:label "Lack Of Money" ;
     rdfs:subClassOf ont:Lack .
 
+ont:VillainDefeated a owl:Class ;
+    rdfs:label "Villain Defeated" ;
+    rdfs:subClassOf ont:Victory .
+
 ont:VillainGainsInformation a owl:Class ;
     rdfs:label "Villain Gains Information" ;
     rdfs:subClassOf ont:Conflict .
+
+<https://rbc.org/resources/agent/cinderella/stepmother> a ont:HumanBeing ;
+    rdfs:label "Stepmother"^^xsd:string ;
+    ont:ageCategory pearl:adult ;
+    ont:gender "female"^^xsd:string ;
+    ont:hasFamilyMember <https://rbc.org/resources/agent/cinderella/cinderella>,
+        <https://rbc.org/resources/agent/cinderella/stepsister_one>,
+        <https://rbc.org/resources/agent/cinderella/stepsister_two> ;
+    ont:hasPersonality pearl:Aggressive,
+        pearl:Egocentric ;
+    ont:hasRole <https://rbc.org/resources/role/cinderella/main_villain> ;
+    ont:knows <https://rbc.org/resources/agent/cinderella/stepsister_one> ;
+    ont:livesIn <https://rbc.org/resources/place/cinderella/hero_house> ;
+    ont:name "Lady Tremaine"^^xsd:string .
+
+<https://rbc.org/resources/agent/cinderella/stepsister_two> a ont:HumanBeing ;
+    rdfs:label "Stepsister Two"^^xsd:string ;
+    ont:ageCategory pearl:young ;
+    ont:gender "female"^^xsd:string ;
+    ont:hasFamilyMember <https://rbc.org/resources/agent/cinderella/cinderella>,
+        <https://rbc.org/resources/agent/cinderella/stepmother>,
+        <https://rbc.org/resources/agent/cinderella/stepsister_one> ;
+    ont:hasPersonality pearl:Impulsive,
+        pearl:Joyful ;
+    ont:hasRole <https://rbc.org/resources/role/cinderella/villain_minion> ;
+    ont:livesIn <https://rbc.org/resources/place/cinderella/hero_house> ;
+    ont:name "Drizella"^^xsd:string .
 
 <https://rbc.org/resources/agent/cudgel,_bestir_yourself!/cobbler_wife> a ont:HumanBeing ;
     rdfs:label "Cobbler Wife"^^xsd:string ;
@@ -19860,6 +20236,32 @@ ont:VillainGainsInformation a owl:Class ;
         <https://rbc.org/resources/agent/the_three_green_twigs/robber_two> ;
     ont:livesIn <https://rbc.org/resources/place/the_three_green_twigs/robbers_forest> .
 
+<https://rbc.org/resources/agent/the_three_little_pigs/big_bad_wolf> a ont:AnthropomorphicAnimal ;
+    rdfs:label "Big Bad Wolf"^^xsd:string ;
+    ont:ageCategory pearl:adult ;
+    ont:gender "male"^^xsd:string ;
+    ont:hasEnemy <https://rbc.org/resources/agent/the_three_little_pigs/pig_one>,
+        <https://rbc.org/resources/agent/the_three_little_pigs/pig_three>,
+        <https://rbc.org/resources/agent/the_three_little_pigs/pig_two> ;
+    ont:hasPersonality pearl:Aggressive,
+        pearl:Egocentric ;
+    ont:hasRole <https://rbc.org/resources/role/the_three_little_pigs/villain> ;
+    ont:livesIn <https://rbc.org/resources/place/the_three_little_pigs/near_forest> ;
+    ont:name "Big bad wolf"^^xsd:string .
+
+<https://rbc.org/resources/agent/the_three_little_pigs/pig_two> a ont:AnthropomorphicAnimal ;
+    rdfs:label "Pig Two"^^xsd:string ;
+    ont:ageCategory pearl:children ;
+    ont:gender "male"^^xsd:string ;
+    ont:hasEnemy <https://rbc.org/resources/agent/the_three_little_pigs/big_bad_wolf> ;
+    ont:hasFamilyMember <https://rbc.org/resources/agent/the_three_little_pigs/pig_one>,
+        <https://rbc.org/resources/agent/the_three_little_pigs/pig_three> ;
+    ont:hasPersonality pearl:Impulsive,
+        pearl:Joyful ;
+    ont:hasRole <https://rbc.org/resources/role/the_three_little_pigs/hero_brother_two> ;
+    ont:livesIn <https://rbc.org/resources/place/the_three_little_pigs/stick_house> ;
+    ont:name "Little Pig 2"^^xsd:string .
+
 <https://rbc.org/resources/agent/the_wonderful_plough/insect> a ont:MagicalCreature ;
     rdfs:label "Insect"^^xsd:string ;
     ont:ageCategory pearl:adult ;
@@ -20017,13 +20419,27 @@ ont:VillainGainsInformation a owl:Class ;
 wd:Q12827256 a ont:Genre ;
     rdfs:label "Myth" .
 
+ont:Antagonist a owl:Class ;
+    rdfs:label "Antagonist" ;
+    rdfs:subClassOf ont:PrimaryCharacter .
+
 ont:Arrival a owl:Class ;
     rdfs:label "Arrival" ;
     rdfs:subClassOf ont:Resolution .
 
-ont:WeddingOrThrone a owl:Class ;
-    rdfs:label "Wedding Or Throne" ;
-    rdfs:subClassOf ont:Resolution .
+<https://rbc.org/resources/agent/cinderella/stepsister_one> a ont:HumanBeing ;
+    rdfs:label "Stepsister One"^^xsd:string ;
+    ont:ageCategory pearl:young ;
+    ont:gender "female"^^xsd:string ;
+    ont:hasFamilyMember <https://rbc.org/resources/agent/cinderella/cinderella>,
+        <https://rbc.org/resources/agent/cinderella/stepmother>,
+        <https://rbc.org/resources/agent/cinderella/stepsister_two> ;
+    ont:hasPersonality pearl:Impulsive,
+        pearl:Tense ;
+    ont:hasRole <https://rbc.org/resources/role/cinderella/villain_minion> ;
+    ont:knows <https://rbc.org/resources/agent/cinderella/stepmother> ;
+    ont:livesIn <https://rbc.org/resources/place/cinderella/hero_house> ;
+    ont:name "Anastasia"^^xsd:string .
 
 <https://rbc.org/resources/agent/cudgel,_bestir_yourself!/gossip> a ont:HumanBeing ;
     rdfs:label "Gossip"^^xsd:string ;
@@ -20421,6 +20837,19 @@ ont:WeddingOrThrone a owl:Class ;
     ont:hasRole <https://rbc.org/resources/role/the_three-army_surgeons/main_hero> ;
     ont:livesIn <https://rbc.org/resources/place/the_three-army_surgeons/inn_where_surgeons_stayed> .
 
+<https://rbc.org/resources/agent/the_three_little_pigs/pig_one> a ont:AnthropomorphicAnimal ;
+    rdfs:label "Pig One"^^xsd:string ;
+    ont:ageCategory pearl:children ;
+    ont:gender "male"^^xsd:string ;
+    ont:hasEnemy <https://rbc.org/resources/agent/the_three_little_pigs/big_bad_wolf> ;
+    ont:hasFamilyMember <https://rbc.org/resources/agent/the_three_little_pigs/pig_three>,
+        <https://rbc.org/resources/agent/the_three_little_pigs/pig_two> ;
+    ont:hasPersonality pearl:Active,
+        pearl:Sociable ;
+    ont:hasRole <https://rbc.org/resources/role/the_three_little_pigs/hero_brother_one> ;
+    ont:livesIn <https://rbc.org/resources/place/the_three_little_pigs/straw_house> ;
+    ont:name "Little Pig 1"^^xsd:string .
+
 <https://rbc.org/resources/agent/the_witch_in_the_stone_boat/prince_sigurd> a ont:HumanBeing ;
     rdfs:label "Prince Sigurd"^^xsd:string ;
     ont:ageCategory pearl:young ;
@@ -20572,13 +21001,13 @@ ont:ReceiptObject a owl:Class ;
     rdfs:label "Receipt Object" ;
     rdfs:subClassOf ont:HelperMove .
 
-ont:ResolutionFunction a owl:Class ;
-    rdfs:label "Resolution Function" ;
-    rdfs:subClassOf ont:Resolution .
-
 ont:Town a owl:Class ;
     rdfs:label "Town" ;
     rdfs:subClassOf ont:Settlement .
+
+ont:WeddingOrThrone a owl:Class ;
+    rdfs:label "Wedding Or Throne" ;
+    rdfs:subClassOf ont:Resolution .
 
 <https://rbc.org/resources/agent/a_blow_in_the_dark/washington> a ont:HumanBeing ;
     rdfs:label "Washington"^^xsd:string ;
@@ -20827,6 +21256,17 @@ ont:Town a owl:Class ;
     ont:hasPersonality pearl:Joyful ;
     ont:hasRole <https://rbc.org/resources/role/the_fish_and_the_leopard's_wife;_or,_why_the_fish_lives_in_the_water/hero_family> ;
     ont:livesIn <https://rbc.org/resources/place/the_fish_and_the_leopard's_wife;_or,_why_the_fish_lives_in_the_water/leopard_bush> .
+
+<https://rbc.org/resources/agent/the_hare_and_the_tortoise/hare> a ont:AnthropomorphicAnimal ;
+    rdfs:label "Hare"^^xsd:string ;
+    ont:ageCategory pearl:adult ;
+    ont:gender "male"^^xsd:string ;
+    ont:hasEnemy <https://rbc.org/resources/agent/the_hare_and_the_tortoise/tortoise> ;
+    ont:hasPersonality pearl:Egocentric,
+        pearl:Impulsive ;
+    ont:hasRole <https://rbc.org/resources/role/the_hare_and_the_tortoise/hero_rival> ;
+    ont:knows <https://rbc.org/resources/agent/the_hare_and_the_tortoise/fox> ;
+    ont:name "Hare"^^xsd:string .
 
 <https://rbc.org/resources/agent/the_history_of_whittington/governor> a ont:HumanBeing ;
     rdfs:label "Governor"^^xsd:string ;
@@ -21152,13 +21592,13 @@ ont:Absentation a owl:Class ;
     rdfs:label "Absentation" ;
     rdfs:subClassOf ont:Preparation .
 
-ont:ConnectiveIncident a owl:Class ;
-    rdfs:label "Connective Incident" ;
-    rdfs:subClassOf ont:Conflict .
-
 ont:GetPresent a owl:Class ;
     rdfs:label "Get Present" ;
     rdfs:subClassOf ont:Acquisition .
+
+ont:ResolutionFunction a owl:Class ;
+    rdfs:label "Resolution Function" ;
+    rdfs:subClassOf ont:Resolution .
 
 ont:Return a owl:Class ;
     rdfs:label "Return" ;
@@ -21292,6 +21732,17 @@ ont:Transfiguration a owl:Class ;
     ont:hasRole <https://rbc.org/resources/role/the_crane_that_crossed_the_river/mysterious_helper> ;
     ont:knows <https://rbc.org/resources/agent/the_crane_that_crossed_the_river/hunter_father> ;
     ont:livesIn <https://rbc.org/resources/place/the_crane_that_crossed_the_river/north_region> .
+
+<https://rbc.org/resources/agent/the_hare_and_the_tortoise/tortoise> a ont:AnthropomorphicAnimal ;
+    rdfs:label "Tortoise"^^xsd:string ;
+    ont:ageCategory pearl:adult ;
+    ont:gender "male"^^xsd:string ;
+    ont:hasEnemy <https://rbc.org/resources/agent/the_hare_and_the_tortoise/hare> ;
+    ont:hasPersonality pearl:Assertive,
+        pearl:Eager ;
+    ont:hasRole <https://rbc.org/resources/role/the_hare_and_the_tortoise/hero> ;
+    ont:knows <https://rbc.org/resources/agent/the_hare_and_the_tortoise/fox> ;
+    ont:name "Tortoise"^^xsd:string .
 
 <https://rbc.org/resources/agent/the_history_of_whittington/criminal> a ont:HumanBeing ;
     rdfs:label "Criminal"^^xsd:string ;
@@ -21585,6 +22036,9 @@ ont:Transfiguration a owl:Class ;
 <https://rbc.org/resources/place/the_girl_who_trod_on_the_loaf/inges_native_place> a ont:Village ;
     rdfs:label "Inges Native Place"^^xsd:string .
 
+<https://rbc.org/resources/place/the_hare_and_the_tortoise/race_track> a ont:Forest ;
+    rdfs:label "Race Track"^^xsd:string .
+
 <https://rbc.org/resources/place/the_lazy_spinner/their_house> a ont:House ;
     rdfs:label "Their House"^^xsd:string .
 
@@ -21612,6 +22066,10 @@ ont:Transfiguration a owl:Class ;
 wd:Q44342 a ont:Genre ;
     rdfs:label "Legend" .
 
+ont:ConnectiveIncident a owl:Class ;
+    rdfs:label "Connective Incident" ;
+    rdfs:subClassOf ont:Conflict .
+
 ont:Event a owl:Class ;
     rdfs:label "Event" ;
     rdfs:subClassOf sem:Event ;
@@ -21624,10 +22082,6 @@ ont:Expulsion a owl:Class ;
 ont:HeroInterdiction a owl:Class ;
     rdfs:label "Hero Interdiction" ;
     rdfs:subClassOf ont:Conflict .
-
-ont:Palace a owl:Class ;
-    rdfs:label "Palace" ;
-    rdfs:subClassOf ont:Dwelling .
 
 <https://rbc.org/resources/agent/how_a_lad_stole_the_giant's_treasure/the_youngest_brother> a ont:HumanBeing ;
     rdfs:label "The Youngest Brother"^^xsd:string ;
@@ -21792,6 +22246,9 @@ ont:Palace a owl:Class ;
     ont:hasRole <https://rbc.org/resources/role/the_warlike_seven/main_hero> ;
     ont:livesIn <https://rbc.org/resources/place/the_warlike_seven/warriors_river> .
 
+<https://rbc.org/resources/place/cinderella/hero_house> a ont:House ;
+    rdfs:label "Hero House"^^xsd:string .
+
 <https://rbc.org/resources/place/father_frost/wide_fields> a ont:NaturalPlace ;
     rdfs:label "Wide Fields"^^xsd:string .
 
@@ -21818,6 +22275,10 @@ ont:Palace a owl:Class ;
 
 <https://rbc.org/resources/place/what_the_man_in_the_moon_did/quadjaq_village> a ont:Village ;
     rdfs:label "Quadjaq Village"^^xsd:string .
+
+ont:Palace a owl:Class ;
+    rdfs:label "Palace" ;
+    rdfs:subClassOf ont:Dwelling .
 
 <https://rbc.org/resources/agent/how_some_wild_animals_became_tame_ones/boy> a ont:HumanBeing ;
     rdfs:label "Boy"^^xsd:string ;
@@ -22085,10 +22546,6 @@ ont:Palace a owl:Class ;
     rdfs:label "Sigurds Kingdom"^^xsd:string .
 
 <http://www.gsi.upm.es/ontologies/pearl/ns#Personality> a owl:Class .
-
-ont:HeroDeparture a owl:Class ;
-    rdfs:label "Hero Departure" ;
-    rdfs:subClassOf ont:Conflict .
 
 ont:SolutionDifficultTask a owl:Class ;
     rdfs:label "Solution Difficult Task" ;
@@ -22395,6 +22852,10 @@ ont:Branding a owl:Class ;
     rdfs:label "Branding" ;
     rdfs:subClassOf ont:Conflict .
 
+ont:HeroDeparture a owl:Class ;
+    rdfs:label "Hero Departure" ;
+    rdfs:subClassOf ont:Conflict .
+
 <https://rbc.org/resources/agent/budulinek:_the_story_of_another_little_boy_who_opened_the_door/granny> a ont:HumanBeing ;
     rdfs:label "Granny"^^xsd:string ;
     ont:ageCategory pearl:adult ;
@@ -22406,6 +22867,21 @@ ont:Branding a owl:Class ;
     ont:hasRole <https://rbc.org/resources/role/budulinek:_the_story_of_another_little_boy_who_opened_the_door/hero_family_member> ;
     ont:knows <https://rbc.org/resources/agent/budulinek:_the_story_of_another_little_boy_who_opened_the_door/organ_grinder> ;
     ont:livesIn <https://rbc.org/resources/place/budulinek:_the_story_of_another_little_boy_who_opened_the_door/grannys_cottage> .
+
+<https://rbc.org/resources/agent/cinderella/cinderella> a ont:HumanBeing ;
+    rdfs:label "Cinderella"^^xsd:string ;
+    ont:ageCategory pearl:young ;
+    ont:gender "female"^^xsd:string ;
+    ont:hasFamilyMember <https://rbc.org/resources/agent/cinderella/stepmother>,
+        <https://rbc.org/resources/agent/cinderella/stepsister_one>,
+        <https://rbc.org/resources/agent/cinderella/stepsister_two> ;
+    ont:hasPersonality pearl:Active,
+        pearl:Joyful,
+        pearl:Sociable ;
+    ont:hasRole <https://rbc.org/resources/role/cinderella/main_hero> ;
+    ont:knows <https://rbc.org/resources/agent/cinderella/fairy_godmother> ;
+    ont:livesIn <https://rbc.org/resources/place/cinderella/hero_house> ;
+    ont:name "Cinderella"^^xsd:string .
 
 <https://rbc.org/resources/agent/father_frost/stepmother> a ont:HumanBeing ;
     rdfs:label "Stepmother"^^xsd:string ;
@@ -23242,10 +23718,6 @@ ont:Castle a owl:Class ;
 <https://rbc.org/resources/place/the_language_of_animals/the_hill> a ont:NaturalPlace ;
     rdfs:label "The Hill"^^xsd:string .
 
-ont:MagicalHelper a owl:Class ;
-    rdfs:label "Magical Helper" ;
-    rdfs:subClassOf ont:Helper .
-
 <https://rbc.org/resources/agent/cudgel,_bestir_yourself!/cobbler> a ont:HumanBeing ;
     rdfs:label "Cobbler"^^xsd:string ;
     ont:ageCategory pearl:adult ;
@@ -23384,6 +23856,10 @@ ont:MagicalHelper a owl:Class ;
 
 <https://rbc.org/resources/place/the_shoemaker's_apron:_the_story_of_the_man_who_sits_near_the_golden_gate/shoemakers_cottage> a ont:Dwelling ;
     rdfs:label "Shoemakers Cottage"^^xsd:string .
+
+ont:MagicalHelper a owl:Class ;
+    rdfs:label "Magical Helper" ;
+    rdfs:subClassOf ont:Helper .
 
 ont:Preparation a owl:Class ;
     rdfs:label "Preparation" ;
@@ -23596,10 +24072,6 @@ ont:Fight a owl:Class ;
     rdfs:label "Fight" ;
     rdfs:subClassOf ont:Struggle .
 
-ont:Hero a owl:Class ;
-    rdfs:label "Hero" ;
-    rdfs:subClassOf ont:MainCharacter .
-
 ont:Field a owl:Class ;
     rdfs:label "Field" ;
     rdfs:subClassOf ont:NaturalPlace .
@@ -23662,6 +24134,10 @@ ont:CommunityBuilding a owl:Class ;
         <https://rbc.org/resources/agent/the_history_of_whittington/steward>,
         <https://rbc.org/resources/agent/the_history_of_whittington/wagoner> .
 
+ont:Hero a owl:Class ;
+    rdfs:label "Hero" ;
+    rdfs:subClassOf ont:MainCharacter .
+
 <https://rbc.org/resources/agent/the_history_of_whittington/mayor> a ont:HumanBeing ;
     rdfs:label "Mayor"^^xsd:string ;
     ont:ageCategory pearl:adult ;
@@ -23696,17 +24172,13 @@ ont:CommunityBuilding a owl:Class ;
         <https://rbc.org/resources/agent/the_history_of_whittington/sheriff>,
         <https://rbc.org/resources/agent/the_history_of_whittington/stationer> .
 
-ont:Conflict a owl:Class ;
-    rdfs:label "Conflict" ;
-    rdfs:subClassOf ont:Move .
-
-ont:House a owl:Class ;
-    rdfs:label "House" ;
-    rdfs:subClassOf ont:Dwelling .
-
 ont:Village a owl:Class ;
     rdfs:label "Village" ;
     rdfs:subClassOf ont:Settlement .
+
+ont:Conflict a owl:Class ;
+    rdfs:label "Conflict" ;
+    rdfs:subClassOf ont:Move .
 
 ont:HelperMove a owl:Class ;
     rdfs:label "Helper Move" ;
@@ -23749,9 +24221,9 @@ ont:HelperMove a owl:Class ;
         <https://rbc.org/resources/agent/the_history_of_whittington/wagoner>,
         <https://rbc.org/resources/agent/the_history_of_whittington/whittington> .
 
-ont:Villainy a owl:Class ;
-    rdfs:label "Villainy" ;
-    rdfs:subClassOf ont:HeroInterdiction .
+ont:House a owl:Class ;
+    rdfs:label "House" ;
+    rdfs:subClassOf ont:Dwelling .
 
 <https://rbc.org/resources/agent/the_history_of_whittington/servant> a ont:HumanBeing ;
     rdfs:label "Servant"^^xsd:string ;
@@ -23831,13 +24303,17 @@ ont:Villainy a owl:Class ;
         <https://rbc.org/resources/agent/the_history_of_whittington/sheriff>,
         <https://rbc.org/resources/agent/the_history_of_whittington/stationer> .
 
-ont:Resolution a owl:Class ;
-    rdfs:label "Resolution" ;
-    rdfs:subClassOf ont:Event .
+ont:Villainy a owl:Class ;
+    rdfs:label "Villainy" ;
+    rdfs:subClassOf ont:HeroInterdiction .
 
 ont:River a owl:Class ;
     rdfs:label "River" ;
     rdfs:subClassOf ont:NaturalPlace .
+
+ont:Resolution a owl:Class ;
+    rdfs:label "Resolution" ;
+    rdfs:subClassOf ont:Event .
 
 ont:Dwelling a owl:Class ;
     rdfs:label "Dwelling" ;
@@ -23846,9 +24322,6 @@ ont:Dwelling a owl:Class ;
 ont:Mountain a owl:Class ;
     rdfs:label "Mountain" ;
     rdfs:subClassOf ont:NaturalPlace .
-
-wd:Q699 a ont:Genre ;
-    rdfs:label "Fairy Tale" .
 
 <https://rbc.org/resources/agent/the_history_of_whittington/sheriff> a ont:HumanBeing ;
     rdfs:label "Sheriff"^^xsd:string ;
@@ -23897,6 +24370,9 @@ wd:Q699 a ont:Genre ;
         <https://rbc.org/resources/agent/the_history_of_whittington/student>,
         <https://rbc.org/resources/agent/the_history_of_whittington/whittington> .
 
+wd:Q699 a ont:Genre ;
+    rdfs:label "Fairy Tale" .
+
 ont:MainCharacter a owl:Class ;
     rdfs:label "Main Character" ;
     rdfs:subClassOf ont:PrimaryCharacter .
@@ -23909,31 +24385,31 @@ ont:Settlement a owl:Class ;
     rdfs:label "Settlement" ;
     rdfs:subClassOf ont:Place .
 
-ont:AnthropomorphicAnimal a owl:Class ;
-    rdfs:subClassOf ont:IndividualAgent .
-
 wd:Q693 a ont:Genre ;
     rdfs:label "Fable" .
+
+ont:AnthropomorphicAnimal a owl:Class ;
+    rdfs:subClassOf ont:IndividualAgent .
 
 ont:Struggle a owl:Class ;
     rdfs:label "Struggle" ;
     rdfs:subClassOf ont:Conflict .
 
+ont:Building a owl:Class ;
+    rdfs:label "Building" ;
+    rdfs:subClassOf ont:Place .
+
 ont:Villain a owl:Class ;
     rdfs:label "Villain" ;
     rdfs:subClassOf ont:Antagonist .
 
-ont:Building a owl:Class ;
-    rdfs:label "Building" ;
+ont:NaturalPlace a owl:Class ;
+    rdfs:label "Natural Place" ;
     rdfs:subClassOf ont:Place .
 
 ont:SecondaryCharacter a owl:Class ;
     rdfs:label "Secondary Character" ;
     rdfs:subClassOf ont:Role .
-
-ont:NaturalPlace a owl:Class ;
-    rdfs:label "Natural Place" ;
-    rdfs:subClassOf ont:Place .
 
 ont:MagicalCreature a owl:Class ;
     rdfs:subClassOf ont:IndividualAgent .

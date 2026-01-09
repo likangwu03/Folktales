@@ -4,7 +4,8 @@ from generation.adaptation.astar import ConstructiveAdaptation
 from generation.adaptation.query import Query
 from generation.adaptation.alignment import process_events, print_dict, process_roles, process_objects, process_places, print_selected_uris, build_unique_uri_dict
 from generation.adaptation.story_builder import story_builder
-from common.utils.loader import load_json_folder, load_txt_folder, data_dir, out_dir, save_raw_folktale, load_json, save_annotated_folktale
+from common.utils.loader import load_json_folder, data_dir, out_dir, load_json, load_txt_folder
+from common.utils.regex_utils import clean_regex, title_case_to_snake_case
 from generation.ontology.folktale_graph import FolktaleOntology
 from loguru import logger
 from rdflib import Graph
@@ -12,7 +13,8 @@ from dotenv import load_dotenv
 from generation.story_generator import generate_story
 from common.models.folktale import AnnotatedFolktale
 from common.models.event import MIN_EVENTS
-import os
+from generation.utils.loader import save_annotated_folktale, save_raw_folktale
+import re
 
 def create_graph(folktales: list[AnnotatedFolktale], build: bool=False, render_html: bool=False) -> Graph:
     graph = FolktaleOntology()
@@ -39,27 +41,19 @@ def create_graph(folktales: list[AnnotatedFolktale], build: bool=False, render_h
 def main():
     load_dotenv()
 
-    # examples_dir = os.path.join(data_dir, "examples")
-    # raw_dir = os.path.join(examples_dir, "raw")
-    # annotated_dir = os.path.join(examples_dir, "annotated")
-    # examples_json = load_json_folder(annotated_dir)
-    # raw_examples = load_txt_folder(raw_dir)
-    
-    # keys = ["the_hare_and_the_tortoise"]
-    # examples = [(AnnotatedFolktale(**examples_json[key]), raw_examples[key]) for key in keys]
-
-    # folktale = AnnotatedFolktale(**examples_json["cinderella"])
-    
-    # story = generate_story(folktale, examples)
-
-    # save_raw_folktale(story, folktale.title)
-
     folktales = []
-    # examples = load_json_folder(f"{data_dir}/examples/annotated")
-    # examples = [AnnotatedFolktale(**folktale) for folktale in examples.values()]
-    # folktales.extend(examples)
 
-    out = load_json_folder(f"{out_dir}/annotated")
+    raw_examples = load_txt_folder(f"{data_dir}/examples/raw")
+
+    examples = load_json_folder(f"{data_dir}/examples/annotated")
+    examples = {filename: AnnotatedFolktale(**folktale) for filename, folktale in examples.items()}
+
+    folktales.extend(examples.values())
+
+    keys = ["the_hare_and_the_tortoise"]
+    generation_examples = [(examples[key], raw_examples[key]) for key in keys]
+
+    out = load_json_folder(out_dir)
     out = [AnnotatedFolktale(**folktale) for folktale in out.values()]
     out = [folktale for folktale in out if len(folktale.events) > MIN_EVENTS]
     folktales.extend(out)
@@ -68,7 +62,7 @@ def main():
 
     graph = create_graph(
         folktales=folktales,
-        build=False,
+        build=True,
         render_html=False
     )
     
@@ -111,9 +105,15 @@ def main():
         print_selected_uris("Objects", objects_dict)
         print_selected_uris("Roles", roles_dict)
 
-        f = story_builder(query.title,query.genre ,goal_node.event_elements,places_dict,objects_dict,roles_dict,event_retriever)
+        folktale = story_builder(query.title,query.genre, goal_node.event_elements, places_dict, objects_dict, roles_dict, event_retriever)
 
-        save_annotated_folktale(f,"Matt")
+        story = generate_story(folktale, generation_examples)
+
+        filename = re.sub(clean_regex, "", folktale.title)
+        filename = title_case_to_snake_case(filename)
+        # save_raw_folktale(story, filename)
+
+        save_annotated_folktale(folktale, filename)
 
 if __name__ == "__main__":
     main()
