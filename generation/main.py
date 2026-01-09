@@ -51,8 +51,11 @@ def main():
     folktales.extend(examples.values())
 
     keys = ["the_hare_and_the_tortoise"]
-    generation_examples = [(examples[key], raw_examples[key]) for key in keys]
-
+    generation_examples = [
+        (examples[key], "\n".join(raw_examples[key].splitlines()[1:]))
+        for key in keys
+    ]
+    
     out = load_json_folder(out_dir)
     out = [AnnotatedFolktale(**folktale) for folktale in out.values()]
     out = [folktale for folktale in out if len(folktale.events) > MIN_EVENTS]
