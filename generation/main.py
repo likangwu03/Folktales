@@ -68,7 +68,7 @@ def main():
 
     graph = create_graph(
         folktales=folktales,
-        build=True,
+        build=False,
         render_html=False
     )
     
@@ -83,14 +83,14 @@ def main():
         "object": 0.10
     }
 
-    constructive_adaptation = ConstructiveAdaptation(graph, weights, event_retriever, sim_calculator, top_n= 1)
+    constructive_adaptation = ConstructiveAdaptation(graph, weights, event_retriever, sim_calculator, top_n= 5)
 
     query_json = load_json("./query.json")
     query = Query.model_validate(query_json)
 
     logger.info(query)
 
-    goal_node = constructive_adaptation.generate(query, 2)
+    goal_node = constructive_adaptation.generate(query, query.max_events)
 
     if goal_node is not None:
         places, objects, roles = process_events(goal_node.event_elements,event_retriever)
@@ -111,7 +111,7 @@ def main():
         print_selected_uris("Objects", objects_dict)
         print_selected_uris("Roles", roles_dict)
 
-        f = story_builder("Generated Story","fable" ,goal_node.event_elements,places_dict,objects_dict,roles_dict,event_retriever)
+        f = story_builder(query.title,query.genre ,goal_node.event_elements,places_dict,objects_dict,roles_dict,event_retriever)
 
         save_annotated_folktale(f,"Matt")
 

@@ -42,6 +42,7 @@ def story_builder(title: str, genre:str, events_data: dict[str, dict], places_di
     for role_id, uris in roles_dict.items():
         role_class = RoleClass(camel_to_snake(role_id))
         for uri in uris:
+            print(uri)
             role_label = eventRetriever.get_role_labels(uri)
             role_label = title_case_to_snake_case(role_label)
             role = Role(class_name= role_class, instance_name= role_label)
@@ -88,5 +89,5 @@ def story_builder(title: str, genre:str, events_data: dict[str, dict], places_di
 
         events.append(event)
         
-    genre_class = GenreClass(genre)
+    genre_class = GenreClass(camel_to_snake(genre))
     return AnnotatedFolktale(title= title, has_genre= genre_class, agents= agents, places= places, objects= objects, events= events )
