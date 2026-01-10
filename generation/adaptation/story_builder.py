@@ -84,7 +84,7 @@ def story_builder(title: str, genre:str, events_data: dict[str, dict], places_di
             object_indices.extend(object_index_map.get(obj_id, [])[:n])
         
         event_class = EventClass(camel_to_snake(event_type))
-        event_label = title_case_to_snake_case(eventRetriever.get_type_name(event_uri))
+        event_label = title_case_to_snake_case(eventRetriever.get_label(event_uri))
         event = Event(class_name=event_class, instance_name= event_label, agents= agent_indices, objects= object_indices, place= place_index )
 
         events.append(event)
