@@ -1,0 +1,178 @@
+from generation.ontology.event_retriever import EventRetriever
+from generation.ontology.similarity_calculator import LocalSemanticSimilarityCalculator
+from generation.ontology.folktale_graph import FolktaleOntology
+from generation.adaptation.astar import ConstructiveAdaptation
+from generation.adaptation.query import Query
+from generation.adaptation.alignment import process_events, print_dict, process_roles, process_objects, process_places, print_selected_uris, build_unique_uri_dict
+from generation.adaptation.story_builder import story_builder
+from generation.adaptation.alignment import dataframe_alignment_table
+from generation.adaptation.similarity import best_similarity
+from generation.utils.loader import save_annotated_folktale
+from generation.story_generator import generate_story
+from common.utils.loader import load_json_folder, data_dir, out_dir, load_json, save_json
+from common.utils.regex_utils import clean_regex, title_case_to_snake_case
+from common.models.folktale import AnnotatedFolktale
+from common.models.event import MIN_EVENTS
+from loguru import logger
+from rdflib import Graph
+import re
+import os
+
+def create_graph(folktales: list[AnnotatedFolktale], build: bool=False, render_html: bool=False) -> Graph:
+    graph = FolktaleOntology()
+    if build:
+        hierarchies = load_json_folder(f"{data_dir}/hierarchies")
+        graph.build(hierarchies)
+
+        for folktale in folktales:
+            graph.add_folktale(folktale)
+
+        graph.add_imports()
+        graph.save()
+        if render_html:
+            graph.render_html("instances")
+
+    logger.debug(f"Grafo initialized with {len(graph)} triplets.")
+
+    graph.load()
+
+    logger.debug(f"Grafo initialized with {len(graph)} triplets after loading.")
+
+    return graph
+
+def generate_query(story_json: dict, path: str= "generation/experiments/query/") -> dict:
+    """
+    Genera una query dado un cuento anotado
+    """
+    title = story_json.get("title", "")
+    genre = story_json.get("has_genre", "")
+
+    events_data = story_json.get("events", [])
+    event_types = [e["class_name"] for e in events_data]
+    initial_event = event_types[0] if event_types else None
+
+    max_events = len(events_data)
+
+    roles = []
+    for agent in story_json.get("agents", []):
+        role = agent.get("has_role", {}).get("class_name")
+        if role:
+            roles.append(role)
+
+    objects = []
+    for obj in story_json.get("objects", []):
+        class_name = obj.get("class_name")
+        if class_name:
+            objects.append(class_name)
+
+    places = []
+    for place in story_json.get("places", []):
+        class_name = place.get("class_name")
+        if class_name:
+            places.append(class_name)
+
+    query = {
+        "title": title,
+        "initial_event": initial_event,
+        "events": event_types,
+        "roles": roles,
+        "objects": objects,
+        "places": places,
+        "genre": genre,
+        "max_events": max_events
+    }
+
+    title = title_case_to_snake_case(title)
+    filename = f"{title}_query.json"
+    filepath = os.path.join(path, filename)
+    save_json(filepath,query)
+    return query
+
+
+def main():
+    folktales = []
+
+    examples = load_json_folder(f"{data_dir}/examples/annotated")
+
+    # for filename, folktale in examples.items():
+    #     generate_query(folktale)
+    
+
+    examples = {filename: AnnotatedFolktale(**folktale) for filename, folktale in examples.items()}
+
+    folktales.extend(examples.values())
+    
+    out = load_json_folder(out_dir)
+    out = [AnnotatedFolktale(**folktale) for folktale in out.values()]
+    out = [folktale for folktale in out if len(folktale.events) > MIN_EVENTS]
+    folktales.extend(out)
+
+    print(len(folktales))
+
+    graph = create_graph(
+        folktales=folktales,
+        build=False,
+        render_html=False
+    )
+    
+    event_retriever = EventRetriever(graph)
+    sim_calculator = LocalSemanticSimilarityCalculator(graph)
+
+    weights = {
+        "genre": 0.15,
+        "event": 0.40,
+        "role": 0.20,
+        "place": 0.15,
+        "object": 0.10
+    }
+
+    constructive_adaptation = ConstructiveAdaptation(graph, weights, event_retriever, sim_calculator, top_n= 5)
+
+    query_json = load_json("./generation/experiments/query/cinderella_query.json")
+    query = Query.model_validate(query_json)
+
+    logger.info(query)
+
+    goal_node = constructive_adaptation.generate(query, query.max_events)
+
+    if goal_node is not None:
+        places, objects, roles = process_events(goal_node.event_elements,event_retriever)
+        process_roles("fable", roles, event_retriever, sim_calculator)
+        process_objects("fable",objects,event_retriever,sim_calculator)
+        process_places("fable",places,event_retriever,sim_calculator)
+
+        print_dict("places", places)
+        print_dict("objects", objects)
+        print_dict("roles", roles)
+
+
+        places_dict = build_unique_uri_dict(places)
+        objects_dict = build_unique_uri_dict(objects)
+        roles_dict = build_unique_uri_dict(roles)
+
+        print_selected_uris("Places", places_dict)
+        print_selected_uris("Objects", objects_dict)
+        print_selected_uris("Roles", roles_dict)
+
+        folktale = story_builder(query.title,query.genre, goal_node.event_elements, places_dict, objects_dict, roles_dict, event_retriever)
+
+        # story = generate_story(folktale, generation_examples)
+
+        filename = re.sub(clean_regex, "", folktale.title)
+        filename = title_case_to_snake_case(filename)
+        # save_raw_folktale(story, filename)
+
+        save_annotated_folktale(folktale, filename)
+        
+    goal_events =  [event_retriever.get_type_name(event_uri) for event_uri in goal_node.events]
+
+    def sim(class1_id, class2_id):
+        return sim_calculator.wu_palmer_similarity_class(class1_id, class2_id) * 2
+
+    score, pairs = best_similarity(query.events,goal_events,sim)
+    score = score / (len(goal_events) + len(goal_events))
+    print(f"Score: {score}")
+    print(dataframe_alignment_table(query.events,goal_events,pairs))
+
+if __name__ == "__main__":
+    main()

@@ -71,9 +71,9 @@ class FolktaleOntology(Graph):
 		self.add((ONT[""], OWL.imports, URIRef(sem_ontology)))
 		self.add((ONT[""], OWL.imports, URIRef("http://www.gsi.upm.es/ontologies/pearl/ns#")))
 
-		sem_graph = Graph()
-		sem_graph.parse(sem_ontology, format='xml')
-		self._merge_graph(sem_graph)
+		# sem_graph = Graph()
+		# sem_graph.parse(sem_ontology, format='xml')
+		# self._merge_graph(sem_graph)
 
 		pearl_graph = sbc.load("pearl.ttl")
 		self._merge_graph(pearl_graph)

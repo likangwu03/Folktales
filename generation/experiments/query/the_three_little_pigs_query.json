@@ -1,0 +1,31 @@
+{
+    "title": "The Three Little Pigs",
+    "initial_event": "initial_situation",
+    "events": [
+        "initial_situation",
+        "initial_situation",
+        "initial_situation",
+        "villainy",
+        "villainy",
+        "villain_defeated"
+    ],
+    "roles": [
+        "hero_family",
+        "hero_family",
+        "hero",
+        "villain"
+    ],
+    "objects": [
+        "natural_object",
+        "natural_object",
+        "crafted_object"
+    ],
+    "places": [
+        "house",
+        "house",
+        "house",
+        "forest"
+    ],
+    "genre": "fable",
+    "max_events": 6
+}

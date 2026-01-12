@@ -1,13 +1,14 @@
 from queue import PriorityQueue
 from generation.ontology.event_retriever import EventRetriever
 from generation.ontology.folktale_graph import FolktaleOntology
-from generation.adaptation.similarity import best_similarity
 from generation.ontology.similarity_calculator import LocalSemanticSimilarityCalculator
+from generation.adaptation.similarity import best_similarity
 
 from common.utils.regex_utils import snake_case_to_pascal_case
 from loguru import logger
 from collections import defaultdict
 from typing import Dict, List, Set
+import pandas as pd
 
 class ItemContainer:
     def __init__(self, id: str, n: int =2):
@@ -208,3 +209,43 @@ def print_selected_uris(title: str, uri_dict: dict[str, list[str]]):
         else:
             for uri in uris:
                 print(f"  - {uri}")
+
+
+def alignment_table(A, B, pairs):
+    """
+    A: lista A
+    B: lista B
+    pairs: lista de tuplas (i,j) que indican emparejamientos
+    """
+
+    pair_map = {i: j for i, j in pairs}
+
+    i = 0
+    j = 0
+    table = []
+
+    while i < len(A) or j < len(B):
+
+        # Caso: hay una pareja A[i] ↔ B[j]
+        if i in pair_map and pair_map[i] == j:
+            table.append((A[i], B[j]))
+            i += 1
+            j += 1
+
+        # Caso: A[i] no está emparejado aquí → va solo
+        elif i < len(A) and i not in pair_map:
+            table.append((A[i], None))
+            i += 1
+
+        # Caso: B[j] no es usado por ningún A → va solo
+        else:
+            table.append((None, B[j]))
+            j += 1
+
+    return table
+
+
+def dataframe_alignment_table(A, B, pairs):
+    table = alignment_table(A, B, pairs)
+    df = pd.DataFrame(table, columns=['Query','Generated'])
+    return df

@@ -29,23 +29,23 @@ def title_case_to_snake_case(text: str):
 	Convierte strings separados por espacios en snake_case.
 
 	Ejemplos:
-        'Hello World'          -> 'hello_world'
-        'User Profile Name'    -> 'user_profile_name'
-        'Convert THIS TEXT'    -> 'convert_this_text'
-        'Some MixedCASE TEXT'  -> 'some_mixedcase_text'
-        'Multiple   Spaces'    -> 'multiple_spaces'
+		'Hello World'          -> 'hello_world'
+		'User Profile Name'    -> 'user_profile_name'
+		'Convert THIS TEXT'    -> 'convert_this_text'
+		'Some MixedCASE TEXT'  -> 'some_mixedcase_text'
+		'Multiple   Spaces'    -> 'multiple_spaces'
 		'   Leading and trailing spaces   ' -> 'leading_and_trailing_spaces'
 	"""
 	return text.lower().replace(" ", "_")
 
 def snake_case_to_title_case(text: str):
 	"""
-    Convierte un string snake_case en Title Case.
+	Convierte un string snake_case en Title Case.
 
-    Ejemplos:
-        hello_world			->	Hello World
-        user_profile_name	->	User Profile Name
-    """
+	Ejemplos:
+		hello_world			->	Hello World
+		user_profile_name	->	User Profile Name
+	"""
 	
 	words = text.split('_')
 	return " ".join(word.capitalize() for word in words)
@@ -64,18 +64,26 @@ def snake_case_to_pascal_case(text: str):
 	return "".join(word.capitalize() for word in words)
 
 def snake_case_to_camel_case(text: str):
-    """
-    Convierte un string snake_case en camelCase.
+	"""
+	Convierte un string snake_case en camelCase.
 
-    Ejemplos:
-        hello_world         -> helloWorld
-        user_profile_name   -> userProfileName
-        simple_xml_file     -> simpleXmlFile
-    """
-    
-    words = text.split('_')
-    return words[0].lower() + "".join(word.capitalize() for word in words[1:])
+	Ejemplos:
+		hello_world         -> helloWorld
+		user_profile_name   -> userProfileName
+		simple_xml_file     -> simpleXmlFile
+	"""
+	
+	words = text.split('_')
+	return words[0].lower() + "".join(word.capitalize() for word in words[1:])
 
 def camel_to_snake(name: str) -> str:
-    s1 = re.sub("(.)([A-Z][a-z]+)", r"\1_\2", name)
-    return re.sub("([a-z0-9])([A-Z])", r"\1_\2", s1).lower()
+	"""
+	Convierte un string snake_case en camelCase.
+
+	Ejemplos:
+		hello_world         -> helloWorld
+		user_profile_name   -> userProfileName
+		simple_xml_file     -> simpleXmlFile
+	"""
+	s1 = re.sub("(.)([A-Z][a-z]+)", r"\1_\2", name)
+	return re.sub("([a-z0-9])([A-Z])", r"\1_\2", s1).lower()

@@ -1,0 +1,305 @@
+{
+    "title": "Cinderella",
+    "has_genre": "fairy_tale",
+    "agents": [
+        {
+            "class_name": "human_being",
+            "instance_name": "children",
+            "age_category": "young",
+            "gender": "female",
+            "has_personality": [
+                "joyful",
+                "sociable"
+            ],
+            "has_role": {
+                "class_name": "secondary_character",
+                "instance_name": "hero_family"
+            }
+        },
+        {
+            "class_name": "magical_creature",
+            "instance_name": "snowdrop",
+            "age_category": "children",
+            "gender": "female",
+            "has_personality": [
+                "joyful",
+                "assertive"
+            ],
+            "has_role": {
+                "class_name": "villain",
+                "instance_name": "summer_bearer"
+            }
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "king_hradibor",
+            "age_category": "adult",
+            "gender": "male",
+            "has_personality": [
+                "cold"
+            ],
+            "has_role": {
+                "class_name": "main_character",
+                "instance_name": "king_hradibor"
+            }
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "libena",
+            "age_category": "young",
+            "gender": "female",
+            "has_personality": [
+                "eager"
+            ],
+            "has_role": {
+                "class_name": "main_character",
+                "instance_name": "libena"
+            }
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "the_queen",
+            "age_category": "adult",
+            "gender": "female",
+            "has_personality": [
+                "cold"
+            ],
+            "has_role": {
+                "class_name": "main_character",
+                "instance_name": "the_queen"
+            }
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "the_youngest_prince",
+            "age_category": "young",
+            "gender": "male",
+            "has_personality": [
+                "eager"
+            ],
+            "has_role": {
+                "class_name": "main_character",
+                "instance_name": "the_youngest_prince"
+            }
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "quadjaq_boy",
+            "age_category": "young",
+            "gender": "male",
+            "has_personality": [
+                "depressive",
+                "tense"
+            ],
+            "has_role": {
+                "class_name": "primary_character",
+                "instance_name": "main_hero"
+            }
+        },
+        {
+            "class_name": "magical_creature",
+            "instance_name": "man_in_the_moon",
+            "age_category": "adult",
+            "gender": "male",
+            "has_personality": [
+                "sociable",
+                "joyful"
+            ],
+            "has_role": {
+                "class_name": "magical_helper",
+                "instance_name": "moon_helper"
+            }
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "wife",
+            "age_category": "adult",
+            "gender": "female",
+            "has_personality": [
+                "depressive",
+                "sociable"
+            ],
+            "name": "Wife",
+            "has_role": {
+                "class_name": "hero",
+                "instance_name": "wife"
+            }
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "rabbit",
+            "age_category": "young",
+            "gender": "male",
+            "has_personality": [
+                "joyful",
+                "sociable"
+            ],
+            "has_role": {
+                "class_name": "hero",
+                "instance_name": "main_hero"
+            }
+        },
+        {
+            "class_name": "magical_creature",
+            "instance_name": "cock",
+            "age_category": "adult",
+            "gender": "male",
+            "has_personality": [
+                "sociable",
+                "joyful"
+            ],
+            "has_role": {
+                "class_name": "helper",
+                "instance_name": "morning_helper"
+            }
+        }
+    ],
+    "relationships": [],
+    "places": [
+        {
+            "class_name": "house",
+            "instance_name": "bride_house"
+        },
+        {
+            "class_name": "palace",
+            "instance_name": "golden_palace"
+        },
+        {
+            "class_name": "settlement",
+            "instance_name": "round_village"
+        },
+        {
+            "class_name": "school",
+            "instance_name": "none"
+        },
+        {
+            "class_name": "natural_place",
+            "instance_name": "giants_garden"
+        },
+        {
+            "class_name": "forest",
+            "instance_name": "ancient_forest"
+        },
+        {
+            "class_name": "village",
+            "instance_name": "portuguese_village"
+        }
+    ],
+    "objects": [
+        {
+            "class_name": "crafted_object",
+            "instance_name": "basket"
+        },
+        {
+            "class_name": "magical_object",
+            "instance_name": "thors_hammer"
+        },
+        {
+            "class_name": "natural_object",
+            "instance_name": "the_fairy_bell"
+        }
+    ],
+    "events": [
+        {
+            "class_name": "setup",
+            "instance_name": "protagonist_encounters_an_old_character",
+            "agents": [
+                0,
+                1
+            ],
+            "objects": [
+                0
+            ],
+            "place": 0
+        },
+        {
+            "class_name": "struggle",
+            "instance_name": "sibling_disagreement",
+            "agents": [
+                2,
+                3,
+                4,
+                5
+            ],
+            "objects": [
+                1
+            ],
+            "place": 1
+        },
+        {
+            "class_name": "physical_transformation",
+            "instance_name": "protagonist_resolution",
+            "agents": [
+                6,
+                1,
+                7
+            ],
+            "objects": [
+                1
+            ],
+            "place": 2
+        },
+        {
+            "class_name": "preparation",
+            "instance_name": "plan_preparation",
+            "agents": [
+                8,
+                9
+            ],
+            "objects": [
+                2
+            ],
+            "place": 0
+        },
+        {
+            "class_name": "move",
+            "instance_name": "dream_disappearance",
+            "agents": [
+                10
+            ],
+            "objects": [],
+            "place": 3
+        },
+        {
+            "class_name": "initial_situation",
+            "instance_name": "thor_hammer_stolen",
+            "agents": [
+                1
+            ],
+            "objects": [
+                1
+            ],
+            "place": 4
+        },
+        {
+            "class_name": "move",
+            "instance_name": "character_encounter_setup",
+            "agents": [
+                2,
+                1
+            ],
+            "objects": [],
+            "place": 5
+        },
+        {
+            "class_name": "setup",
+            "instance_name": "out_of_season_garden",
+            "agents": [
+                1,
+                0
+            ],
+            "objects": [],
+            "place": 4
+        },
+        {
+            "class_name": "move",
+            "instance_name": "quadjaq_emerges",
+            "agents": [
+                7,
+                6
+            ],
+            "objects": [],
+            "place": 6
+        }
+    ]
+}

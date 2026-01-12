@@ -1,0 +1,26 @@
+{
+    "title": "The Hare and The Tortoise",
+    "initial_event": "setup",
+    "events": [
+        "setup",
+        "conflict",
+        "setup",
+        "setup",
+        "conflict",
+        "move",
+        "connective_incident",
+        "resolution",
+        "victory"
+    ],
+    "roles": [
+        "hero",
+        "antagonist",
+        "secondary_character"
+    ],
+    "objects": [],
+    "places": [
+        "forest"
+    ],
+    "genre": "fable",
+    "max_events": 9
+}

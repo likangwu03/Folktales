@@ -1,0 +1,34 @@
+{
+    "title": "Cinderella",
+    "initial_event": "setup",
+    "events": [
+        "setup",
+        "villainy",
+        "hero_departure",
+        "move",
+        "struggle",
+        "resolution",
+        "resolution",
+        "resolution_function",
+        "wedding_or_throne"
+    ],
+    "roles": [
+        "hero",
+        "villain",
+        "villain",
+        "villain",
+        "secondary_character",
+        "magical_helper"
+    ],
+    "objects": [
+        "crafted_object",
+        "magical_object",
+        "crafted_object"
+    ],
+    "places": [
+        "house",
+        "palace"
+    ],
+    "genre": "fairy_tale",
+    "max_events": 9
+}
