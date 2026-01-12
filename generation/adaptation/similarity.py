@@ -2,6 +2,7 @@ from generation.adaptation.node import Node
 from generation.adaptation.query import Query
 from generation.ontology.event_retriever import EventRetriever
 from generation.ontology.similarity_calculator import LocalSemanticSimilarityCalculator
+
 from typing import Iterable, Callable, Any
 import numpy as np
 
@@ -18,6 +19,12 @@ def genre_similarity(node: Node, query: Query, retriever: EventRetriever):
     return float(query.genre == genre_label.replace(" ", ""))
 
 def event_similarity(node: Node, query: Query, sim_calculator: LocalSemanticSimilarityCalculator):
+    def sim(class1_id, class2_id):
+        return sim_calculator.wu_palmer_similarity_class(class1_id, class2_id) * 2
+    score, pairs = best_similarity(query.events,node.events_type,sim)
+    score = score / (len(query.events) + len(node.events_type))
+
+    return score
     last_event = node.events[-1]
     return safe_max(
         sim_calculator.wu_palmer_similarity_class_instance(q_event, last_event)

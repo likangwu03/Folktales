@@ -10,6 +10,8 @@ class Node(BaseModel):
 	g: float = 0
 	h: float = 0
 	events: list[str] = Field(default_factory=list)
+	events_type: list[str] = Field(default_factory=list)
+
 	roles: dict[str, int] = Field(default_factory=dict)
 	places: set[str] = Field(default_factory=set)
 	objects: dict[str, int] = Field(default_factory=dict)
@@ -40,6 +42,7 @@ class Node(BaseModel):
 	
 	def add_event(self, event: str, retriever: EventRetriever):
 		self.events.append(event)
+		self.events_type.append(retriever.get_type_name(event))
 
 		place_class = retriever.get_place_class(event)
 		self.places.add(place_class)

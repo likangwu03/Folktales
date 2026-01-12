@@ -111,7 +111,7 @@ def main():
 
     graph = create_graph(
         folktales=folktales,
-        build=False,
+        build=True,
         render_html=False
     )
     
@@ -169,10 +169,12 @@ def main():
     def sim(class1_id, class2_id):
         return sim_calculator.wu_palmer_similarity_class(class1_id, class2_id) * 2
 
-    score, pairs = best_similarity(query.events,goal_events,sim)
+    query_events = [query.initial_event] + query.events
+    score, pairs = best_similarity(query_events,goal_events,sim)
     score = score / (len(goal_events) + len(goal_events))
     print(f"Score: {score}")
-    print(dataframe_alignment_table(query.events,goal_events,pairs))
+    print(dataframe_alignment_table(query_events,goal_events,pairs))
+
 
 if __name__ == "__main__":
     main()
