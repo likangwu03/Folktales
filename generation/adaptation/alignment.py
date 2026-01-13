@@ -3,7 +3,7 @@ from generation.ontology.event_retriever import EventRetriever
 from generation.ontology.folktale_graph import FolktaleOntology
 from generation.ontology.similarity_calculator import LocalSemanticSimilarityCalculator
 from generation.adaptation.similarity import best_similarity
-from common.utils.regex_utils import snake_case_to_pascal_case
+from common.utils.regex_utils import snake_case_to_pascal_case, camel_to_snake
 from loguru import logger
 from collections import defaultdict
 import pandas as pd
@@ -120,6 +120,7 @@ def process_events(events: dict[str, dict], eventRetriever: EventRetriever):
     return places, objects, roles
 
 def process_roles(genre: str, container_dict: dict[str, list[ItemContainer]], eventRetriever: EventRetriever, sim: LocalSemanticSimilarityCalculator):
+    genre = camel_to_snake(genre)
     for key, container_list in container_dict.items():
         roles = eventRetriever.get_roles_by_type_and_genre(snake_case_to_pascal_case(key),FolktaleOntology.GENRE_MAP[genre])
         for uri, label, folktale_title in roles:
@@ -135,6 +136,7 @@ def process_roles(genre: str, container_dict: dict[str, list[ItemContainer]], ev
                 container.add_candidate(uri,score)
 
 def process_objects(genre: str, container_dict: dict[str, list[ItemContainer]], eventRetriever: EventRetriever, sim:LocalSemanticSimilarityCalculator):
+    genre = camel_to_snake(genre)
     for key, container_list in container_dict.items():
         objects = eventRetriever.get_objects_by_type_and_genre(snake_case_to_pascal_case(key),FolktaleOntology.GENRE_MAP[genre])
         for uri, label, folktale_title in objects:
@@ -150,6 +152,7 @@ def process_objects(genre: str, container_dict: dict[str, list[ItemContainer]], 
                 container.add_candidate(uri,score)
 
 def process_places(genre: str, container_dict: dict[str, list[ItemContainer]], eventRetriever: EventRetriever, sim: LocalSemanticSimilarityCalculator):
+    genre = camel_to_snake(genre)
     for key, container_list in container_dict.items():
         places = eventRetriever.get_place_by_type_and_genre(snake_case_to_pascal_case(key),FolktaleOntology.GENRE_MAP[genre])
         for uri, label, folktale_title in places:

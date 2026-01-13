@@ -68,10 +68,10 @@ def main():
     goal_node = constructive_adaptation.generate(query, query.max_events)
 
     if goal_node is not None:
-        places, objects, roles = process_events(goal_node.event_elements,event_retriever)
-        process_roles("fable", roles, event_retriever, sim_calculator)
-        process_objects("fable",objects,event_retriever,sim_calculator)
-        process_places("fable",places,event_retriever,sim_calculator)
+        places, objects, roles = process_events(goal_node.event_elements, event_retriever)
+        process_roles(query.genre, roles, event_retriever, sim_calculator)
+        process_objects(query.genre, objects,event_retriever, sim_calculator)
+        process_places(query.genre, places,event_retriever, sim_calculator)
 
         print_dict("places", places)
         print_dict("objects", objects)
@@ -85,7 +85,7 @@ def main():
         print_selected_uris("Objects", objects_dict)
         print_selected_uris("Roles", roles_dict)
 
-        folktale = story_builder(query.title,query.genre, goal_node.event_elements, places_dict, objects_dict, roles_dict, event_retriever)
+        folktale = story_builder(query.title, query.genre, goal_node.event_elements, places_dict, objects_dict, roles_dict, event_retriever)
 
         # story = generate_story(folktale, generation_examples)
 

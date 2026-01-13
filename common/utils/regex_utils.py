@@ -81,9 +81,9 @@ def camel_to_snake(name: str) -> str:
 	Convierte un string snake_case en camelCase.
 
 	Ejemplos:
-		hello_world         -> helloWorld
-		user_profile_name   -> userProfileName
-		simple_xml_file     -> simpleXmlFile
+        helloWorld        -> hello_world
+        userProfileName   -> user_profile_name
+        simpleXMLFile     -> simple_xml_file
 	"""
 	s1 = re.sub("(.)([A-Z][a-z]+)", r"\1_\2", name)
 	return re.sub("([a-z0-9])([A-Z])", r"\1_\2", s1).lower()

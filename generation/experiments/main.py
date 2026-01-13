@@ -59,10 +59,11 @@ def main():
         goal_node = constructive_adaptation.generate(query, query.max_events)
 
         if goal_node is not None:
-            places, objects, roles = process_events(goal_node.event_elements,event_retriever)
-            process_roles("fable", roles, event_retriever, sim_calculator)
-            process_objects("fable",objects,event_retriever,sim_calculator)
-            process_places("fable",places,event_retriever,sim_calculator)
+            places, objects, roles = process_events(goal_node.event_elements, event_retriever)
+            print(query.genre)
+            process_roles(query.genre, roles, event_retriever, sim_calculator)
+            process_objects(query.genre, objects,event_retriever, sim_calculator)
+            process_places(query.genre, places,event_retriever, sim_calculator)
 
             print_dict("places", places)
             print_dict("objects", objects)
@@ -83,10 +84,10 @@ def main():
             def sim(class1_id: str, class2_id: str):
                 return sim_calculator.path_similarity_class(class1_id, class2_id) * 2
 
-            score, pairs = best_similarity(query.events,goal_events,sim)
+            score, pairs = best_similarity(query.events, goal_events,sim)
             score = score / (len(goal_events) + len(goal_events))
             print(f"Score: {score}")
-            print(dataframe_alignment_table(query.events,goal_events,pairs))
+            print(dataframe_alignment_table(query.events, goal_events,pairs))
 
 if __name__ == "__main__":
     main()

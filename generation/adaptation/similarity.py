@@ -3,6 +3,7 @@ from generation.adaptation.query import Query
 from generation.ontology.event_retriever import EventRetriever
 from generation.ontology.similarity_calculator import LocalSemanticSimilarityCalculator
 from typing import Iterable, Callable, Any
+from collections import Counter
 import numpy as np
 
 def safe_max(values: Iterable[float]):
@@ -13,9 +14,14 @@ def safe_mean(values: Iterable[float]):
     return sum(values) / len(values) if values else 0
 
 def genre_similarity(node: Node, query: Query, retriever: EventRetriever):
-    last_event = node.events[-1]
-    _, genre_label = retriever.get_genre(last_event)
-    return float(query.genre == genre_label.replace(" ", ""))
+    genres = []
+    for event in node.events:
+        _, genre_label = retriever.get_genre(event)
+        genres.append(genre_label.replace(" ", ""))
+    if not genres: return 0.0
+
+    dominant_genre = Counter(genres).most_common(1)[0][0]
+    return float(query.genre == dominant_genre)
 
 def event_similarity(node: Node, query: Query, sim_calculator: LocalSemanticSimilarityCalculator):
     def sim(class1_id, class2_id):
