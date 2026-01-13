@@ -1,25 +1,23 @@
 {
-    "title": "The Hare and The Tortoise",
+    "title": "The Tale of Ralph",
     "events": [
-        "setup",
-        "conflict",
-        "setup",
-        "setup",
-        "conflict",
-        "move",
-        "connective_incident",
-        "resolution",
-        "victory"
+        "initial_situation",
+        "villainy",
+        "struggle",
+        "helper_move"
     ],
     "roles": [
         "hero",
         "antagonist",
+        "helper",
+        "secondary_character",
         "secondary_character"
     ],
     "objects": [],
     "places": [
-        "forest"
+        "school",
+        "city"
     ],
-    "genre": "fable",
-    "max_events": 9
+    "genre": "legend",
+    "max_events": 15
 }

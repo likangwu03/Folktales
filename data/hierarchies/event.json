@@ -2,10 +2,10 @@
     "event": {
         "children": {
             "move": {
-                "description": "Main action of the story, including setup, conflict, preparation, counteractions, and external help that drives the narrative.",
+                "description": "Main action of the story, including setup, conflict, preparation, counteractions and external help that drives the narrative.",
                 "children": {
                     "setup": {
-                        "description": "Initial context and situation of the hero, showing their state, environment, and relationships before any conflict.",
+                        "description": "Initial context and situation of the hero, showing their state, environment and relationships before any conflict.",
                         "children": {
                             "initial_situation": {
                                 "description": "Hero's initial state before the conflict, including their environment and relationships, laying the foundation for the story.",
@@ -14,15 +14,15 @@
                         }
                     },
                     "conflict": {
-                        "description": "Problems and obstacles faced by the hero, including interdictions, lacks, struggles, marks received, connective incidents, and villain advantages.",
+                        "description": "Problems and obstacles faced by the hero, including interdictions, lacks, struggles, marks received, connective incidents and villain advantages.",
                         "children": {
                             "hero_interdiction": {
-                                "description": "Obstacles that prevent the hero from acting freely, including villainy, false marriages, expulsions, kidnappings, and murders.",
+                                "description": "Obstacles that prevent the hero from acting freely.",
+                                "children": {}
+                            },
+                            "villainy": {
+                                "description": "Malicious acts by the antagonist that hinder the hero's action.",
                                 "children": {
-                                    "villainy": {
-                                        "description": "Malicious acts by the antagonist that hinder the hero's action.",
-                                        "children": {}
-                                    },
                                     "false_matrimony": {
                                         "description": "Deceptions related to marriages or false promises that complicate the hero's situation.",
                                         "children": {}
@@ -38,19 +38,19 @@
                                     "murder": {
                                         "description": "Murder that aggravates the conflict and generates greater obstacles.",
                                         "children": {}
-                                    }
-                                }
-                            },
-                            "lack": {
-                                "description": "Deficiencies that motivate the hero's action, including absence of a partner or material resources.",
-                                "children": {
-                                    "lack_of_bride": {
-                                        "description": "Absence of a necessary partner to achieve the hero's objectives.",
-                                        "children": {}
                                     },
-                                    "lack_of_money": {
-                                        "description": "Lack of essential material resources that drives action.",
-                                        "children": {}
+                                    "lack": {
+                                        "description": "Deficiencies that motivate the hero's action, including absence of a partner or material resources.",
+                                        "children": {
+                                            "lack_of_bride": {
+                                                "description": "Absence of a necessary partner to achieve the hero's objectives.",
+                                                "children": {}
+                                            },
+                                            "lack_of_money": {
+                                                "description": "Lack of essential material resources that drives action.",
+                                                "children": {}
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -100,7 +100,7 @@
                         }
                     },
                     "preparation": {
-                        "description": "Planning and acquiring resources to face challenges, including temporary absence, violation of interdictions, obtaining objects and allies, guidance from mentors, strategies, and contact with the enemy.",
+                        "description": "Planning and acquiring resources to face challenges, including temporary absence, violation of interdictions, obtaining objects and allies, guidance from mentors, strategies and contact with the enemy.",
                         "children": {
                             "absentation": {
                                 "description": "Temporary separation from the environment to prepare the action.",
@@ -111,7 +111,7 @@
                                 "children": {}
                             },
                             "acquisition": {
-                                "description": "Obtaining essential objects, allies, or knowledge, including gifts or tools.",
+                                "description": "Obtaining essential objects, allies or knowledge, including gifts or tools.",
                                 "children": {
                                     "get_present": {
                                         "description": "Receiving gifts that aid the hero's mission.",
@@ -146,10 +146,10 @@
                         "children": {}
                     },
                     "helper_move": {
-                        "description": "Intervention of allies or external forces to support the hero, including obtaining objects, resolving lacks, and rescues.",
+                        "description": "Intervention of allies or external forces to support the hero, including obtaining objects, resolving lacks and rescues.",
                         "children": {
                             "receipt_object": {
-                                "description": "Obtaining magical, symbolic, or strategic objects that facilitate the mission.",
+                                "description": "Obtaining magical, symbolic or strategic objects that facilitate the mission.",
                                 "children": {}
                             },
                             "liquidiation_of_lack": {
@@ -178,7 +178,7 @@
                 }
             },
             "resolution": {
-                "description": "Closure of the story with conflict resolution, hero's victory, recognition, punishment of the villain, transformations, and symbolic closure such as weddings or thrones.",
+                "description": "Closure of the story with conflict resolution, hero's victory, recognition, punishment of the villain, transformations and symbolic closure such as weddings or thrones.",
                 "children": {
                     "victory": {
                         "description": "Hero's success, including definitive defeat of the antagonist.",
@@ -217,7 +217,7 @@
                         }
                     },
                     "resolution_function": {
-                        "description": "Conclusion that establishes justice, recognition, and reward, including punishment of the villain and reward for the hero.",
+                        "description": "Conclusion that establishes justice, recognition and reward, including punishment of the villain and reward for the hero.",
                         "children": {
                             "recognition": {
                                 "description": "Acknowledgment of the hero's merits for their actions.",

@@ -523,23 +523,25 @@ class FolktaleOntology(Graph):
 				pre_event_uri = event_uri	
 
 def create_graph(folktales: list[AnnotatedFolktale], filename, folder, build: bool=False, render_html: bool=False) -> Graph:
-    graph = FolktaleOntology()
-    if build:
-        hierarchies = load_json_folder(f"{data_dir}/hierarchies")
-        graph.build(hierarchies)
+	graph = FolktaleOntology()
+	if build:
+		hierarchies = load_json_folder(f"{data_dir}/hierarchies")
+		graph.build(hierarchies)
+		
+		logger.debug(f"Graph created with {len(folktales)} folktales.")
 
-        for folktale in folktales:
-            graph.add_folktale(folktale)
+		for folktale in folktales:
+			graph.add_folktale(folktale)
 
-        graph.add_imports()
-        graph.save(filename, folder)
-        if render_html:
-            graph.render_html("instances")
+		graph.add_imports()
+		graph.save(filename, folder)
+		if render_html:
+			graph.render_html("instances")
 
-    logger.debug(f"Grafo initialized with {len(graph)} triplets.")
+	logger.debug(f"Graph initialized with {len(graph)} triplets.")
 
-    graph.load(filename, folder)
+	graph.load(filename, folder)
 
-    logger.debug(f"Grafo initialized with {len(graph)} triplets after loading.")
+	logger.debug(f"Graph initialized with {len(graph)} triplets after loading.")
 
-    return graph
+	return graph

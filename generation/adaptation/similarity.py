@@ -15,13 +15,16 @@ def safe_mean(values: Iterable[float]):
 
 def genre_similarity(node: Node, query: Query, retriever: EventRetriever):
     genres = []
+
     for event in node.events:
         _, genre_label = retriever.get_genre(event)
         genres.append(genre_label.replace(" ", ""))
-    if not genres: return 0.0
+        
+    if not genres:
+        return 0.0
 
-    dominant_genre = Counter(genres).most_common(1)[0][0]
-    return float(query.genre == dominant_genre)
+    most_common_genre = Counter(genres).most_common(1)[0][0]
+    return float(query.genre == most_common_genre)
 
 def event_similarity(node: Node, query: Query, sim_calculator: LocalSemanticSimilarityCalculator):
     def sim(class1_id, class2_id):

@@ -217,13 +217,11 @@ def alignment_table(A, B, pairs):
     B: lista B
     pairs: lista de tuplas (i,j) que indican emparejamientos
     """
-
     pair_map = {i: j for i, j in pairs}
 
     i = 0
     j = 0
     table = []
-
     while i < len(A) or j < len(B):
 
         # Caso: hay una pareja A[i] ↔ B[j]

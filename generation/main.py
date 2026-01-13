@@ -58,7 +58,7 @@ def main():
         "object": 0.10
     }
 
-    constructive_adaptation = ConstructiveAdaptation(graph, weights, event_retriever, sim_calculator, top_n= 5)
+    constructive_adaptation = ConstructiveAdaptation(graph, weights, event_retriever, sim_calculator, top_n = 6)
 
     query_json = load_json("./query.json")
     query = Query.model_validate(query_json)
@@ -87,11 +87,11 @@ def main():
 
         folktale = story_builder(query.title, query.genre, goal_node.event_elements, places_dict, objects_dict, roles_dict, event_retriever)
 
-        # story = generate_story(folktale, generation_examples)
+        story = generate_story(folktale, generation_examples)
 
         filename = re.sub(clean_regex, "", folktale.title)
         filename = title_case_to_snake_case(filename)
-        # save_raw_folktale(story, filename)
+        save_raw_folktale(story, filename)
 
         save_annotated_folktale(folktale, filename)
 

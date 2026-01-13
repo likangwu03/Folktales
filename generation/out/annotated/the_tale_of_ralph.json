@@ -1,0 +1,348 @@
+{
+    "title": "The Tale of Ralph",
+    "has_genre": "legend",
+    "agents": [
+        {
+            "class_name": "human_being",
+            "instance_name": "old_woman",
+            "age_category": "adult",
+            "gender": "female",
+            "has_personality": [
+                "aggressive",
+                "impulsive"
+            ],
+            "has_role": {
+                "class_name": "primary_character",
+                "instance_name": "main_hero"
+            }
+        },
+        {
+            "class_name": "magical_creature",
+            "instance_name": "fire",
+            "age_category": "adult",
+            "gender": "female",
+            "has_personality": [
+                "aggressive"
+            ],
+            "has_role": {
+                "class_name": "secondary_character",
+                "instance_name": "helper"
+            }
+        },
+        {
+            "class_name": "anthropomorphic_animal",
+            "instance_name": "rat",
+            "age_category": "young",
+            "gender": "male",
+            "has_personality": [
+                "impulsive"
+            ],
+            "has_role": {
+                "class_name": "secondary_character",
+                "instance_name": "helper"
+            }
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "libena",
+            "age_category": "young",
+            "gender": "female",
+            "has_personality": [
+                "eager"
+            ],
+            "has_role": {
+                "class_name": "main_character",
+                "instance_name": "libena"
+            }
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "the_second_prince",
+            "age_category": "young",
+            "gender": "male",
+            "has_personality": [
+                "eager"
+            ],
+            "has_role": {
+                "class_name": "main_character",
+                "instance_name": "the_second_prince"
+            }
+        },
+        {
+            "class_name": "magical_creature",
+            "instance_name": "dragon_messenger",
+            "age_category": "adult",
+            "gender": "male",
+            "has_personality": [
+                "assertive",
+                "eager"
+            ],
+            "has_role": {
+                "class_name": "helper",
+                "instance_name": "dragon_helper"
+            }
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "shiyu_rebel",
+            "age_category": "adult",
+            "gender": "male",
+            "has_personality": [
+                "aggressive",
+                "egocentric"
+            ],
+            "has_role": {
+                "class_name": "villain",
+                "instance_name": "main_villain"
+            }
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "hermod",
+            "age_category": "adult",
+            "gender": "male",
+            "has_personality": [
+                "cold",
+                "sociable"
+            ],
+            "name": "Hermod",
+            "has_role": {
+                "class_name": "hero",
+                "instance_name": "the_royal_hero"
+            }
+        },
+        {
+            "class_name": "group_of_agents",
+            "instance_name": "trolls",
+            "age_category": "children",
+            "gender": "female",
+            "has_personality": [
+                "impulsive",
+                "aggressive"
+            ],
+            "has_role": {
+                "class_name": "antagonist",
+                "instance_name": "villain"
+            }
+        },
+        {
+            "class_name": "anthropomorphic_animal",
+            "instance_name": "pig_two",
+            "age_category": "children",
+            "gender": "male",
+            "has_personality": [
+                "joyful",
+                "impulsive"
+            ],
+            "name": "Little Pig 2",
+            "has_role": {
+                "class_name": "hero_family",
+                "instance_name": "hero_brother_two"
+            }
+        },
+        {
+            "class_name": "human_being",
+            "instance_name": "whitson_whimble",
+            "age_category": "adult",
+            "gender": "male",
+            "has_personality": [
+                "depressive",
+                "impulsive"
+            ],
+            "name": "Whitson Whimble",
+            "has_role": {
+                "class_name": "tertiary_character",
+                "instance_name": "obstacle"
+            }
+        }
+    ],
+    "relationships": [],
+    "places": [
+        {
+            "class_name": "mountain",
+            "instance_name": "northern_mountain"
+        },
+        {
+            "class_name": "city",
+            "instance_name": "london"
+        },
+        {
+            "class_name": "building",
+            "instance_name": "general_sullivan_camp"
+        },
+        {
+            "class_name": "community_building",
+            "instance_name": "wharf"
+        },
+        {
+            "class_name": "house",
+            "instance_name": "mothers_house"
+        },
+        {
+            "class_name": "town",
+            "instance_name": "crowded_town"
+        },
+        {
+            "class_name": "castle",
+            "instance_name": "hermod_castle"
+        },
+        {
+            "class_name": "natural_place",
+            "instance_name": "rootabaga_country"
+        }
+    ],
+    "objects": [
+        {
+            "class_name": "natural_object",
+            "instance_name": "straw"
+        },
+        {
+            "class_name": "magical_object",
+            "instance_name": "the_little_carriage"
+        }
+    ],
+    "events": [
+        {
+            "class_name": "initial_situation",
+            "instance_name": "recurring_promises_to_deceased",
+            "agents": [
+                0,
+                1
+            ],
+            "objects": [],
+            "place": 0
+        },
+        {
+            "class_name": "initial_situation",
+            "instance_name": "boy_arrives_in_london",
+            "agents": [
+                3,
+                5
+            ],
+            "objects": [],
+            "place": 1
+        },
+        {
+            "class_name": "initial_situation",
+            "instance_name": "surveillance_established",
+            "agents": [
+                6,
+                7,
+                0
+            ],
+            "objects": [],
+            "place": 2
+        },
+        {
+            "class_name": "initial_situation",
+            "instance_name": "disappearance_initiates_conflict",
+            "agents": [
+                0
+            ],
+            "objects": [],
+            "place": 3
+        },
+        {
+            "class_name": "initial_situation",
+            "instance_name": "initial_character_arrival",
+            "agents": [
+                8
+            ],
+            "objects": [
+                0
+            ],
+            "place": 3
+        },
+        {
+            "class_name": "struggle",
+            "instance_name": "encountering_obstacle",
+            "agents": [
+                1,
+                2,
+                0
+            ],
+            "objects": [],
+            "place": 4
+        },
+        {
+            "class_name": "initial_situation",
+            "instance_name": "main_character_introduction",
+            "agents": [
+                0
+            ],
+            "objects": [],
+            "place": 0
+        },
+        {
+            "class_name": "initial_situation",
+            "instance_name": "build_flimsy_house",
+            "agents": [
+                9
+            ],
+            "objects": [
+                0
+            ],
+            "place": 4
+        },
+        {
+            "class_name": "initial_situation",
+            "instance_name": "romantic_introduction",
+            "agents": [
+                3,
+                4
+            ],
+            "objects": [
+                1
+            ],
+            "place": 5
+        },
+        {
+            "class_name": "initial_situation",
+            "instance_name": "loke_character_introduction",
+            "agents": [
+                0
+            ],
+            "objects": [],
+            "place": 6
+        },
+        {
+            "class_name": "initial_situation",
+            "instance_name": "village_child_naming_ceremony",
+            "agents": [
+                0
+            ],
+            "objects": [],
+            "place": 0
+        },
+        {
+            "class_name": "initial_situation",
+            "instance_name": "build_medium_resistant_house",
+            "agents": [
+                9
+            ],
+            "objects": [
+                0
+            ],
+            "place": 4
+        },
+        {
+            "class_name": "initial_situation",
+            "instance_name": "lunar_event_setup",
+            "agents": [
+                10
+            ],
+            "objects": [],
+            "place": 7
+        },
+        {
+            "class_name": "initial_situation",
+            "instance_name": "setup_narrative_context",
+            "agents": [
+                0,
+                1
+            ],
+            "objects": [],
+            "place": 0
+        }
+    ]
+}

@@ -5124,7 +5124,7 @@ ont:DifficultTaskWithSolution a owl:Class ;
 
 ont:FalseMatrimony a owl:Class ;
     rdfs:label "False Matrimony" ;
-    rdfs:subClassOf ont:HeroInterdiction .
+    rdfs:subClassOf ont:Villainy .
 
 ont:GetThrone a owl:Class ;
     rdfs:label "Get Throne" ;
@@ -5132,7 +5132,7 @@ ont:GetThrone a owl:Class ;
 
 ont:Murder a owl:Class ;
     rdfs:label "Murder" ;
-    rdfs:subClassOf ont:HeroInterdiction .
+    rdfs:subClassOf ont:Villainy .
 
 ont:Prisoner a owl:Class ;
     rdfs:label "Prisoner" ;
@@ -17815,7 +17815,7 @@ ont:Hut a owl:Class ;
 
 ont:Lack a owl:Class ;
     rdfs:label "Lack" ;
-    rdfs:subClassOf ont:Conflict .
+    rdfs:subClassOf ont:Villainy .
 
 ont:Object a owl:Class ;
     rdfs:label "Object" ;
@@ -18649,6 +18649,10 @@ ont:Guidance a owl:Class ;
     rdfs:label "Guidance" ;
     rdfs:subClassOf ont:Preparation .
 
+ont:HeroInterdiction a owl:Class ;
+    rdfs:label "Hero Interdiction" ;
+    rdfs:subClassOf ont:Conflict .
+
 ont:Place a owl:Class ;
     rdfs:label "Place" ;
     owl:equivalentClass dcterms:Location,
@@ -19384,7 +19388,7 @@ ont:GroupOfAgents a owl:Class ;
 
 ont:Kidnapping a owl:Class ;
     rdfs:label "Kidnapping" ;
-    rdfs:subClassOf ont:HeroInterdiction .
+    rdfs:subClassOf ont:Villainy .
 
 ont:Kingdom a owl:Class ;
     rdfs:label "Kingdom" ;
@@ -21728,11 +21732,7 @@ ont:Event a owl:Class ;
 
 ont:Expulsion a owl:Class ;
     rdfs:label "Expulsion" ;
-    rdfs:subClassOf ont:HeroInterdiction .
-
-ont:HeroInterdiction a owl:Class ;
-    rdfs:label "Hero Interdiction" ;
-    rdfs:subClassOf ont:Conflict .
+    rdfs:subClassOf ont:Villainy .
 
 <https://rbc.org/resources/agent/how_a_lad_stole_the_giants_treasure/the_youngest_brother> a ont:HumanBeing ;
     rdfs:label "The Youngest Brother"^^xsd:string ;
@@ -23954,10 +23954,6 @@ ont:House a owl:Class ;
         <https://rbc.org/resources/agent/the_history_of_whittington/sheriff>,
         <https://rbc.org/resources/agent/the_history_of_whittington/stationer> .
 
-ont:Villainy a owl:Class ;
-    rdfs:label "Villainy" ;
-    rdfs:subClassOf ont:HeroInterdiction .
-
 ont:River a owl:Class ;
     rdfs:label "River" ;
     rdfs:subClassOf ont:NaturalPlace .
@@ -23973,6 +23969,10 @@ ont:Dwelling a owl:Class ;
 ont:Mountain a owl:Class ;
     rdfs:label "Mountain" ;
     rdfs:subClassOf ont:NaturalPlace .
+
+ont:Villainy a owl:Class ;
+    rdfs:label "Villainy" ;
+    rdfs:subClassOf ont:Conflict .
 
 <https://rbc.org/resources/agent/the_history_of_whittington/sheriff> a ont:HumanBeing ;
     rdfs:label "Sheriff"^^xsd:string ;
