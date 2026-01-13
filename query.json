@@ -1,7 +1,9 @@
 {
     "title": "The Hare and The Tortoise",
-    "initial_event": "setup",
     "events": [
+        "setup",
+        "conflict",
+        "setup",
         "setup",
         "conflict",
         "move",

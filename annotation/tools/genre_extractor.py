@@ -14,7 +14,6 @@ You have the following options to choose from:
 - 'fairy_tale': a fantastical narrative involving magical elements, often with fairies, witches or magical creatures, and typically having a happy ending.
 - 'legend': a traditional story that has it roots in history or is based on real events, often featuring heroic figures.
 - 'myth': a story involving gods, goddesses or supernatural beings, usually explaining natural phenomena or cultural practices.
-- 'tall_tale': A humorous, exaggerated story that features a larger-than-life protagonist whose feats are often impossible or highly exaggerated.
 '''),
 
 		HumanMessagePromptTemplate.from_template(template='''Read the following folktale carefully and determine its genre. Consider the characters, themes, and story structure before making a decision.

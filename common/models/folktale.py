@@ -13,7 +13,6 @@ class GenreClass(StrEnum):
 	FAIRY_TALE = "fairy_tale"
 	LEGEND = "legend"
 	MYTH = "myth"
-	TALL_TALE = "tall_tale"
 
 class Genre(BaseModel):
 	'''The genre classification of a foltkale, based on its theme, characters and narrative structure.'''

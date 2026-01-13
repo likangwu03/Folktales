@@ -1,6 +1,5 @@
 {
     "title": "Cinderella",
-    "initial_event": "setup",
     "events": [
         "setup",
         "villainy",

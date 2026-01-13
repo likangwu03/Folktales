@@ -130,3 +130,37 @@ class LocalSemanticSimilarityCalculator(GraphRetriever):
 		class2_id, _ = self.get_class(instance_uri)
 
 		return self.wu_palmer_similarity_class(class_id, class2_id)
+	
+	def get_shortest_path_length_class(self, class1_id, class2_id):
+		"""
+		Calcula la longitud del camino más corto entre dos entidades
+		"""
+		lcs_id, _ = self.get_least_common_subsumer_class(class1_id, class2_id)
+		if not lcs_id:
+			return float('inf')		
+		
+		depth1 = self.get_class_depth(class1_id)
+		depth2 = self.get_class_depth(class2_id)
+		depth_lcs = self.get_class_depth(lcs_id)
+		
+		path_length = (depth1 - depth_lcs) + (depth2 - depth_lcs)
+		return path_length
+
+	def path_similarity_class(self, class1_id, class2_id):
+		"""
+		Similitud Path (Rada et al., 1989)
+		sim = 1 / (1 + shortest_path)
+		"""
+		path_length = self.get_shortest_path_length_class(class1_id, class2_id)
+		if path_length == float('inf'):
+			return 0.0
+		return 1.0 / (1.0 + path_length)
+	
+	def path_similarity_class_instance(self, class_id, instance_uri):
+		"""
+		Similitud Path (Rada et al., 1989)
+		sim = 1 / (1 + shortest_path)
+		"""
+		class2_id, _ = self.get_class(instance_uri)
+
+		return self.path_similarity_class(class_id, class2_id)

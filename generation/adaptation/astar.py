@@ -42,7 +42,8 @@ class ConstructiveAdaptation:
 		open_heap: list[tuple[float, int, Node]] = []
 		counter = 0
 
-		initial_candidates = self.retriever.get_instances_of_class(query.initial_event)
+		initial_event = query.events[0]
+		initial_candidates = self.retriever.get_instances_of_class(initial_event)
 		if not initial_candidates:
 			initial_candidates = self.retriever.get_all_event_instances()
 
@@ -51,6 +52,7 @@ class ConstructiveAdaptation:
 		for candidate in initial_candidates:
 			node = Node()
 			node.add_event(candidate, self.retriever)
+			node.g = self._path_cost(node, max_events)
 			node.h = self._heuristic(node, query)
 			node.f = node.g + node.h
 			scored_initial_candidates.append(node)

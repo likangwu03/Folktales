@@ -56,10 +56,9 @@ class EventRetriever(GraphRetriever):
 
 		SELECT DISTINCT ?event
 		WHERE {{
-			<{event_uri}> ont:postEvent ?postEventevent .
-			?postEventevent rdf:type ?class .
-			?subClass rdfs:subClassOf* ?class .
-			?event rdf:type ?subClass .
+			<{event_uri}> ont:postEvent ?postEvent .
+			?postEvent rdf:type ?class .
+			?event rdf:type/rdfs:subClassOf* ?class .
 
 			{filter_clause}
 		}}
@@ -256,9 +255,9 @@ class EventRetriever(GraphRetriever):
 			place_uri = str(row.place)
 			place_id = str(row.placeClass.split('/')[-1])
 			return place_id ,place_uri
-		return None
+		return None, None
 	
-	def get_roles_by_type_and_genre(self, role_type, genre) -> list[tuple[str, str, str]]:
+	def get_roles_by_type_and_genre(self, role_type, genre):
 		"""
 		Returns:
 			[(role_uri, role_label, folktale_title), ...]
@@ -294,7 +293,7 @@ class EventRetriever(GraphRetriever):
 			for row in results
 		]
 
-	def get_place_by_type_and_genre(self, place_type,genre) -> list[tuple[str, str, str]]:
+	def get_place_by_type_and_genre(self, place_type,genre):
 
 		query = f"""
 		PREFIX rdfs: <{RDFS}>
@@ -324,7 +323,7 @@ class EventRetriever(GraphRetriever):
 			for row in results
 		]
 
-	def get_objects_by_type_and_genre(self, object_type,genre) -> list[tuple[str, str, str]]:
+	def get_objects_by_type_and_genre(self, object_type,genre):
 		
 
 		query = f"""
@@ -355,7 +354,7 @@ class EventRetriever(GraphRetriever):
 			for row in results
 		]
 
-	def get_ordered_events_for_agent(self, agent_uri) -> list[tuple[str, str]]:
+	def get_ordered_events_for_agent(self, agent_uri):
 		query = f"""
 		PREFIX rdfs: <{RDFS}>
 				PREFIX rdf: <{RDF}>
@@ -381,7 +380,7 @@ class EventRetriever(GraphRetriever):
 			for r in results
 		]
 
-	def get_ordered_events_for_object(self, object_uri) -> list[tuple[str, str, str, str]]:
+	def get_ordered_events_for_object(self, object_uri):
 		query = f"""
 		PREFIX rdfs: <{RDFS}>
 		PREFIX rdf: <{RDF}>
@@ -412,7 +411,7 @@ class EventRetriever(GraphRetriever):
 			for r in results
 		]
 
-	def get_ordered_events_for_place(self, place_uri) -> list[tuple[str, str, str, str]]:
+	def get_ordered_events_for_place(self, place_uri):
 		query = f"""
 		PREFIX rdfs: <{RDFS}>
 		PREFIX rdf: <{RDF}>
@@ -443,7 +442,7 @@ class EventRetriever(GraphRetriever):
 			for r in results
 		]
 	
-	def get_type_name(self, uri: str) -> str | None:
+	def get_type_name(self, uri: str):
 		query = f"""
 		PREFIX rdf: <{RDF}>
 		PREFIX ont: <{ONT}>
@@ -463,7 +462,7 @@ class EventRetriever(GraphRetriever):
 
 		return str(results[0].type).split("/")[-1]
 	
-	def get_label(self, resource_uri: str) -> str | None:
+	def get_label(self, resource_uri: str):
 		query = f"""
 		PREFIX rdfs: <{RDFS}>
 
@@ -480,7 +479,7 @@ class EventRetriever(GraphRetriever):
 
 		return str(results[0].label)
 	
-	def get_gender(self, agent_uri: str) -> str | None:
+	def get_gender(self, agent_uri: str):
 		query = f"""
 		PREFIX ont: <{ONT}>
 
@@ -498,7 +497,7 @@ class EventRetriever(GraphRetriever):
 
 		return str(results[0].gender)
 	
-	def get_name(self, agent_uri: str) -> str | None:
+	def get_name(self, agent_uri: str):
 		query = f"""
 		PREFIX ont: <{ONT}>
 
@@ -511,11 +510,12 @@ class EventRetriever(GraphRetriever):
 
 		results = self.execute_query(query)
 
-		if not results: return None
+		if not results:
+			return None
 
 		return str(results[0].name)
 	
-	def get_age_category(self, agent_uri: str) -> str | None:
+	def get_age_category(self, agent_uri: str):
 		query = f"""
 		PREFIX ont: <{ONT}>
 
@@ -528,11 +528,12 @@ class EventRetriever(GraphRetriever):
 
 		results = self.execute_query(query)
 
-		if not results: return None
+		if not results:
+			return None
 
 		return str(results[0].age)
 	
-	def get_personality_traits(self, agent_uri: str) -> list[str]:
+	def get_personality_traits(self, agent_uri: str):
 		query = f"""
 		PREFIX ont: <{ONT}>
 
@@ -544,10 +545,10 @@ class EventRetriever(GraphRetriever):
 
 		results = self.execute_query(query)
 
-		return [str(row.trait)for row in results]
+		return [str(row.trait) for row in results]
 
 
-	def get_role_labels(self, agent_uri: str) -> list[str]:
+	def get_role_labels(self, agent_uri: str):
 		query = f"""
 		PREFIX ont: <{ONT}>
 		PREFIX rdfs: <{RDFS}>
@@ -560,7 +561,6 @@ class EventRetriever(GraphRetriever):
 		"""
 
 		results = self.execute_query(query)
-		if not results: return None
+		if not results: 
+			return None
 		return str(results[0].label)
-
-

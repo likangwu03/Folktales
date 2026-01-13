@@ -1,4 +1,3 @@
-import json
 from common.utils.regex_utils import camel_to_snake, title_case_to_snake_case
 from generation.ontology.event_retriever import EventRetriever
 from collections import defaultdict
@@ -8,7 +7,6 @@ from common.models.object import Object, ObjectClass
 from common.models.agent import Agent, AgentClass
 from common.models.role import Role, RoleClass
 from common.models.event import Event, EventClass
-import re
 
 def story_builder(title: str, genre:str, events_data: dict[str, dict], places_dict: dict[str, list[str]], objects_dict: dict[str, list[str]], roles_dict: dict[str, list[str]], eventRetriever: EventRetriever):
 
@@ -57,7 +55,16 @@ def story_builder(title: str, genre:str, events_data: dict[str, dict], places_di
             gender = eventRetriever.get_gender(uri)
             agent_class_name = eventRetriever.get_type_name(uri)
             agent_class = AgentClass(camel_to_snake(agent_class_name))
-            agent = Agent(class_name= agent_class, instance_name= agent_label, age_category= age_category, gender=gender, name= name,has_role=role, has_personality=personality)
+            agent = Agent(
+                class_name= agent_class,
+                instance_name= agent_label,
+                age_category= age_category,
+                gender=gender,
+                name= name,
+                has_role=role,
+                has_personality=personality,
+                lives_in=None
+            )
             agents.append(agent)
             agent_index_map[role_id].append(
                 len(agents) - 1
@@ -85,9 +92,22 @@ def story_builder(title: str, genre:str, events_data: dict[str, dict], places_di
         
         event_class = EventClass(camel_to_snake(event_type))
         event_label = title_case_to_snake_case(eventRetriever.get_label(event_uri))
-        event = Event(class_name=event_class, instance_name= event_label, agents= agent_indices, objects= object_indices, place= place_index )
+        event = Event(
+            class_name=event_class,
+            instance_name= event_label,
+            agents= agent_indices,
+            objects= object_indices,
+            place= place_index
+        )
 
         events.append(event)
         
     genre_class = GenreClass(camel_to_snake(genre))
-    return AnnotatedFolktale(title= title, has_genre= genre_class, agents= agents, places= places, objects= objects, events= events )
+    return AnnotatedFolktale(
+        title= title,
+        has_genre= genre_class,
+        agents= agents,
+        places= places,
+        objects= objects,
+        events= events
+    )

@@ -5,6 +5,8 @@ from common.utils.regex_utils import title_case_to_snake_case, snake_case_to_tit
 import generation.utils.sbc_tools as sbc
 from common.models.folktale import AnnotatedFolktale
 from common.utils.regex_utils import clean_regex
+from common.utils.loader import load_json_folder, data_dir
+from loguru import logger
 import re
 
 class FolktaleOntology(Graph):
@@ -13,7 +15,7 @@ class FolktaleOntology(Graph):
 		"fairy_tale":  WD.Q699, 
 		"legend": WD.Q44342,
 		"myth": WD.Q12827256,
-		"tall_tale": WD.Q1951220
+		# "tall_tale": WD.Q1951220
 	}
 
 	AGE_GROUP_MAP = {
@@ -67,8 +69,8 @@ class FolktaleOntology(Graph):
 			self.add(triple)
 
 	def add_imports(self):
-		sem_ontology = "http://semanticweb.cs.vu.nl/2009/11/sem/"
-		self.add((ONT[""], OWL.imports, URIRef(sem_ontology)))
+		# sem_ontology = "http://semanticweb.cs.vu.nl/2009/11/sem/"
+		# self.add((ONT[""], OWL.imports, URIRef(sem_ontology)))
 		self.add((ONT[""], OWL.imports, URIRef("http://www.gsi.upm.es/ontologies/pearl/ns#")))
 
 		# sem_graph = Graph()
@@ -341,9 +343,9 @@ class FolktaleOntology(Graph):
 		self.add((myth, RDF.type, ONT.Genre))
 		self.add((myth, RDFS.label, Literal("Myth")))
 
-		tall_tale = self.GENRE_MAP["tall_tale"]
-		self.add((tall_tale, RDF.type, ONT.Genre))
-		self.add((tall_tale, RDFS.label, Literal("Tall Tale")))
+		# tall_tale = self.GENRE_MAP["tall_tale"]
+		# self.add((tall_tale, RDF.type, ONT.Genre))
+		# self.add((tall_tale, RDFS.label, Literal("Tall Tale")))
 
 	def build(self, hierarchies: dict):
 		self._add_namespaces()
@@ -351,8 +353,8 @@ class FolktaleOntology(Graph):
 		self._add_properties()
 		self._add_instances()
 
-	def save(self, filename="folktales.ttl"):
-		sbc.save(self, filename, format="turtle")
+	def save(self, filename, folder):
+		sbc.save(self, filename, format="turtle", folder=folder)
 
 	def render_html(self, mode: typing.Literal["full", "simplified", "instances"]="full", filename="folktales.html"):
 		if mode=="full":
@@ -362,8 +364,8 @@ class FolktaleOntology(Graph):
 		elif mode=="instances":
 			sbc.show_instance_graph(self, output_file=filename)
 
-	def load(self, filename="folktales.ttl"):
-		graph = sbc.load(filename)
+	def load(self, filename, folder):
+		graph = sbc.load(filename, folder=folder)
 		self._merge_graph(graph)
 
 	def resolve_ontology(self, ontology_reference: str):
@@ -519,3 +521,25 @@ class FolktaleOntology(Graph):
 					self.add((event_uri, ONT.preEvent, pre_event_uri))
 					
 				pre_event_uri = event_uri	
+
+def create_graph(folktales: list[AnnotatedFolktale], filename, folder, build: bool=False, render_html: bool=False) -> Graph:
+    graph = FolktaleOntology()
+    if build:
+        hierarchies = load_json_folder(f"{data_dir}/hierarchies")
+        graph.build(hierarchies)
+
+        for folktale in folktales:
+            graph.add_folktale(folktale)
+
+        graph.add_imports()
+        graph.save(filename, folder)
+        if render_html:
+            graph.render_html("instances")
+
+    logger.debug(f"Grafo initialized with {len(graph)} triplets.")
+
+    graph.load(filename, folder)
+
+    logger.debug(f"Grafo initialized with {len(graph)} triplets after loading.")
+
+    return graph

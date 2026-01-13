@@ -1,6 +1,5 @@
 {
     "title": "The Three Little Pigs",
-    "initial_event": "initial_situation",
     "events": [
         "initial_situation",
         "initial_situation",

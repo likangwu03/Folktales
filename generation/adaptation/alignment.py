@@ -3,15 +3,13 @@ from generation.ontology.event_retriever import EventRetriever
 from generation.ontology.folktale_graph import FolktaleOntology
 from generation.ontology.similarity_calculator import LocalSemanticSimilarityCalculator
 from generation.adaptation.similarity import best_similarity
-
 from common.utils.regex_utils import snake_case_to_pascal_case
 from loguru import logger
 from collections import defaultdict
-from typing import Dict, List, Set
 import pandas as pd
 
 class ItemContainer:
-    def __init__(self, id: str, n: int =2):
+    def __init__(self, id: str, n: int = 2):
         self.n = n
         self.id = id
         self.events: list[str] = []
@@ -130,7 +128,7 @@ def process_roles(genre: str, container_dict: dict[str, list[ItemContainer]], ev
             print(f"uri: {uri}")
             print(event_types)
             for container in container_list:
-                score, _ = best_similarity(event_types,container.event_types,sim.wu_palmer_similarity_class)
+                score, _ = best_similarity(event_types,container.event_types,sim.path_similarity_class)
                 print(f"    - event_types: {container.event_types}")
                 print(f"    - events: {container.events}")
                 print(f"    - score: {score}")
@@ -145,7 +143,7 @@ def process_objects(genre: str, container_dict: dict[str, list[ItemContainer]], 
             print(f"uri: {uri}")
             print(event_types)
             for container in container_list:
-                score, _ = best_similarity(event_types,container.event_types,sim.wu_palmer_similarity_class)
+                score, _ = best_similarity(event_types,container.event_types,sim.path_similarity_class)
                 print(f"    - event_types: {container.event_types}")
                 print(f"    - events: {container.events}")
                 print(f"    - score: {score}")
@@ -160,16 +158,15 @@ def process_places(genre: str, container_dict: dict[str, list[ItemContainer]], e
             print(f"uri: {uri}")
             print(event_types)
             for container in container_list:
-                score, _ = best_similarity(event_types,container.event_types,sim.wu_palmer_similarity_class)
+                score, _ = best_similarity(event_types,container.event_types,sim.path_similarity_class)
                 print(f"    - event_types: {container.event_types}")
                 print(f"    - events: {container.events}")
                 print(f"    - score: {score}")
                 container.add_candidate(uri,score)
 
-def build_unique_uri_dict(container_dict: Dict[str, List[ItemContainer]]) -> Dict[str, List[str]]:
-
-    result: Dict[str, List[str]] = defaultdict(list)
-    used_uris: Set[str] = set()
+def build_unique_uri_dict(container_dict: dict[str, list[ItemContainer]]) -> dict[str, list[str]]:
+    result: dict[str, list[str]] = defaultdict(list)
+    used_uris: set[str] = set()
 
     for key, containers in container_dict.items():
         for container in containers:

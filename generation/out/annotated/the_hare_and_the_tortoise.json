@@ -58,7 +58,7 @@
     "events": [
         {
             "class_name": "setup",
-            "instance_name": "setup",
+            "instance_name": "race_begins",
             "agents": [
                 0,
                 1,
@@ -69,7 +69,7 @@
         },
         {
             "class_name": "conflict",
-            "instance_name": "conflict",
+            "instance_name": "antagonist_mocking_hero",
             "agents": [
                 0,
                 1
@@ -79,7 +79,7 @@
         },
         {
             "class_name": "setup",
-            "instance_name": "setup",
+            "instance_name": "challenge_issued",
             "agents": [
                 0,
                 1
@@ -89,7 +89,7 @@
         },
         {
             "class_name": "conflict",
-            "instance_name": "conflict",
+            "instance_name": "antagonist_naps_during_race",
             "agents": [
                 1
             ],
@@ -98,7 +98,7 @@
         },
         {
             "class_name": "move",
-            "instance_name": "move",
+            "instance_name": "hero_steady_progress",
             "agents": [
                 0
             ],
@@ -107,7 +107,7 @@
         },
         {
             "class_name": "connective_incident",
-            "instance_name": "connectiveincident",
+            "instance_name": "hero_passing_antagonist",
             "agents": [
                 0,
                 1
@@ -117,7 +117,7 @@
         },
         {
             "class_name": "resolution",
-            "instance_name": "resolution",
+            "instance_name": "antagonist_rushes_to_finish_line",
             "agents": [
                 1
             ],
@@ -126,7 +126,7 @@
         },
         {
             "class_name": "victory",
-            "instance_name": "victory",
+            "instance_name": "hero_wins_race",
             "agents": [
                 0
             ],

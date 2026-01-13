@@ -6,37 +6,15 @@ from generation.adaptation.alignment import process_events, print_dict, process_
 from generation.adaptation.story_builder import story_builder
 from common.utils.loader import load_json_folder, data_dir, out_dir, load_json, load_txt_folder
 from common.utils.regex_utils import clean_regex, title_case_to_snake_case
-from generation.ontology.folktale_graph import FolktaleOntology
+from generation.ontology.folktale_graph import create_graph
+import generation.utils.sbc_tools as sbc
 from loguru import logger
-from rdflib import Graph
 from dotenv import load_dotenv
 from generation.story_generator import generate_story
 from common.models.folktale import AnnotatedFolktale
 from common.models.event import MIN_EVENTS
 from generation.utils.loader import save_annotated_folktale, save_raw_folktale
 import re
-
-def create_graph(folktales: list[AnnotatedFolktale], build: bool=False, render_html: bool=False) -> Graph:
-    graph = FolktaleOntology()
-    if build:
-        hierarchies = load_json_folder(f"{data_dir}/hierarchies")
-        graph.build(hierarchies)
-
-        for folktale in folktales:
-            graph.add_folktale(folktale)
-
-        graph.add_imports()
-        graph.save()
-        if render_html:
-            graph.render_html("instances")
-
-    logger.debug(f"Grafo initialized with {len(graph)} triplets.")
-
-    graph.load()
-
-    logger.debug(f"Grafo initialized with {len(graph)} triplets after loading.")
-
-    return graph
 
 def main():
     load_dotenv()
@@ -61,10 +39,10 @@ def main():
     out = [folktale for folktale in out if len(folktale.events) > MIN_EVENTS]
     folktales.extend(out)
 
-    print(len(folktales))
-
     graph = create_graph(
         folktales=folktales,
+        filename="folktales.ttl",
+        folder=sbc.data_path,
         build=True,
         render_html=False
     )
@@ -98,7 +76,6 @@ def main():
         print_dict("places", places)
         print_dict("objects", objects)
         print_dict("roles", roles)
-
 
         places_dict = build_unique_uri_dict(places)
         objects_dict = build_unique_uri_dict(objects)

@@ -2,7 +2,6 @@ from generation.adaptation.node import Node
 from generation.adaptation.query import Query
 from generation.ontology.event_retriever import EventRetriever
 from generation.ontology.similarity_calculator import LocalSemanticSimilarityCalculator
-
 from typing import Iterable, Callable, Any
 import numpy as np
 
@@ -20,21 +19,22 @@ def genre_similarity(node: Node, query: Query, retriever: EventRetriever):
 
 def event_similarity(node: Node, query: Query, sim_calculator: LocalSemanticSimilarityCalculator):
     def sim(class1_id, class2_id):
-        return sim_calculator.wu_palmer_similarity_class(class1_id, class2_id) * 2
-    score, pairs = best_similarity(query.events,node.events_type,sim)
+        return sim_calculator.path_similarity_class(class1_id, class2_id) * 2
+    
+    score, _ = best_similarity(query.events,node.events_type,sim)
     score = score / (len(query.events) + len(node.events_type))
-
     return score
-    last_event = node.events[-1]
-    return safe_max(
-        sim_calculator.wu_palmer_similarity_class_instance(q_event, last_event)
-        for q_event in query.events
-    )
+
+    # last_event = node.events[-1]
+    # return safe_max(
+    #     sim_calculator.wu_palmer_similarity_class_instance(q_event, last_event)
+    #     for q_event in query.events
+    # )
 
 def place_similarity(node: Node, query: Query, sim_calculator: LocalSemanticSimilarityCalculator):
     return safe_mean(
         safe_max(
-            sim_calculator.wu_palmer_similarity_class(q_place, place)
+            sim_calculator.path_similarity_class(q_place, place)
             for place in node.places
         )
         for q_place in query.places
@@ -43,20 +43,16 @@ def place_similarity(node: Node, query: Query, sim_calculator: LocalSemanticSimi
 def object_similarity(node: Node, query: Query, sim_calculator: LocalSemanticSimilarityCalculator):
     return safe_mean(
         safe_max(
-            sim_calculator.wu_palmer_similarity_class(q_object, object)
+            sim_calculator.path_similarity_class(q_object, object)
             for object in node.objects
         )
         for q_object in query.objects
     )
-    # return safe_max(
-    #     sim_calculator.wu_palmer_similarity_class(query.object, object)
-    #     for object in node.objects
-    # )
 
 def role_similarity(node: Node, query: Query, sim_calculator: LocalSemanticSimilarityCalculator):
     return safe_mean(
         safe_max(
-            sim_calculator.wu_palmer_similarity_class(q_role, role)
+            sim_calculator.path_similarity_class(q_role, role)
             for role in node.roles
         )
         for q_role in query.roles
