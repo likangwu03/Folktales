@@ -17,7 +17,7 @@ class ConstructiveAdaptation:
 	g_weight: float
 	h_weight: float
 	
-	def __init__(self, graph: Graph, weights: dict[str, float], retriever: EventRetriever, sim_calculator: LocalSemanticSimilarityCalculator, top_n: int = 5, g_weight: float = 1.0, h_weight: float = 2.0):
+	def __init__(self, graph: Graph, weights: dict[str, float], retriever: EventRetriever, sim_calculator: LocalSemanticSimilarityCalculator, top_n: int = 5, g_weight: float = 1.0, h_weight: float = 5.0):
 		self.graph = graph
 		self.weights = weights
 		self.retriever = retriever
@@ -32,6 +32,7 @@ class ConstructiveAdaptation:
 		return h
 	
 	def _path_cost(self, node: Node, max_events: int):
+		return (len(node.events)/ max_events) * self.g_weight
 		n_events = len(node.events)
 		return ((max_events - n_events) / max_events) ** 2 * self.g_weight
 	
@@ -57,21 +58,23 @@ class ConstructiveAdaptation:
 			node.f = node.g + node.h
 			scored_initial_candidates.append(node)
 
-		top_initial_candidates = heapq.nsmallest(self.top_n, scored_initial_candidates, key=lambda node: node.h)
+		top_initial_candidates = heapq.nsmallest(self.top_n, scored_initial_candidates, key=lambda node: node.f)
 
 		for node in top_initial_candidates:
 			heapq.heappush(open_heap, (node.f, counter, node))
 			counter += 1
 			self._debug_node("Initial node added", node)
 
+
 		while open_heap:
 			_, _, node = heapq.heappop(open_heap)
 			self._debug_node("Expanding node", node)
 
 			if node.is_goal(self.retriever, max_events):
+
 				logger.debug(f"Goal reached: events={node.get_event_names()}, g={node.g:.2f}, h={node.h:.2f}, f={node.f:.2f}, places={node.places}, objects={node.objects}, roles={node.roles}")
 				return node
-
+			
 			last_event = node.events[-1]
 			candidates = self.retriever.get_post_event_instances(last_event, node.events)
 			# logger.debug(f"Candidates for expansion from '{last_event.split("/")[-1]}': {[candidate.split("/")[-1] for candidate in candidates]}")
@@ -88,7 +91,7 @@ class ConstructiveAdaptation:
 				new_node.f = new_node.g + new_node.h
 				scored_candidates.append(new_node)
 
-			top_candidates = heapq.nsmallest(self.top_n, scored_candidates, key=lambda node: node.h)
+			top_candidates = heapq.nsmallest(self.top_n, scored_candidates, key=lambda node: node.f)
 
 			for new_node in top_candidates:
 				heapq.heappush(open_heap, (new_node.f, counter, new_node))

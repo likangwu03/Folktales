@@ -19,8 +19,8 @@ def main():
     examples = load_json_folder(f"{data_dir}/examples/annotated")
     examples = {filename: AnnotatedFolktale(**folktale) for filename, folktale in examples.items()}
 
-    for filename, folktale in examples.items():
-        loader.generate_query(folktale, f"{filename}_query")
+    # for filename, folktale in examples.items():
+    #     loader.generate_query(folktale, f"{filename}_query")
 
     folktales.extend(examples.values())
     
@@ -39,25 +39,25 @@ def main():
     
     event_retriever = EventRetriever(graph)
     sim_calculator = LocalSemanticSimilarityCalculator(graph)
-
+    
     weights = {
-        "genre": 0.15,
-        "event": 0.40,
-        "role": 0.20,
-        "place": 0.15,
+        "genre": 0.10,
+        "event": 0.60,
+        "role": 0.10,
+        "place": 0.10,
         "object": 0.10
     }
 
     constructive_adaptation = ConstructiveAdaptation(graph, weights, event_retriever, sim_calculator, top_n= 5)
 
     queries = load_json_folder(loader.query_dir)
+    r = []
     for query in queries.values():
         query = Query.model_validate(query)
 
         logger.info(query)
 
         goal_node = constructive_adaptation.generate(query, query.max_events)
-
         if goal_node is not None:
             places, objects, roles = process_events(goal_node.event_elements, event_retriever)
             print(query.genre)
@@ -65,17 +65,17 @@ def main():
             process_objects(query.genre, objects,event_retriever, sim_calculator)
             process_places(query.genre, places,event_retriever, sim_calculator)
 
-            print_dict("places", places)
-            print_dict("objects", objects)
-            print_dict("roles", roles)
+            # print_dict("places", places)
+            # print_dict("objects", objects)
+            # print_dict("roles", roles)
 
             places_dict = build_unique_uri_dict(places)
             objects_dict = build_unique_uri_dict(objects)
             roles_dict = build_unique_uri_dict(roles)
 
-            print_selected_uris("Places", places_dict)
-            print_selected_uris("Objects", objects_dict)
-            print_selected_uris("Roles", roles_dict)
+            # print_selected_uris("Places", places_dict)
+            # print_selected_uris("Objects", objects_dict)
+            # print_selected_uris("Roles", roles_dict)
 
             folktale = story_builder(query.title,query.genre, goal_node.event_elements, places_dict, objects_dict, roles_dict, event_retriever)
             
@@ -85,9 +85,13 @@ def main():
                 return sim_calculator.path_similarity_class(class1_id, class2_id) * 2
 
             score, pairs = best_similarity(query.events, goal_events,sim)
-            score = score / (len(goal_events) + len(goal_events))
+            score = score / (len(goal_events) + len(query.events))
             print(f"Score: {score}")
-            print(dataframe_alignment_table(query.events, goal_events,pairs))
+            df = dataframe_alignment_table(query.events, goal_events,pairs)
+            print(df)
+            r.append((query.title,score,"\n",df))
+        
+    print(r)
 
 if __name__ == "__main__":
     main()

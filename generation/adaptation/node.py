@@ -66,6 +66,7 @@ class Node(BaseModel):
 	def clone(self, parent: Node):
 		return Node(
 			events=list(self.events),
+			events_type=list(self.events_type),
 			places=set(self.places),
 			objects=dict(self.objects),
 			roles=dict(self.roles),

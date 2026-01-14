@@ -51,10 +51,10 @@ def main():
     sim_calculator = LocalSemanticSimilarityCalculator(graph)
 
     weights = {
-        "genre": 0.15,
-        "event": 0.40,
-        "role": 0.20,
-        "place": 0.15,
+        "genre": 0.10,
+        "event": 0.60,
+        "role": 0.10,
+        "place": 0.10,
         "object": 0.10
     }
 
