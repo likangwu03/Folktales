@@ -76,11 +76,14 @@ def compute_event_similarity(node: Node, query: Query, weights: dict[str, float]
         "object": object_similarity(node, query, sim_calculator),
         "role": role_similarity(node, query, sim_calculator),
     }
-
+    
     total_sim = sum(
         components[name] * weights.get(name, 0)
         for name in components
     )
+
+    if len(node.objects) <= 0:
+        total_sim = total_sim / (1.0 - weights.get("object", 0))
 
     return total_sim
 

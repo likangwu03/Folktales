@@ -43,7 +43,7 @@ def main():
         folktales=folktales,
         filename="folktales.ttl",
         folder=sbc.data_path,
-        build=True,
+        build=False,
         render_html=False
     )
     
@@ -51,14 +51,14 @@ def main():
     sim_calculator = LocalSemanticSimilarityCalculator(graph)
 
     weights = {
-        "genre": 0.10,
-        "event": 0.60,
-        "role": 0.10,
+        "genre": 0.13,
+        "event": 0.52,
+        "role": 0.18,
         "place": 0.10,
-        "object": 0.10
+        "object": 0.07
     }
 
-    constructive_adaptation = ConstructiveAdaptation(graph, weights, event_retriever, sim_calculator, top_n = 6)
+    constructive_adaptation = ConstructiveAdaptation(graph, weights, event_retriever, sim_calculator, top_n = 5)
 
     query_json = load_json("./query.json")
     query = Query.model_validate(query_json)

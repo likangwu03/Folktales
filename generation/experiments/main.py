@@ -22,7 +22,7 @@ def main():
     # for filename, folktale in examples.items():
     #     loader.generate_query(folktale, f"{filename}_query")
 
-    folktales.extend(examples.values())
+    # folktales.extend(examples.values())
     
     out = load_json_folder(out_dir)
     out = [AnnotatedFolktale(**folktale) for folktale in out.values()]
@@ -39,16 +39,16 @@ def main():
     
     event_retriever = EventRetriever(graph)
     sim_calculator = LocalSemanticSimilarityCalculator(graph)
-    
+
     weights = {
-        "genre": 0.10,
-        "event": 0.60,
-        "role": 0.10,
+        "genre": 0.13,
+        "event": 0.52,
+        "role": 0.18,
         "place": 0.10,
-        "object": 0.10
+        "object": 0.07
     }
 
-    constructive_adaptation = ConstructiveAdaptation(graph, weights, event_retriever, sim_calculator, top_n= 5)
+    constructive_adaptation = ConstructiveAdaptation(graph, weights, event_retriever, sim_calculator, top_n= 10)
 
     queries = load_json_folder(loader.query_dir)
     r = []
@@ -89,9 +89,13 @@ def main():
             print(f"Score: {score}")
             df = dataframe_alignment_table(query.events, goal_events,pairs)
             print(df)
-            r.append((query.title,score,"\n",df))
+            r.append((query.title,score,df))
         
-    print(r)
+    for title,score,df in r:
+        print("-"*20)
+        print(title)
+        print(df)
+        print(f"Similarity: {score}")
 
 if __name__ == "__main__":
     main()

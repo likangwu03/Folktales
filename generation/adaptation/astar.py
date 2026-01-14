@@ -32,9 +32,9 @@ class ConstructiveAdaptation:
 		return h
 	
 	def _path_cost(self, node: Node, max_events: int):
-		return (len(node.events)/ max_events) * self.g_weight
 		n_events = len(node.events)
-		return ((max_events - n_events) / max_events) ** 2 * self.g_weight
+		return (n_events / max_events) * self.g_weight
+		# return ((max_events - n_events) / max_events) ** 2 * self.g_weight
 	
 	def _debug_node(self, message: str, node: Node):
 		logger.debug(f"{message}: events={node.get_event_names()}, g={node.g:.2f}, h={node.h:.2f}, f={node.f:.2f}")
@@ -47,9 +47,7 @@ class ConstructiveAdaptation:
 		initial_candidates = self.retriever.get_instances_of_class(initial_event)
 		if not initial_candidates:
 			initial_candidates = self.retriever.get_all_event_instances()
-
 		scored_initial_candidates: list[Node] = []
-
 		for candidate in initial_candidates:
 			node = Node()
 			node.add_event(candidate, self.retriever)
