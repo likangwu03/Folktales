@@ -21,7 +21,7 @@ class ItemContainer:
         self.event_types.append(event_type)
 
 
-    def add_candidate(self, event_uri: str, value: int = 0):
+    def add_candidate(self, event_uri: str, value: float = 0):
         self.queue.put((value, event_uri))
         if self.queue.qsize() > self.n:
             self.queue.get()
