@@ -16,16 +16,19 @@ class ItemContainer:
         self.event_types: list[str] = []
         self.queue: PriorityQueue[tuple[int, str]] = PriorityQueue()
 
+    # Añade un evento en el que participa este contenedor
     def add_event(self, event_uri: str,event_type:str):
         self.events.append(event_uri)
         self.event_types.append(event_type)
 
-
+    # Añade un candidato (URI) con su score
+    # Se mantiene solo el top-n según score
     def add_candidate(self, event_uri: str, value: float = 0):
         self.queue.put((value, event_uri))
         if self.queue.qsize() > self.n:
             self.queue.get()
 
+# Función de debug para imprimir el contenido de los contenedores
 def print_dict(title: str, container_dict: dict[str, list[ItemContainer]]):
     print(f"\n=== {title.upper()} ===")
     if not container_dict:
@@ -40,6 +43,7 @@ def print_dict(title: str, container_dict: dict[str, list[ItemContainer]]):
             queue_contents = list(container.queue.queue)
             print(f"    queue: {queue_contents}")
 
+# Procesa los eventos de la historia y construye contenedores de lugares, objetos y roles
 def process_events(events: dict[str, dict], eventRetriever: EventRetriever):
     places: dict[str, list[ItemContainer]] = {}
     objects: dict[str, list[ItemContainer]] = {}
@@ -119,6 +123,7 @@ def process_events(events: dict[str, dict], eventRetriever: EventRetriever):
 
     return places, objects, roles
 
+# Para cada rol candidato, se calcula la similitud semántica con la secuencia de eventos del contenedor
 def process_roles(genre: str, container_dict: dict[str, list[ItemContainer]], eventRetriever: EventRetriever, sim: LocalSemanticSimilarityCalculator):
     genre = camel_to_snake(genre)
     for key, container_list in container_dict.items():
@@ -135,6 +140,7 @@ def process_roles(genre: str, container_dict: dict[str, list[ItemContainer]], ev
                 print(f"    - score: {score}")
                 container.add_candidate(uri,score)
 
+# Para cada objeto candidato, se calcula la similitud semántica con la secuencia de eventos del contenedor
 def process_objects(genre: str, container_dict: dict[str, list[ItemContainer]], eventRetriever: EventRetriever, sim:LocalSemanticSimilarityCalculator):
     genre = camel_to_snake(genre)
     for key, container_list in container_dict.items():
@@ -151,6 +157,7 @@ def process_objects(genre: str, container_dict: dict[str, list[ItemContainer]], 
                 print(f"    - score: {score}")
                 container.add_candidate(uri,score)
 
+# Para cada place candidato, se calcula la similitud semántica con la secuencia de eventos del contenedor
 def process_places(genre: str, container_dict: dict[str, list[ItemContainer]], eventRetriever: EventRetriever, sim: LocalSemanticSimilarityCalculator):
     genre = camel_to_snake(genre)
     for key, container_list in container_dict.items():
@@ -167,6 +174,7 @@ def process_places(genre: str, container_dict: dict[str, list[ItemContainer]], e
                 print(f"    - score: {score}")
                 container.add_candidate(uri,score)
 
+# Selecciona URIs únicos para cada contenedor, evitando reutilizar el mismo URI
 def build_unique_uri_dict(container_dict: dict[str, list[ItemContainer]]) -> dict[str, list[str]]:
     result: dict[str, list[str]] = defaultdict(list)
     used_uris: set[str] = set()
@@ -195,6 +203,7 @@ def build_unique_uri_dict(container_dict: dict[str, list[ItemContainer]]) -> dic
 
     return dict(result)
 
+
 def print_selected_uris(title: str, uri_dict: dict[str, list[str]]):
     print(f"\n=== {title.upper()} ===")
 
@@ -209,7 +218,6 @@ def print_selected_uris(title: str, uri_dict: dict[str, list[str]]):
         else:
             for uri in uris:
                 print(f"  - {uri}")
-
 
 def alignment_table(A, B, pairs):
     """
